@@ -1,0 +1,301 @@
+﻿@using CHERRY.UI.Areas.Admin.Models
+@using CHERRY.Utilities
+@model ModelCompositeShare
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    decimal minPriceDecimal = Model.VariantsVM.Minprice; 
+    double minPriceDouble = (double)minPriceDecimal; 
+    decimal maxPriceDecimal = Model.VariantsVM.Maxprice; 
+    double maxPriceDouble = (double)maxPriceDecimal; 
+}
+
+<style>
+    /* CSS cho thông tin biến thể */
+    .variant-info {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+    }
+
+        .variant-info p {
+            margin: 5px 0;
+        }
+
+    /* CSS cho slideshow ảnh sản phẩm */
+    .product-slideshow {
+        float: left;
+        width: 50%; /* Thu nhỏ slideshow để nó chiếm 50% chiều rộng */
+        margin-right: 20px;
+    }
+
+        .product-slideshow img {
+            width: 200px; /* Kích thước ảnh cố định */
+            height: 200px; /* Kích thước ảnh cố định */
+            display: block;
+            margin-bottom: 10px;
+        }
+
+    /* CSS cho bảng tùy chọn */
+    .options-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+        .options-table th, .options-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .options-table th {
+            background-color: #f2f2f2;
+        }
+
+    .option-image img {
+        width: 50px; /* Kích thước ảnh cố định */
+        height: 70px; /* Kích thước ảnh cố định */
+    }
+
+    .info-label {
+        font-weight: bold; /* Làm nổi bật văn bản nhãn */
+        color: #ff5733; /* Đổi màu văn bản nhãn */
+    }
+
+    .carousel-item img {
+        margin: auto; /* Căn giữa ảnh */
+        display: block;
+        width: 50%; /* Điều chỉnh kích thước ảnh theo yêu cầu */
+    }
+
+    /* Thay đổi màu sắc của nút điều hướng next và prev */
+    .carousel-control-next-icon,
+    .carousel-control-prev-icon {
+        background-image: none; /* Xóa ảnh nền mặc định */
+        background-color: black; /* Đặt màu nền mới */
+        border-radius: 50%; /* Làm tròn các góc */
+    }
+
+        /* Nếu muốn thêm dấu mũi tên, bạn có thể sử dụng ::after */
+        .carousel-control-next-icon::after,
+        .carousel-control-prev-icon::after {
+            content: ''; /* Đặt nội dung (ví dụ: dấu mũi tên) */
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: url('đường dẫn đến ảnh mũi tên') no-repeat center center; /* Đường dẫn tới ảnh mũi tên */
+            background-size: 50%; /* Điều chỉnh kích thước của ảnh mũi tên */
+        }
+    /* Style cho thẻ <td> chứa ảnh */
+    .option-image td {
+        position: relative;
+        overflow: hidden; /* Giữ ảnh không vượt ra ngoài kích thước của <td> */
+    }
+
+    /* Style cho ảnh bên trong */
+    .option-image img {
+        transition: transform 0.3s ease; /* Tạo hiệu ứng chuyển đổi mượt mà */
+        display: block;
+        width: 70px; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của <td> */
+    }
+
+    /* Hiệu ứng khi hover */
+    .option-image:hover img {
+        transform: scale(6.5); /* Phóng to ảnh */
+    }
+
+    .status-active {
+        color: green;
+    }
+
+    .status-pending {
+        color: red;
+    }
+
+    .status-other {
+        color: gray;
+    }
+
+    .price-info {
+        display: flex;
+        align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+        flex-wrap: nowrap; /* Ngăn không cho các phần tử xuống dòng */
+        gap: 10px; /* Tạo khoảng cách giữa các phần tử */
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #ff5733;
+        /* Giảm margin nếu cần */
+        margin-right: 5px;
+        /* Thêm thuộc tính này để ngăn chặn xuống dòng */
+        white-space: nowrap;
+    }
+
+    .amount-display {
+        /* Thêm thuộc tính này để ngăn chặn xuống dòng */
+        white-space: nowrap;
+        /* Điều chỉnh kích thước font nếu cần */
+        font-size: 1em;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .amount-text {
+        color: #6c757d;
+        font-size: 0.8em;
+        /* Điều chỉnh margin nếu cần */
+        margin-top: 0px;
+        /* Điều chỉnh padding nếu cần */
+        padding-left: 5px;
+        /* Điều chỉnh cho văn bản không bị xuống dòng */
+        white-space: nowrap;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #ddd;
+    }
+
+    .btn-primary.dropdown-toggle {
+        background-color: #6c7ae0;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: white;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6">
+        <!-- Hiển thị slideshow ảnh sản phẩm -->
+        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+            <div class="carousel-inner">
+                @foreach (var imagePath in Model.VariantsVM.ImagePaths)
+                {
+                    <div class="carousel-item active">
+                        <img src="@imagePath" class="d-block w-50" alt="...">
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- Hiển thị thông tin biến thể -->
+        <div class="variant-info">
+            <h2>Thông tin sản phẩm</h2>
+            <p><span class="info-label">ID:</span> @Model.VariantsVM.ID</p>
+            <p><span class="info-label">Tên:</span> @Model.VariantsVM.VariantName</p>
+            <p><span class="info-label">Mô tả:</span> @Model.VariantsVM.Description</p>
+            <p class="price-info">
+                <div class="amount-display">
+                    <span class="info-label">Giá tối thiểu:</span>
+                    @Currency.FormatCurrency(Model.VariantsVM.Minprice.ToString()) đ
+                </div>
+                <div class="amount-text">
+@*                     <small>(@Currency.NumberToText(minPriceDouble, true))</small>
+ *@                </div>
+            </p>
+
+            <p class="price-info">
+                <div class="amount-display">
+                    <span class="info-label">Giá tối đa:</span>
+                    @Currency.FormatCurrency(Model.VariantsVM.Maxprice.ToString()) đ
+                </div>
+                <div class="amount-text">
+@*                     <small>(@Currency.NumberToText(maxPriceDouble, true))</small>
+ *@                </div>
+            </p>
+
+            <p><span class="info-label">Số lượng:</span> @Model.VariantsVM.TotalQuantity</p>
+            <p><span class="info-label">Tổng phân loại:</span> @Model.VariantsVM.TotalOptions</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Hiển thị danh sách tùy chọn -->
+@if (Model.LstOptionsVM != null)
+{
+    <div class="clear"></div> <!-- Dùng để xóa float và chuyển sang dòng mới -->
+    <table class="options-table">
+        <thead style="text-align: center">
+            <tr>
+                <th>Ảnh</th>
+                <th>Kích cỡ</th>
+                <th>Màu</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody style="text-align: center">
+            @foreach (var option in Model.LstOptionsVM)
+            {
+                <tr>
+                    <td>
+                        <div class="option-image">
+                            <img src="@option.ImageURL" alt="Image" />
+                        </div>
+                    </td>
+                    <td>@option.SizeName</td>
+                    <td>@option.ColorName</td>
+                  
+                    <td>
+                        @Currency.FormatCurrency(option.RetailPrice.ToString()) vnđ
+                       
+                    </td>
+                    <td>@option.StockQuantity</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="@Url.Action("Details","ManagerOptions", new { ID = option.ID })">Chi tiết</a>
+                                <a class="dropdown-item" href="@Url.Action("Edit", "ManagerOptions",new { ID = option.ID })">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="@Url.Action("Delete", new { ID = option.ID })">Xóa</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

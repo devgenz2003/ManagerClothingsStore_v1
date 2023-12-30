@@ -1,0 +1,152 @@
+﻿@using CHERRY.DAL.Entities
+@using CHERRY.Utilities
+@model CHERRY.UI.Models.CompositeViewModel_Client
+@{
+    ViewData["Title"] = "Bill";
+    Layout = null;
+}
+<html>
+<head>
+    <title>Hoá đơn</title>
+    <style type="text/css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #f8f8f8;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            background-color: #4A90E2;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-info {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #4A90E2;
+            color: white;
+            padding: 10px;
+            border-radius: 2px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .currency {
+            font-style: italic;
+            color: black;
+        }
+
+        .total {
+            font-weight: bold;
+            background-color: 4A90E2;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-info">
+        <h1>Hoá đơn</h1>
+        <p>Mã Đơn Hàng: @Model.orderVM.ID</p>
+        <p>Tên người nhận: @Model.orderVM.CustomerName</p>
+        <p>Số điện thoại người nhận: @Model.orderVM.CustomerPhone</p>
+        <p>Email: @Model.orderVM.CustomerEmail</p>
+        <p>Địa chỉ: @Model.orderVM.ShippingAddress @Model.orderVM.ShippingAddressLine2</p>
+        <p>
+            Hình thức thanh toán:
+            @if (@Model.orderVM.PaymentMethod == PaymentMethod.ChuyenKhoanNganHang)
+            {
+                <strong>Chuyển khoản ngân hàng</strong>
+            }
+            else
+            {
+                <strong>Tiền mặt khi giao hàng</strong>
+            }
+        </p>
+        <p>
+            Trạng thái thanh toán:
+            @if (Model.orderVM.PaymentStatus == PaymentStatus.Success)
+            {
+                <strong>Đã thanh toán</strong>
+            }
+            else
+            {
+                <strong>Chưa thanh toán</strong>
+            }
+        </p>
+        <p>
+            Phụ phí: @Currency.FormatCurrency(Model.orderVM.Cotsts.ToString()) đ
+        </p>
+        <p class="total">
+            Tổng tiền đơn hàng:
+            <span class="currency">@Currency.FormatCurrency(Model.orderVM.TotalAmount.ToString()) đ</span>
+        </p>
+    </div>
+
+    <table class="order-details">
+        <thead>
+            <tr>
+                <th>Tên Sản Phẩm</th>
+                <th>Phân loại</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var variant in Model.orderVariantVMs)
+            {
+                <tr>
+                    <td>@variant.VariantName</td>
+                    <td>Màu: @variant.ColorName, Kích cỡ: @variant.SizeName</td>
+                    <td>@Currency.FormatCurrency(variant.UnitPrice.ToString()) đ</td>
+                    <td>@variant.Quantity</td>
+                    <td><strong>@Currency.FormatCurrency(variant.TotalAmount.ToString()) đ</strong></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="footer">
+        Cảm ơn bạn đã mua hàng!
+    </div>
+</body>
+</html>

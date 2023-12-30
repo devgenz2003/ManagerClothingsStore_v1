@@ -1,0 +1,7 @@
+﻿.status-active {
+    color: forestgreen;
+}
+
+.status-inactive {
+    color: red;
+}

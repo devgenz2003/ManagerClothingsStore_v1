@@ -1,0 +1,91 @@
+﻿@model List<CHERRY.BUS.ViewModels.Variants.VariantsVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="/css/variant_index.css" />
+@using CHERRY.Utilities
+<div class="container">
+    <h2>Danh sách sản phẩm</h2>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3" style="text-align:center">
+                <div class="card mb-4 @(item.TotalQuantity == 0 ? "sold-out" : "")">
+                    @if (item.HasPromotions == true)
+                    {
+                        <div class="discount-tag">50%</div>
+                    }
+                    @if (item.TotalQuantity == 0)
+                    {
+                        <div class="sold-out-overlay"></div>
+                    }
+                    <a href="@Url.Action("Details", "Variant", new { IDVariant = item.ID })">
+                        <img src="placeholder-image.jpg" loading="lazy"
+                             data-src="@item.ImagePaths.First()" class="card-img-top lazy"
+                             alt="@item.VariantName">
+                    </a>
+                    <div class="card-body">
+                        <a class="card-title"
+                           href="@Url.Action("Details", "Variant", new { IDVariant = item.ID })"
+                           style="color: #007bff; font-weight: bold;">@item.VariantName</a>
+                        @if (item.Minprice == item.Maxprice)
+                        {
+                            <p class="card-text" style="color: #28a745; font-weight: bold;">
+                                @Currency.FormatCurrency(item.Minprice.ToString()) vnđ
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="card-text" style="color: #dc3545; font-weight: bold;">
+                                @Currency.FormatCurrency(item.Minprice.ToString()) vnđ - @Currency.FormatCurrency(item.Maxprice.ToString()) vnđ
+                            </p>
+                        }
+                        <small>Số lượng tồn: @item.TotalQuantity</small>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form method="post" action="">
+                                    <input type="hidden" name="IDVariant" value="@item.ID" />
+                                    <button id="buyNowButton" class="btn btn-danger cart-btn" type="submit">Thêm vào yêu thích</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+        if ("IntersectionObserver" in window) {
+            let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        let lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove("lazy");
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function (lazyImage) {
+                lazyImageObserver.observe(lazyImage);
+            });
+        }
+    });
+
+</script>

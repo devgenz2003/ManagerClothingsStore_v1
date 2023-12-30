@@ -1,0 +1,152 @@
+﻿.bold-text {
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.col-left, .col-right {
+    flex: 0 0 50%; /* Đặt chiều rộng cho mỗi cột */
+}
+
+    .col-left p, .col-right p {
+        margin: 7px 0; /* Khoảng cách giữa các đoạn văn */
+    }
+
+.sherah-body {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+    /* Thay đổi màu sắc và kiểu chữ của tiêu đề */
+    .sherah-body h3 {
+        color: #007bff;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+/* Thay đổi màu sắc của bảng */
+table {
+    background-color: #fff;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    /* Thay đổi màu sắc và kiểu chữ của tiêu đề cột */
+    table th {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        padding: 8px;
+        text-align: left;
+    }
+
+/* Thay đổi màu sắc và kiểu chữ của nút phân trang */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #0056b3;
+    }
+
+.sherah-body h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+table {
+    background-color: white;
+    border-collapse: collapse;
+}
+
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: black;
+    }
+
+.text-black {
+    color: black;
+}
+/* Thêm CSS cho DataTables nếu cần */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #007bff !important;
+    background-color: white;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    margin-left: 3px;
+}
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #007bff;
+        color: white !important;
+    }
+
+p.total-amount {
+    font-weight: bold;
+    color: red; /* Màu sắc cho tổng tiền */
+    margin: 10px 0;
+}
+
+p.cots {
+    font-weight: bold;
+    color: red;
+}
+
+p.order-status span {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    color: red;
+    margin-left: 10px;
+}
+
+.Pending span {
+    background-color: #ffc107;
+}
+/* Màu vàng cho trạng thái chưa giải quyết */
+.Processing span {
+    background-color: #17a2b8;
+}
+/* Màu xanh nước biển cho trạng thái xử lý */
+.Shipped span {
+    background-color: #007bff;
+}
+/* Màu xanh dương cho trạng thái đã vận chuyển */
+.Delivered span {
+    color: red;
+    background-color: yellow;
+    border: 1px solid;
+}
+/* Màu xanh lá cho trạng thái đã giao hàng */
+.Cancelled span {
+    background-color: #dc3545;
+}
+/* Màu đỏ cho trạng thái đã hủy */
+.Returned span {
+    background-color: #6c757d;
+}
+
+.btn {
+    color: red;
+    background-color: yellow;
+    font-weight: bold;
+
+}

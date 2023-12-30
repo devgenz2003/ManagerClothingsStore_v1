@@ -1,0 +1,137 @@
+﻿@model CHERRY.BUS.ViewModels.Variants.VariantsCreateVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<link rel="stylesheet" href="/css/Variants/variant_create.css" />
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+<div id="loadingSpinner" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDCategory" class="control-label">Danh mục</label>
+                        <select asp-for="IDCategory" class="form-control">
+                            <option value="">-- Select --</option>
+                            @foreach (var CategoryItem in ViewBag.Category)
+                            {
+                                <option value="@CategoryItem.ID">@CategoryItem.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDCategory" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label">Danh mục</label>
+                        <input asp-for="CategoryName" class="form-control" id="CategoryName" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDBrand" class="control-label">Thương hiệu</label>
+                        <select asp-for="IDBrand" class="form-control" id="IDBrand">
+                            <option value="">-- Select --</option>
+
+                            @foreach (var BrandItem in ViewBag.Brand)
+                            {
+                                <option value="@BrandItem.ID">@BrandItem.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDBrand" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="BrandName" class="control-label">Thương hiệu</label>
+                        <input asp-for="BrandName" class="form-control" id="BrandName" />
+                        <span asp-validation-for="BrandName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDMaterial" class="control-label">ID chất liệu</label>
+                        <select asp-for="IDMaterial" class="form-control" id="IDMaterial">
+                            <option value="">-- Select --</option>
+
+                            @foreach (var MaterialItem in ViewBag.Material)
+                            {
+                                <option value="@MaterialItem.ID">@MaterialItem.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDMaterial" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MaterialName" class="control-label">Chất liệu</label>
+                        <input asp-for="MaterialName" class="form-control" id="MaterialName" />
+                        <span asp-validation-for="MaterialName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <input asp-for="CreateBy" hidden class="form-control" id="MaterialName" value="abcabc" />
+
+            <div class="form-group">
+                <label asp-for="Style" class="control-label">Phong cách</label>
+                <input asp-for="Style" class="form-control" />
+                <span asp-validation-for="Style" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VariantName" class="control-label">Tên sản phẩm</label>
+                <input asp-for="VariantName" class="form-control" />
+                <span asp-validation-for="VariantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Origin" class="control-label">Xuất xứ</label>
+                <input asp-for="Origin" class="form-control" />
+                <span asp-validation-for="Origin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SKU_v2" class="control-label">Key</label>
+                <input asp-for="SKU_v2" class="form-control" />
+                <span asp-validation-for="SKU_v2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="imageUpload" class="control-label">Upload Images</label>
+                <input type="file" id="imageUpload" asp-for="ImagePaths" name="ImagePaths" multiple class="form-control-file" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label">Trạng thái</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="0">Ẩn</option>
+                    <option value="1">Đăng bán</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script src="/js/Variant/variant_create.js"></script>

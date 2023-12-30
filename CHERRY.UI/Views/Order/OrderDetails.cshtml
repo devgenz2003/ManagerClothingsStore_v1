@@ -1,0 +1,130 @@
+﻿@using CHERRY.DAL.Entities
+@using CHERRY.UI.Areas.Admin.Models
+@using CHERRY.Utilities
+@model ModelCompositeShare
+<link rel="stylesheet" href="/css/ordervariant_index.css" />
+@{
+    ViewData["Title"] = "OrderDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="sherah-adashboard sherah-show">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="sherah-body">
+                    <div class="order-info">
+                        <h3>Thông tin Đơn Hàng</h3>
+                        <div class="row">
+                            <div class="col-left">
+                                <p>ID Đơn Hàng: @Model.OrderVM.ID</p>
+                                <p>Địa chỉ Giao Hàng: @Model.OrderVM.ShippingAddress</p>
+                                <p>Địa chỉ cụ thể: @Model.OrderVM.ShippingAddressLine2</p>
+                            </div>
+                            <div class="col-right">
+                                <p>Người nhận: @Model.OrderVM.CustomerName</p>
+                                <p>Email: @Model.OrderVM.CustomerEmail</p>
+                                <p>Số điện thoại: @Model.OrderVM.CustomerPhone</p>
+                            </div>
+                        </div>
+                        <p class="total-amount">Tổng tiền: @Currency.FormatCurrency(Model.OrderVM.TotalAmount.ToString()) vnđ</p>
+                        <p class="cots">Phụ giá: @Currency.FormatCurrency(Model.OrderVM.Cotsts.ToString()) vnđ</p>
+                        <p class="order-status @Model.OrderVM.OrderStatus.ToString()">
+                            Trạng thái đơn hàng:
+                            @switch (Model.OrderVM.OrderStatus)
+                            {
+                                case OrderStatus.Pending:
+                                    <span>Chưa giải quyết</span>
+                                    break;
+                                case OrderStatus.Processing:
+                                    <span>Xử lý</span>
+                                    break;
+                                case OrderStatus.Shipped:
+                                    <span>Đã vận chuyển</span>
+                                    break;
+                                case OrderStatus.Delivered:
+                                    <span>Đã giao hàng</span>
+                                    break;
+                                case OrderStatus.Cancelled:
+                                    <span>Đã hủy</span>
+                                    break;
+                                case OrderStatus.Returned:
+                                    <span>Trả lại</span>
+                                    break;
+                                default:
+                                    <span>Không xác định</span>
+                                    break;
+                            }
+                        </p>
+                    </div>
+
+                    <!-- Hiển thị chi tiết đơn hàng -->
+                    <div>
+                        <table id="orderDetailsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Tên Sản Phẩm</th>
+                                    <th style="text-align:center">Số Lượng</th>
+                                    <th style="text-align:center">Phân loại</th>
+                                    <th style="text-align:center">Giá bán</th>
+                                    <th style="text-align:center">Tổng giá</th>
+                                    <th style="text-align:center">Hành động</th>
+                                    <!-- Các trường khác -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var variant in Model.LstOrderVariantVM)
+                                {
+                                    <tr style="text-align:center">
+                                        <td style="text-align:center">@variant.VariantName</td>
+                                        <td style="text-align:center">@variant.Quantity</td>
+                                        <td style="text-align:center">Màu sắc: @variant.ColorName,<br> Kích cỡ: @variant.SizeName</td>
+                                        <td style="text-align:center">
+                                            @Currency.FormatCurrency(variant.UnitPrice.ToString()) đ
+                                            <br>
+                                            <small class="bold-text">(@Currency.NumberToText((double)variant.UnitPrice, true))</small>
+                                        </td>
+                                        @{
+                                            var totalPrice = variant.UnitPrice * variant.Quantity;
+                                        }
+                                        <td style="text-align:center">
+                                            @Currency.FormatCurrency(totalPrice.ToString()) đ
+                                            <br>
+                                            <small class="bold-text">(@Currency.NumberToText((double)totalPrice, true))</small>
+                                        </td>
+
+                                        <td style="text-align:center">
+                                            @if (variant.HasReviewed == false && variant.HasPurchased == true)
+                                            {
+                                                @Html.ActionLink("Đánh giá", "Create", "Review",
+                                                         new { IDOptions = variant.IDOptions, IDOrderVariant = variant.ID }, new { @class = "btn btn-warning" })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Xem đánh giá", "Index", "Review", new { IDOptions = variant.IDOptions }, new { @class = "btn btn-warning" })
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#orderDetailsTable').DataTable();
+        });
+    </script>
+}
+

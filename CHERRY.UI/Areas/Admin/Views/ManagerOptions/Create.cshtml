@@ -1,0 +1,115 @@
+﻿@model CHERRY.BUS.ViewModels.Options.OptionsCreateVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Thêm phân loại</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" id="createOptionForm" enctype="multipart/form-data">
+            <input asp-for="CreateBy" hidden value="abc"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IDVariant" class="control-label">Sản phẩm</label>
+                <select asp-for="IDVariant" class="form-control">
+                    <option value="">Chọn</option>
+                    @foreach (var VariantItem in ViewBag.Variant)
+                    {
+                        <option value="@VariantItem.ID">@VariantItem.VariantName</option>
+                    }
+                </select>
+                <span asp-validation-for="IDVariant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostPrice" class="control-label"></label>
+                <input asp-for="CostPrice" class="form-control" />
+                <span asp-validation-for="CostPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RetailPrice" class="control-label"></label>
+                <input asp-for="RetailPrice" class="form-control" />
+                <span asp-validation-for="RetailPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountedPrice" class="control-label"></label>
+                <input asp-for="DiscountedPrice" class="form-control" />
+                <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockQuantity" class="control-label"></label>
+                <input asp-for="StockQuantity" class="form-control" />
+                <span asp-validation-for="StockQuantity" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDColor" class="control-label"></label>
+                        <select asp-for="IDColor" class="form-control">
+                            <option value="">Chọn</option>
+                            @foreach (var color in ViewBag.Color)
+                            {
+                                <option value="@color.ID">@color.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDColor" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ColorName" class="control-label"></label>
+                        <input asp-for="ColorName" class="form-control" />
+                        <span asp-validation-for="ColorName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDSizes" class="control-label"></label>
+                        <select asp-for="IDSizes" class="form-control">
+                            <option value="">Chọn</option>
+                            @foreach (var size in ViewBag.Size)
+                            {
+                                <option value="@size.ID">@size.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDSizes" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="SizesName" class="control-label"></label>
+                        <input asp-for="SizesName" class="form-control" />
+                        <span asp-validation-for="SizesName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePaths" class="control-label"></label>
+                <input type="file" asp-for="ImagePaths" class="form-control" name="ImagePaths" multiple class="form-control-file" />
+                <span asp-validation-for="ImagePaths" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label">Trạng Thái</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">Chọn trạng thái</option>
+                    <option value="1">Kích hoạt</option>
+                    <option value="0">Không kích hoạt</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/Options/options_create.js"></script>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,106 @@
+﻿/* CSS cho cột bên trái chứa form */
+.col-md-4 {
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.col-md-8 {
+    padding: 20px;
+    background-color: #fff; /* Màu nền trắng */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Cho phép cuộn nếu danh sách dài */
+    max-height: 400px; /* Giới hạn chiều cao tối đa */
+}
+
+    .col-md-8 > div:first-child {
+        font-size: 18px; /* Kích thước font cho tiêu đề */
+        font-weight: bold; /* Đậm */
+        margin-bottom: 15px; /* Khoảng cách với phần tiếp theo */
+    }
+
+/* CSS cho checkbox "Chọn tất cả" */
+#checkAll {
+    accent-color: #007bff; /* Màu cho checkbox */
+    margin-right: 10px; /* Khoảng cách giữa checkbox và text */
+}
+/* CSS cho từng sản phẩm */
+.col-md-8 > div:not(:first-child) {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease-in-out; /* Hiệu ứng nền khi hover */
+}
+
+    .col-md-8 > div:not(:first-child):hover {
+        background-color: #f8f9fa; /* Nền khi hover */
+    }
+
+/* CSS cho checkbox sản phẩm */
+.productCheckbox {
+    accent-color: #007bff;
+    margin-right: 10px;
+}
+
+/* CSS cho nút submit */
+.btn-primary {
+    width: auto; /* Thay đổi từ 100% thành auto để nút không chiếm toàn bộ chiều rộng */
+    padding: 10px 30px; /* Tăng padding để nút lớn và dễ nhấn hơn */
+    border-radius: 20px; /* Làm tròn góc nút */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho nút */
+    font-weight: bold; /* Làm đậm chữ trên nút */
+    margin-top: 20px; /* Tăng khoảng cách phía trên nút */
+}
+
+    /* CSS cho nút submit khi hover */
+    .btn-primary:hover {
+        background-color: #0056b3; /* Đổi màu khi hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Tăng bóng đổ khi hover */
+    }
+
+/* CSS cho labels và input group */
+.form-group {
+    margin-bottom: 20px; /* Tăng khoảng cách giữa các form group */
+}
+
+.input-group-text {
+    border-radius: 0 20px 20px 0; /* Làm tròn góc phía bên phải */
+}
+
+.form-control {
+    border-radius: 20px; /* Làm tròn góc cho input */
+    border: 1px solid #ced4da; /* Định nghĩa lại border cho rõ ràng */
+}
+
+/* Thêm hover effect cho các checkbox */
+.productCheckbox:hover {
+    cursor: pointer;
+}
+/* CSS cho tên sản phẩm và thông tin khác */
+.variant-info {
+    flex-grow: 1; /* Cho phép thông tin sản phẩm chiếm hết không gian còn lại */
+}
+
+/* Định dạng cho hình ảnh sản phẩm */
+.variant-image {
+    width: 50px; /* Rộng */
+    height: 50px; /* Cao */
+    object-fit: cover; /* Fit hình ảnh */
+    border-radius: 4px; /* Bo góc hình ảnh */
+    margin-right: 10px; /* Khoảng cách với text */
+}
+
+/* Định dạng cho SKU hoặc thông tin khác */
+.variant-detail {
+    margin-left: 10px;
+    color: #666; /* Màu cho text */
+    font-size: 14px; /* Kích thước font cho text */
+}
+

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<CHERRY.BUS.ViewModels.Review.ReviewVM>
+<link rel="stylesheet" href="/css/details_variant.css" />
+@{
+    ViewData["Title"] = "Review Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="review-container">
+    @foreach (var item in Model)
+    {
+        <div class="review-card">
+            <div class="review-user">
+                <span class="review-username">@item.Username</span>
+                <div class="review-rating">
+                    @for (int i = 0; i < item.Rating; i++)
+                    {
+                        <span class="fas fa-star checked"></span>
+                    }
+                    @for (int i = item.Rating; i < 5; i++)
+                    {
+                        <span class="far fa-star"></span>
+                    }
+                </div>
+                <span class="review-date">@item.CreateDate.ToString("dd-MM-yyyy")</span>  <span>Size: @item.SizeName</span> - <span>Màu: @item.ColorName</span>
+            </div>
+            <div class="review-content">
+                <p>@item.Content</p>
+            </div>
+            <div class="review-images">
+                @foreach (var imagePath in item.ImagePaths)
+                {
+                    <img src="@imagePath" alt="Review Image" />
+                }
+            </div>
+        </div>
+    }
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">

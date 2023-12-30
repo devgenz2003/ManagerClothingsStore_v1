@@ -1,0 +1,251 @@
+﻿@using CHERRY.Utilities
+@model IEnumerable<CHERRY.BUS.ViewModels.Variants.VariantsVM>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+
+    decimal minPriceDecimal = 0m;
+    double minPriceDouble = 0;
+    decimal maxPriceDecimal = 0m;
+    double maxPriceDouble = 0;
+
+    if (Model != null && Model.Any())
+    {
+        minPriceDecimal = Model.Min(c => c.Minprice);
+        minPriceDouble = (double)minPriceDecimal;
+
+        maxPriceDecimal = Model.Max(c => c.Maxprice);
+        maxPriceDouble = (double)maxPriceDecimal;
+    }
+    else
+    {
+    }
+}
+<link src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+<style>
+    .export-button {
+        display: inline-block;
+        background-color: #28a745; /* Màu xanh lá */
+        color: white;
+        padding: 10px 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        text-decoration: none; /* Xóa gạch chân */
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+        .export-button:hover {
+            background-color: #218838; /* Màu xanh đậm hơn */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+    .option-image img {
+        width: 70px; /* Kích thước ảnh cố định */
+        height: 90px; /* Kích thước ảnh cố định */
+    }
+
+    .small-text {
+        font-size: smaller; /* Hoặc sử dụng giá trị cụ thể như 0.75em */
+        display: block; /* Để hiển thị trên một dòng mới */
+    }
+
+    .amount-display {
+        font-size: 1.2em; /* Tăng kích thước font */
+        font-weight: bold; /* Làm đậm chữ */
+        color: #333; /* Màu sắc cho số tiền */
+    }
+
+    .amount-text {
+        color: #6c757d; /* Màu sắc cho văn bản chuyển đổi */
+        font-size: 0.8em; /* Giảm kích thước font */
+        margin-top: 4px; /* Khoảng cách từ số tiền */
+    }
+
+        .amount-text small {
+            display: block; /* Đảm bảo hiển thị trên một dòng mới */
+        }
+    /* CSS cho bảng */
+    #variantsTable {
+        font-family: Arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #variantsTable th, #variantsTable td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #variantsTable th {
+            background-color: #f2f2f2;
+        }
+
+    /* CSS để định dạng trạng thái */
+    .status-0 {
+        display: none; /* Ẩn trạng thái 0 */
+    }
+
+    .status-1 {
+        color: green; /* Đổi màu văn bản trạng thái 1 thành màu xanh */
+    }
+    /* Style cho thẻ <td> chứa ảnh */
+    .option-image td {
+        position: relative;
+        overflow: hidden; /* Giữ ảnh không vượt ra ngoài kích thước của <td> */
+    }
+
+    /* Style cho ảnh bên trong */
+    .option-image img {
+        transition: transform 0.3s ease; /* Tạo hiệu ứng chuyển đổi mượt mà */
+        display: block;
+        width: 70px; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của <td> */
+    }
+
+    /* Hiệu ứng khi hover */
+    .option-image:hover img {
+        transform: scale(5.5); /* Phóng to ảnh */
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #ddd;
+    }
+
+    .btn-primary.dropdown-toggle {
+        background-color: #6c7ae0;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: white;
+    }
+</style>
+<a asp-action="ExportToExcel" class="export-button" asp-route-month="@DateTime.Now.ToString("yyyy-MM")">Xuất dữ liệu sản phẩm</a>
+
+<p>
+    <a asp-action="Create">Thêm mới sản phẩm</a>
+</p>
+<table id="variantsTable">
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Hình ảnh</th>
+            <th>Dòng sản phẩm</th>
+            <th>Tối thiểu</th>
+            <th>Tối đa</th>
+            <th>Phân loại</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.VariantName</td>
+                    <td>
+                        <div class="option-image">
+                            @if(item.ImagePaths != null)
+                            {
+                                <img src="@item.ImagePaths.FirstOrDefault()" alt="Image" />
+                            }
+                            else
+                            {
+                                <p>Không có hình ảnh</p>
+                            }
+                        </div>
+                    </td>
+                    <td>@item.VariantName</td>
+                    <td>
+                        <div class="amount-display">
+                            @Currency.FormatCurrency(item.Minprice.ToString()) đ
+                        </div>
+                        <div class="amount-text">
+@*                             <small>(@Currency.NumberToText(minPriceDouble, true))</small>
+ *@                        </div>
+                    </td>
+                    <td>
+                        <div class="amount-display">
+                            @Currency.FormatCurrency(item.Maxprice.ToString()) đ
+                        </div>
+                        <div class="amount-text">
+@*                             <small>(@Currency.NumberToText(maxPriceDouble, true))</small>
+ *@                        </div>
+                    </td>
+                    <td>@item.TotalOptions</td>
+                    <td>
+                        @if (item.Status == 0)
+                        {
+                            <span class="status-0">Ẩn</span>
+                        }
+                        else if (item.Status == 1)
+                        {
+                            <span class="status-1">Đang bán</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="@Url.Action("Details","ManagerVariant", new { IDVariant = item.ID })">Chi tiết</a>
+                                <a class="dropdown-item" href="@Url.Action("Edit", new { ID = item.ID })">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="@Url.Action("Delete", new { ID = item.ID })">Xóa</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <td><p>Chưa có sản phẩm nào</p></td>
+        }
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#variantsTable').DataTable({
+            "pagingType": "full_numbers", // Loại phân trang
+            "lengthChange": true, // Cho phép thay đổi số lượng bản ghi trên mỗi trang
+            "searching": true, // Cho phép tìm kiếm
+            "ordering": true, // Cho phép sắp xếp
+            "info": true, // Hiển thị thông tin số bản ghi và trang hiện tại
+            "autoWidth": false, // Tự động điều chỉnh chiều rộng cột
+            "responsive": true // Tích hợp tính năng Responsive
+        });
+    });
+</script>

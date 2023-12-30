@@ -1,0 +1,110 @@
+﻿@using CHERRY.UI.Areas.Admin.Models
+@using CHERRY.Utilities
+@model ModelCompositeShare
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<link rel="stylesheet" href="/css/orderdetails_admin.css"/>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<table id="dataTable" class="display">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên đăng nhập</th>
+            <th>Tên</th>
+            <th>Số điện thoại</th>
+            <th>Gmail</th>
+            <th>Giới tính</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.UserVM.ID</td>
+            <td>@Model.UserVM.UserName</td>
+            <td>@Model.UserVM.FirstAndLastName</td>
+            <td>@Model.UserVM.PhoneNumber</td>
+            <td>@Model.UserVM.Gmail</td>
+            <td>
+                @if (Model.UserVM.Gender == 0)
+                {
+                    <span>Nữ</span>
+                }
+                else if (Model.UserVM.Gender == 1)
+                {
+                    <span>Nam</span>
+                }
+            </td>
+            <td>
+                @if (Model.UserVM.Status == 0)
+                {
+                    <span>Khoá</span>
+                }
+                else if (Model.UserVM.Status == 1)
+                {
+                    <span>Hoạt động</span>
+                }
+            </td>
+            <td>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch_@Model.UserVM.ID" data-userid="@Model.UserVM.ID">
+                    <label class="onoffswitch-label" for="myonoffswitch_@Model.UserVM.ID">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <div class="admin-container">
+        <section id="orders-section">
+            @if (Model.LstOrderVM != null && Model.LstOrderVM.Any())
+            {
+                <div class="scrollable-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn hàng</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng giá trị</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.LstOrderVM)
+                            {
+                                <tr>
+                                    <td>@order.HexCode</td>
+                                    <td>@order.CreateDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@Currency.FormatCurrency(order.TotalAmount.ToString()) đ</td>
+                                    <td>@order.OrderStatus</td>
+                                    <td style="text-align: center;">
+                                        @Html.ActionLink("Chi tiết", "Details_Order", "ManagerOrder", new { IDOrder = order.ID }, new { @class = "btn btn-sm btn-primary" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>Không có đơn hàng nào.</p>
+            }
+        </section>
+        <section id="vouchers-section">
+            <h2>Voucher đang sở hữu</h2>
+            <!-- Nội dung hiển thị voucher -->
+        </section>
+        <section id="other-info-section">
+            <h2>Thông tin khác</h2>
+            <!-- Nội dung hiển thị thông tin khác -->
+        </section>
+    </div>
+</table>
+
+<script src="/js/orderdetails_admin.js"></script>

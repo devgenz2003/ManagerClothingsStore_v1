@@ -1,0 +1,172 @@
+﻿@using CHERRY.UI.Areas.Admin.Models
+@using CHERRY.Utilities
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model MonthlyStatistic
+<style>
+    /* Định dạng Form */
+    form {
+        margin: 20px 0;
+        padding: 10px;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+        background-color: #f2f2f2;
+    }
+
+        form label {
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        form input[type="month"] {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            form button:hover {
+                background-color: #0056b3;
+            }
+
+    /* Định dạng Phần Thống Kê và Biểu Đồ */
+    .statistics-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        flex-wrap: wrap; /* Cho phép bọc nếu không đủ chỗ */
+    }
+
+    .statistics, .chart-container {
+        flex: 1;
+        margin: 5px; /* Khoảng cách nhỏ giữa các phần */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        min-width: 300px; /* Đảm bảo kích thước tối thiểu */
+    }
+
+        .statistics h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .statistics p {
+            font-size: 16px;
+            color: #555;
+        }
+
+            .statistics p small {
+                font-size: 12px;
+            }
+
+    .export-button {
+        display: inline-block;
+        background-color: #28a745; /* Màu xanh lá */
+        color: white;
+        padding: 10px 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        text-decoration: none; /* Xóa gạch chân */
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+        .export-button:hover {
+            background-color: #218838; /* Màu xanh đậm hơn */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+    /* Biểu Đồ */
+    .chart-container {
+        max-width: 450px; /* Giới hạn kích thước tối đa của biểu đồ */
+        height: auto; /* Độ cao tự động điều chỉnh */
+    }
+</style>
+<form asp-action="Index" method="get">
+    <label for="month">Chọn Tháng:</label>
+    <input type="month" id="month" name="month" value="@DateTime.Now.ToString("yyyy-MM")">
+    <button type="submit">Thống kê</button>
+</form>
+<div class="statistics-container">
+    <div class="statistics">
+        <h2>Doanh Thu Tháng @Model.Month.ToString("MM/yyyy")</h2>
+        <p>Doanh thu: @Currency.FormatCurrency(Model.TotalRevenue.ToString()) <small>đ</small></p>
+        <p>Chi phí: @Currency.FormatCurrency(Model.TotalCost.ToString()) <small>đ</small></p>
+        <p>Lợi nhuận: @Currency.FormatCurrency(Model.TotalProfit.ToString()) <small>đ</small></p>
+        <p>Tổng đơn hàng: @Model.TotalOrder</p>
+        <p>Đơn hàng chưa thanh toán: @Model.TotalOrdersnosuccess</p>
+        <p>Đơn hàng đã thanh toán: @Model.TotalOrderssuccess</p>
+    </div>
+    <div class="chart-container">
+        <canvas id="revenueChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="orderChart"></canvas>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+    var revenueChart = new Chart(ctxRevenue, {
+        type: 'bar',
+        data: {
+            labels: ['Doanh thu', 'Chi phí', 'Lợi nhuận'],
+            datasets: [{
+                label: 'Tổng số (đ)',
+                data: [@Model.TotalRevenue, @Model.TotalCost, @Model.TotalProfit],
+                backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    var ctxOrder = document.getElementById('orderChart').getContext('2d');
+    var orderStatisticsChart = new Chart(ctxOrder, {
+        type: 'pie',
+        data: {
+            labels: ['Hoàn thành', 'Chưa hoàn thành'],
+            datasets: [{
+                label: 'Trạng thái đơn hàng',
+                data: [@Model.TotalOrderssuccess, @Model.TotalOrdersnosuccess],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+<a asp-action="ExportToExcel" class="export-button" asp-route-month="@DateTime.Now.ToString("yyyy-MM")">Export Orders to Excel</a>

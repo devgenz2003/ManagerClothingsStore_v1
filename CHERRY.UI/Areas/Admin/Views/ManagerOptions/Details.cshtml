@@ -1,0 +1,176 @@
+﻿@using CHERRY.Utilities
+@model CHERRY.BUS.ViewModels.Options.OptionsVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<style>
+    /* CSS cho container chung và tiêu đề */
+    .details-container {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    dl.row dt,
+    dl.row dd {
+        padding: 8px 0; /* Điều chỉnh padding */
+    }
+
+    /* Style cho hình ảnh nổi bật */
+    .image-container {
+        position: relative;
+    }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            max-width: 100px; /* Thay đổi kích thước phù hợp */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Style cho trạng thái */
+    .status-0, .status-1 {
+        font-weight: bold;
+        padding: 3px 6px;
+        border-radius: 4px;
+        color: white;
+    }
+
+    .status-0 {
+        background-color: #dc3545; /* Màu cho trạng thái ẩn */
+    }
+
+    .status-1 {
+        background-color: green; /* Màu cho trạng thái ẩn */
+    }
+
+
+    /* CSS cho link hành động */
+    .action-links a {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .action-links a:hover {
+            background-color: #0056b3;
+        }
+
+    /* CSS cho nút 'Back to List' */
+    .back-to-list {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 8px 16px;
+        background-color: #6c757d;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .back-to-list:hover {
+            background-color: #5a6268;
+        }
+</style>
+
+<div>
+    <h4>Phân loại 3</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IDVariant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IDVariant)
+        </dd>
+        <dt class="col-sm-2">
+            Giá nhập
+        </dt>
+        <dd class="col-sm-10">
+            @Currency.FormatCurrency(Model.CostPrice.ToString()) <span>đ</span>
+        </dd>
+        <dt class="col-sm-2">
+            Giá bán ra
+        </dt>
+        <dd class="col-sm-10">
+            @Currency.FormatCurrency(Model.RetailPrice.ToString()) <span>đ</span>
+        </dd>
+        <dt class="col-sm-2">
+            Khuyến mãi
+        </dt>
+        <dd class="col-sm-10">
+            @Currency.FormatCurrency(Model.DiscountedPrice.ToString()) <span>đ</span>
+        </dd>
+        <dt class="col-sm-2">
+            Số lượng tồn
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StockQuantity)
+        </dd>
+        <dt class="col-sm-2">
+            Màu
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ColorName)
+        </dd>
+        <dt class="col-sm-2">
+            Size
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SizeName)
+        </dd>
+        <dt class="col-sm-2">
+            Tên sản phẩm
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Hình ảnh
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.ImageURL" class="image-container" style="width:70px;
+            height:90px;" />
+        </dd>
+        <dt class="col-sm-2">
+            Trạng thái
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status == 0)
+            {
+                <span class="status-0">Ẩn</span>
+            }
+            else if (Model.Status == 1)
+            {
+                <span class="status-1">Đang bán</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div class="action-links">
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "action-link" }) |
+    <a href="@Url.Action("Index")" class="back-to-list">Back to List</a>
+</div>

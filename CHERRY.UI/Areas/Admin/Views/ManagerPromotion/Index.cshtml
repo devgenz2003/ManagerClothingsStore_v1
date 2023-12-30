@@ -1,0 +1,131 @@
+﻿@using CHERRY.Utilities
+@using static CHERRY.DAL.Entities.Voucher
+@using static CHERRY.DAL.Entities.Promotion
+@model IEnumerable<CHERRY.BUS.ViewModels.Promotion.PromotionVM>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<style>
+    .table thead th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+
+    /* Typography và font */
+    .table th, .table td {
+        border: 1px solid #ddd; /* Thêm viền cho từng ô */
+        text-align: center; /* Căn giữa nội dung */
+    }
+
+    /* Hiệu ứng khi rê chuột vào nút */
+    .btn-primary:hover, .dropdown-item:hover {
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Hiệu ứng hover và transition */
+    .table-hover tbody tr:hover {
+        background-color: #ddd;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Phong cách cho dropdown */
+    .dropdown-menu {
+        border-radius: 0.25rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #367fa9;
+        border-color: #367fa9;
+    }</style>
+<p>
+    <a asp-action="Create">Tạo mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã
+            </th>
+            <th>
+                Bắt đầu
+            </th>
+            <th>
+                Kết thúc
+            </th>
+            <th>
+                IsActive
+            </th>
+            <th>
+                Giảm
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SKU)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @if (item.IsActive)
+                    {
+                        <span style="color: green;">✔</span> <!-- Biểu tượng V màu xanh -->
+                    }
+                    else
+                    {
+                        <span style="color: red;">✘</span> <!-- Biểu tượng X màu đỏ -->
+                    }
+                </td>
+
+                <td>
+                    @if (item.Type == Types.Cash)
+                    {
+                        <p>@Currency.FormatCurrency(item.DiscountAmount.ToString()) đ</p>
+                    }
+                    else
+                    {
+                        @item.DiscountAmount.ToString("0.##")
+
+                        <small>%</small>
+                    }
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="@Url.Action("Details","ManagerPromotion", new { ID = item.ID })">Chi tiết</a>
+                            <a class="dropdown-item" href="@Url.Action("Edit", "ManagerPromotion",new { ID = item.ID })">Chỉnh sửa</a>
+                            <a class="dropdown-item" href="@Url.Action("Delete", new { ID = item.ID })">Xóa</a>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

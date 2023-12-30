@@ -1,0 +1,84 @@
+﻿@using CHERRY.UI.Areas.Admin.Models
+@using CHERRY.Utilities
+@using static CHERRY.DAL.Entities.Voucher
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ModelCompositeShare
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="/css/Promotions/details_promotionsadmin.css" />
+
+<div>
+    <h4>Thông tin khuyến mại</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>Mã</td>
+                        <td>@Html.DisplayFor(model => model.PromotionVM.SKU)</td>
+                    </tr>
+                    <tr>
+                        <td>Nội dung khuyến mại</td>
+                        <td>@Html.DisplayFor(model => model.PromotionVM.Content)</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày bắt đầu</td>
+                        <td>@Model.PromotionVM.StartDate.ToString("dd/MM/yyyy HH:mm")</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày kết thúc</td>
+                        <td>@Model.PromotionVM.EndDate.ToString("dd/MM/yyyy HH:mm")</td>
+                    </tr>
+                    <tr>
+                        <td>Trạng thái</td>
+                        <td>
+                            @if (Model.PromotionVM.IsActive == true)
+                            {
+                                <p class="status-active">V</p>
+                            }
+                            else
+                            {
+                                <p class="status-inactive">X</p>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Giảm giá</td>
+                        <td>
+                            @if (Model.PromotionVM.Type == Types.Percent)
+                            {
+                                @Currency.FormatCurrency(Model.PromotionVM.DiscountAmount.ToString()) <small>%</small>
+                            }
+                            else
+                            {
+                                @Currency.FormatCurrency(Model.PromotionVM.DiscountAmount.ToString()) <small>đ</small>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kiểu</td>
+                        <td>@Html.DisplayFor(model => model.PromotionVM.Type)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h4>Sản phẩm áp dụng</h4>
+                <ul>
+                    @foreach (var variant in Model.LstPromotionVariantsVM)
+                    {
+                        <li>
+                            Tên sản phẩm: <a href="@Url.Action("Details","ManagerVariant", new { IDVariant = variant.IDVariant })">@variant.VariantName </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,148 @@
+﻿@using CHERRY.Utilities
+@using static CHERRY.DAL.Entities.Voucher
+@model CHERRY.BUS.ViewModels.Voucher.VoucherVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<h1>Chi tiết voucher</h1>
+<style>
+    .amount-display, .amount-text {
+        display: inline-block; /* Thay đổi từ block thành inline-block */
+        vertical-align: middle; /* Căn giữa các phần tử theo chiều dọc */
+    }
+
+    .amount-display {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+        margin-right: 10px; /* Thêm khoảng cách giữa hai phần tử */
+    }
+
+    .amount-text {
+        color: #6c757d;
+        font-size: 0.8em;
+        margin-top: 0; /* Xóa khoảng cách trên */
+    }
+
+        .amount-text small {
+            display: inline; /* Thay đổi từ block thành inline */
+        }
+
+    .status-active {
+        color: green;
+    }
+
+    .status-pending {
+        color: red;
+    }
+
+    .status-other {
+        color: gray;
+    }
+</style>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class="col-sm-2">
+            Tên voucher
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Ngày bắt đầu
+        </dt>
+        <dd class="col-sm-10">
+            @Model.StartDate.ToString("dd/MM/yyyy") <!-- Định dạng ngày tháng năm -->
+        </dd>
+        <dt class="col-sm-2">
+            Ngày kết thúc
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EndDate.ToString("dd/MM/yyyy") <!-- Định dạng ngày tháng năm -->
+        </dd>
+
+        <dt class="col-sm-2">
+            Số lượt sử dụng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            Kiểu
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class="col-sm-2">
+            Giá trị
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Type == Types.Percent)
+            {
+                @Html.DisplayFor(model => model.ReducedValue)
+
+                <small>%</small>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.ReducedValue)
+                <small>vnđ</small>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Giá trị tối thiểu
+        </dt>
+        <dd class="col-sm-10">
+            <div class="amount-display">
+                @Currency.FormatCurrency(Model.MinimumAmount.ToString()) đ
+            </div>
+           @*  <div class="amount-text">
+                <small>(@Currency.NumberToText(Model.MinimumAmount, true))</small>
+            </div> *@
+        </dd>
+       
+        <dt class="col-sm-2">
+            Từ khoá tìm kiếm
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Key)
+        </dd>
+        <dt class="col-sm-2">
+            Trạng Thái
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status == 1)
+            {
+                <span class="status-active">Hoạt động</span>
+            }
+            else if (Model.Status == 2)
+            {
+                <span class="status-pending">Chờ</span>
+            }
+            else
+            {
+                <span class="status-other">Khác</span> <!-- Hoặc thay "Khác" bằng giá trị khác -->
+            }
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

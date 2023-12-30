@@ -1,0 +1,67 @@
+﻿/* CSS cho bảng */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    /* CSS cho dòng tiêu đề */
+    .table thead tr {
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* CSS cho tiêu đề cột */
+    .table th {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #666;
+    }
+
+    /* CSS cho hàng chẵn */
+    .table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* CSS cho hàng lẻ */
+    .table tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    /* CSS cho ô thông tin sản phẩm */
+    .table tbody td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #666;
+    }
+
+button.delete-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: 1px solid #ff0000;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    button.delete-button:hover {
+        background-color: #ff3333;
+        border-color: #ff3333;
+    }
+
+.payment-method {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+    .payment-method p {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+.payment-option {
+    display: block;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,208 @@
+﻿@using CHERRY.DAL.Entities
+@using CHERRY.Utilities
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using static CHERRY.DAL.Entities.Voucher
+@model CompositeViewModel_Client
+<link rel="stylesheet" href="/css/checkout.css"/>
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<hr />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="col-md-8">
+            <div class="selected-products table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Sản Phẩm</th>
+                            <th>Màu</th>
+                            <th>Size</th>
+                            <th>Số lượng</th>
+                            <th>Đơn Giá</th>
+                            <th>Tổng Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                             
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="Checkout_v1" method="post" id="orderForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <button type="button" id="viewVoucherButton" class="btn btn-custom" data-toggle="modal" data-target="#voucherModal">
+                    Chọn Voucher
+                    <span id="discountText">-0đ</span>
+                </button>
+                <input type="hidden" id="selectedVoucherCode" name="VoucherCode" value="" />
+                <input type="hidden" asp-for="@Model.OrderCreateVM.IDUser" value="@ViewBag.IDUser" id="iduser"/>
+                <input type="hidden" asp-for="@Model.OrderCreateVM.ID" value="@ViewBag.ID" id="ID"/>
+                <input type="hidden" asp-for="@Model.OrderCreateVM.HexCode" value="@ViewBag.HexCode" id="HexCode" />
+                <!-- Modal -->
+                <div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="voucherModalLabel">Chọn Voucher</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @if (ViewBag.VoucherData != null)
+                                {
+                                    foreach (var voucher in ViewBag.VoucherData)
+                                    {
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="@voucher.Code" name="voucherSelection" class="custom-control-input voucher-radio" data-code="@voucher.Code" data-discount="@Currency.FormatCurrency(voucher.ReducedValue.ToString())" data-type="@voucher.Type">
+                                            <label class="custom-control-label" for="@voucher.Code">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        <div class="voucher-code">Mã: @voucher.Code</div>
+                                                        <div class="discount-value">
+                                                            Giảm: @Currency.FormatCurrency(voucher.ReducedValue.ToString())
+                                                            @if (@voucher.Type == Types.Percent)
+                                                            {
+                                                                <small>%</small>
+                                                            }
+                                                            else
+                                                            {
+                                                                <small>đ</small>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <div>Áp dụng khi mua hàng từ: <strong>@Currency.FormatCurrency(voucher.MinimumAmount.ToString()) đ</strong></div>
+                                                        <div>HSD: @voucher.EndDate.ToString("dd/MM/yyyy HH:mm")</div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Không có voucher nào.</p>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary" id="applyVoucherButton">Áp dụng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label asp-for="@Model.OrderCreateVM.CustomerName" class="control-label">Tên người nhận hàng</label>
+                        <input asp-for="@Model.OrderCreateVM.CustomerName" id="CustomerName" class="form-control" />
+                        <span asp-validation-for="@Model.OrderCreateVM.CustomerName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label asp-for="@Model.OrderCreateVM.CustomerPhone" class="control-label">Số điện Thoại</label>
+                        <input asp-for="@Model.OrderCreateVM.CustomerPhone" id="CustomerPhone" type="tel" class="form-control" />
+                        <span asp-validation-for="@Model.OrderCreateVM.CustomerPhone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.OrderCreateVM.CustomerEmail" class="control-label">Email</label>
+                    <input asp-for="@Model.OrderCreateVM.CustomerEmail" id="CustomerEmail" type="email" class="form-control" />
+                    <span asp-validation-for="@Model.OrderCreateVM.CustomerEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.OrderCreateVM.ShippingMethod" class="control-label">Phương thức giao hàng</label>
+                    <select asp-for="@Model.OrderCreateVM.ShippingMethod" id="ShippingMethod" class="form-control">
+                        @foreach (var method in Enum.GetValues(typeof(ShippingMethod)))
+                        {
+                            <option value="@((int)method)">@method</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.OrderCreateVM.ShippingMethod" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label @* asp-for="@Model.OrderCreateVM.Province" *@ for="provinceSelect" class="control-label">Thành phố</label>
+                        <select @* asp-for="@Model.OrderCreateVM.Province" *@ id="provinceSelect" class="form-control" name="Province" onchange="loadDistricts(); updateShippingAddress();">
+                            <option value="">Chọn tỉnh/thành phố</option>
+                        </select>
+@*                         <span asp-validation-for="@Model.OrderCreateVM.Province" class="text-danger"></span>
+ *@                    </div>
+                    <div class="form-group col-md-4">
+                        <label @* asp-for="@Model.OrderCreateVM.District" *@ for="districtSelect" class="control-label">Quận/Huyện</label>
+                        <select@*  asp-for="@Model.OrderCreateVM.District" *@ id="districtSelect" class="form-control" name="District" onchange="loadWards(); updateShippingAddress();">
+                            <option value="">Chọn quận/huyện</option>
+                        </select>
+@*                         <span asp-validation-for="@Model.OrderCreateVM.District" class="text-danger"></span>
+ *@                    </div>
+                    <div class="form-group col-md-4">
+                        <label @* asp-for="@Model.OrderCreateVM.Ward" *@ for="wardSelect" class="control-label">Phường/Xã</label>
+                        <select @* asp-for="@Model.OrderCreateVM.Ward" *@ id="wardSelect" class="form-control" name="Ward" onchange="updateShippingAddress();">
+                            <option value="">Chọn phường/xã</option>
+                        </select>
+@*                         <span asp-validation-for="@Model.OrderCreateVM.Ward" class="text-danger"></span>
+ *@                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.OrderCreateVM.ShippingAddress" for="shippingAddress" class="control-label">Địa chỉ giao hàng</label>
+                    <input id="shippingAddress" asp-for="@Model.OrderCreateVM.ShippingAddress" class="form-control" name="ShippingAddress" readonly />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.OrderCreateVM.ShippingAddressLine2" for="ShippingAddressLine2" class="control-label">Địa chỉ cụ thể ( nếu có )</label>
+                    <input id="ShippingAddressLine2" asp-for="@Model.OrderCreateVM.ShippingAddressLine2" class="form-control" name="ShippingAddressLine2" />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.OrderCreateVM.TotalAmount" class="control-label">Tổng giá</label>
+                    <input asp-for="@Model.OrderCreateVM.TotalAmount" id="TotalAmount" class="form-control" readonly />
+                    <span asp-validation-for="@Model.OrderCreateVM.TotalAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="DiscountedTotalAmount" class="control-label">Giảm giá voucher</label>
+                    <input id="DiscountedTotalAmount" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="FinalTotalAmount" class="control-label">Thanh Toán</label>
+                    <input id="FinalTotalAmount" class="form-control" readonly />
+                </div>
+
+                <div class="payment-method">
+                    <p>Phương Thức Thanh Toán</p>
+                    <label>
+                        <input asp-for="@Model.OrderCreateVM.PaymentMethod" type="radio" name="PaymentMethod" value="0" checked/>
+                        Chuyển khoản ngân hàng
+                    </label>
+                    <hr />
+                    <label>
+                        <input asp-for="@Model.OrderCreateVM.PaymentMethod"  type="radio" name="PaymentMethod" value="1" />
+                        Tiền mặt khi giao hàng
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.OrderCreateVM.Notes" class="control-label">Chú ý</label>
+                    <input asp-for="@Model.OrderCreateVM.Notes" id="Notes" class="form-control" />
+                    <span asp-validation-for="@Model.OrderCreateVM.Notes" class="text-danger"></span>
+                </div>
+                <hr />
+                <input type="hidden" id="hiddenInputForProducts" name="updatedProductsJson">
+                <div class="form-group">
+                    <button type="button" id="confirmOrderButton" class="btn btn-primary">Xác nhận đặt hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<script src="/js/address_v1.js"></script>
+<script src="/js/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

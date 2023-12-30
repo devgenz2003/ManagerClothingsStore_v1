@@ -1,0 +1,108 @@
+﻿/* Style cho tag giảm giá */
+.discount-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background-color: red;
+    color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    z-index: 1000;
+    text-align: center;
+    line-height: 70px;
+}
+
+/* Style chung cho card sản phẩm */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    position: relative;
+    border-radius: 5px;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+}
+
+    /* Khi hover vào card sản phẩm */
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+    }
+
+/* Style cho ảnh sản phẩm */
+.card-img-top {
+    width: 100%; /* Thay đổi từ cố định sang chiếm toàn bộ chiều rộng của card */
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Style cho lớp phủ "SOLD OUT" */
+.card .sold-out-overlay {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 100px;
+    height: 100px;
+    background-image: url('../images/sold.jpg');
+    background-size: contain;
+    z-index: 3;
+}
+
+/* Khi sản phẩm hết hàng */
+.card.sold-out .sold-out-overlay {
+    display: block;
+}
+
+.card.sold-out .card-img-top {
+    opacity: 0.4;
+}
+
+.card.sold-out .card-footer .btn {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Style cho phần nội dung của card */
+.card-body {
+    overflow-y: auto;
+}
+
+/* Style cho tiêu đề sản phẩm */
+.card-title {
+    color: #333;
+}
+
+/* Style cho nút chính */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+/* Style cho nút nguy hiểm */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+/* Style cho footer của card */
+.card-footer .col-md-6 {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    padding: 5px;
+}

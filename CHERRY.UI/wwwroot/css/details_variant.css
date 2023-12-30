@@ -1,0 +1,287 @@
+﻿.carousel-inner .image-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.col-md-9 {
+    flex: 0 0 75%;
+    max-width: 80%;
+}
+
+/* Column for additional product info customization */
+.col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+/* Remove default padding from bootstrap columns */
+.col-md-9, .col-md-3 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* Style for the container holding additional product info */
+.variant-containt {
+    padding: 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-top: 10px;
+    height: 100%;
+}
+
+/* Carousel image customization */
+.carousel-inner .image-container img {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Carousel control buttons customization */
+.carousel-control-prev, .carousel-control-next {
+    width: 10%;
+    background-color: black;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
+}
+
+/* Product title style */
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Product description style */
+.product-description {
+
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Card style */
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Price display style */
+#displayPrice {
+    font-size: 30px;
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Dropdown and input style */
+select, .quantity-selector input {
+    width: 10%;
+    padding: 8px;
+    margin-bottom: 0px;
+    border: 1px solid #ddd;
+    border-radius: 100px;
+    text-align: center;
+}
+
+/* Quantity selector style */
+.quantity-selector {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+
+    .quantity-selector button {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        background-color: red;
+        color: yellow;
+        margin-left: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 100px;
+    }
+
+/* Add to cart button style */
+.cart-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Default button styles */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Review container style */
+.review-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.review-user {
+    margin-bottom: 10px;
+}
+
+.review-username, .review-rating .checked, .review-rating .far,
+.review-date, .review-content p, .review-images img, .review-response .response-content {
+    /* Additional styles here */
+}
+
+/* Main product content layout customization */
+.page-product_content {
+    display: flex;
+    width: 100%;
+}
+
+.page-product_content-left {
+    width: 75%;
+    padding: 15px;
+}
+
+.page-product_content-right {
+    width: 25%;
+    padding: 15px;
+}
+
+/* Product highlight section */
+.product-highlight {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 0;
+}
+
+.product-label {
+    font-size: 1em;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.product-image img {
+    width: 45%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-info {
+    text-align: center;
+}
+
+.product-name {
+    font-size: 0.85em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.product-price-range {
+    font-size: 1em;
+    color: red;
+    font-weight: bold;
+}
+
+/* Details content style */
+.details-containt {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+    .details-containt p {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .details-containt dt, .details-containt dd {
+        margin-bottom: 10px;
+    }
+
+/* Column sizes without bootstrap */
+.col-sm-4, .col-sm-8 {
+    box-sizing: border-box;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-sm-4 {
+    width: 33.33333%;
+    float: left;
+}
+
+.col-sm-8 {
+    width: 66.66667%;
+    float: left;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+}
+.review-images img {
+    width: 100px; /* Chiều rộng cố định */
+    height: 120px; /* Chiều cao cố định */
+    object-fit: cover; /* Đảm bảo hình ảnh phủ kín khung hình mà không làm méo hình */
+    margin-right: 10px; /* Khoảng cách giữa các hình ảnh */
+    border-radius: 4px; /* Bo tròn góc hình ảnh */
+}
+
+.review-images {
+    display: flex; /* Hiển thị hình ảnh trên cùng một hàng */
+    align-items: center; /* Căn giữa các hình ảnh theo chiều dọc */
+    justify-content: flex-start; /* Căn hình ảnh từ trái sang phải */
+    flex-wrap: wrap; /* Cho phép hình ảnh xuống hàng nếu không đủ chỗ */
+    gap: 10px; /* Khoảng cách giữa các hình ảnh nếu xuống hàng */
+}

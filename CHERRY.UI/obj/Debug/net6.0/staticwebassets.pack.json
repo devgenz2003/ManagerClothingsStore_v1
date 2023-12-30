@@ -1,0 +1,793 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\animate.min.css",
+      "PackagePath": "staticwebassets\\assets\\css\\animate.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\blue.css",
+      "PackagePath": "staticwebassets\\assets\\css\\blue.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\bootstrap-select.min.css",
+      "PackagePath": "staticwebassets\\assets\\css\\bootstrap-select.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\assets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\font-awesome.css",
+      "PackagePath": "staticwebassets\\assets\\css\\font-awesome.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\images\\delete.gif",
+      "PackagePath": "staticwebassets\\assets\\css\\images\\delete.gif"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\images\\star-small.png",
+      "PackagePath": "staticwebassets\\assets\\css\\images\\star-small.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\lightbox.css",
+      "PackagePath": "staticwebassets\\assets\\css\\lightbox.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\main.css",
+      "PackagePath": "staticwebassets\\assets\\css\\main.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\owl.carousel.css",
+      "PackagePath": "staticwebassets\\assets\\css\\owl.carousel.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\owl.transitions.css",
+      "PackagePath": "staticwebassets\\assets\\css\\owl.transitions.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\css\\rateit.css",
+      "PackagePath": "staticwebassets\\assets\\css\\rateit.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\fontawesome-webfont-1.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\fontawesome-webfont-1.eot"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\assets\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\glyphicons-halflings-regular-1.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\glyphicons-halflings-regular-1.eot"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\glyphicons-halflings-regular.eot",
+      "PackagePath": "staticwebassets\\assets\\fonts\\glyphicons-halflings-regular.eot"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\glyphicons-halflings-regular.svg",
+      "PackagePath": "staticwebassets\\assets\\fonts\\glyphicons-halflings-regular.svg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\glyphicons-halflings-regular.ttf",
+      "PackagePath": "staticwebassets\\assets\\fonts\\glyphicons-halflings-regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\fonts\\glyphicons-halflings-regular.woff",
+      "PackagePath": "staticwebassets\\assets\\fonts\\glyphicons-halflings-regular.woff"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\ajax.gif",
+      "PackagePath": "staticwebassets\\assets\\images\\ajax.gif"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\LHS-banner.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\LHS-banner.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\banner-side.png",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\banner-side.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\cat-banner-1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\cat-banner-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\home-banner.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\home-banner.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\home-banner1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\home-banner1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\home-banner2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\home-banner2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\banners\\top-menu-banner.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\banners\\top-menu-banner.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\blank.gif",
+      "PackagePath": "staticwebassets\\assets\\images\\blank.gif"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\blog-post\\blog_big_01.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog-post\\blog_big_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\blog-post\\blog_big_02.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog-post\\blog_big_02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\blog-post\\blog_big_03.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog-post\\blog_big_03.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\blog-post\\post1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog-post\\post1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\blog-post\\post2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\blog-post\\post2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\cart.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cart.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\close.png",
+      "PackagePath": "staticwebassets\\assets\\images\\close.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\hot-deals\\p10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\hot-deals\\p10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\hot-deals\\p25.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\hot-deals\\p25.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\hot-deals\\p5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\hot-deals\\p5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\label.png",
+      "PackagePath": "staticwebassets\\assets\\images\\label.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\loading.gif",
+      "PackagePath": "staticwebassets\\assets\\images\\loading.gif"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\logo.png",
+      "PackagePath": "staticwebassets\\assets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\next.png",
+      "PackagePath": "staticwebassets\\assets\\images\\next.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\payments\\1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\1.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\payments\\2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\2.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\payments\\3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\3.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\payments\\4.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\4.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\payments\\5.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\5.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\prev.png",
+      "PackagePath": "staticwebassets\\assets\\images\\prev.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p10.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p11.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p12.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p13.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p14.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p15.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p16.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p16.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p17.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p17.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p18.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p19.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p19.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p20.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p20.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p21.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p21.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p22.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p22.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p23.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p23.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p24.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p24.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p25.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p25.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p26.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p26.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p27.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p27.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p28.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p28.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p29.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p29.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p30.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p30.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p4.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p5.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p6.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p7.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\products\\p9.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\products\\p9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\sliders\\01.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\sliders\\01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\sliders\\02.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\sliders\\02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\testimonials\\member1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonials\\member1.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\testimonials\\member2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonials\\member2.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\testimonials\\member3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonials\\member3.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\images\\testimonials\\member4.png",
+      "PackagePath": "staticwebassets\\assets\\images\\testimonials\\member4.png"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\bootstrap-hover-dropdown.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\bootstrap-hover-dropdown.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\bootstrap-select.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\bootstrap-select.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\bootstrap-slider.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\bootstrap-slider.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\echo.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\echo.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\jquery-1.11.1.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery-1.11.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\jquery.easing-1.3.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery.easing-1.3.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\jquery.rateit.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\jquery.rateit.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\lightbox.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\lightbox.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\owl.carousel.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\owl.carousel.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\assets\\js\\scripts.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\assets\\js\\wow.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\wow.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\Promotions\\details_promotionsadmin.css",
+      "PackagePath": "staticwebassets\\css\\Promotions\\details_promotionsadmin.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\Promotions\\promotion_create.css",
+      "PackagePath": "staticwebassets\\css\\Promotions\\promotion_create.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\Review\\review_create.css",
+      "PackagePath": "staticwebassets\\css\\Review\\review_create.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\Review\\review_index.css",
+      "PackagePath": "staticwebassets\\css\\Review\\review_index.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\Shared\\style.css",
+      "PackagePath": "staticwebassets\\css\\Shared\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\Variants\\variant_create.css",
+      "PackagePath": "staticwebassets\\css\\Variants\\variant_create.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\category_index.css",
+      "PackagePath": "staticwebassets\\css\\category_index.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\chat.css",
+      "PackagePath": "staticwebassets\\css\\chat.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\checkout.css",
+      "PackagePath": "staticwebassets\\css\\checkout.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\details_variant.css",
+      "PackagePath": "staticwebassets\\css\\details_variant.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\home_index.css",
+      "PackagePath": "staticwebassets\\css\\home_index.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\order_index.css",
+      "PackagePath": "staticwebassets\\css\\order_index.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\orderdetails_admin.css",
+      "PackagePath": "staticwebassets\\css\\orderdetails_admin.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\ordervariant_index.css",
+      "PackagePath": "staticwebassets\\css\\ordervariant_index.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\variant_index.css",
+      "PackagePath": "staticwebassets\\css\\variant_index.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\fetch\\fetch.js",
+      "PackagePath": "staticwebassets\\fetch\\fetch.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\fetch\\fetch.min.js",
+      "PackagePath": "staticwebassets\\fetch\\fetch.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\images\\sold.jpg",
+      "PackagePath": "staticwebassets\\images\\sold.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Account\\register.js",
+      "PackagePath": "staticwebassets\\js\\Account\\register.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Options\\options_create.js",
+      "PackagePath": "staticwebassets\\js\\Options\\options_create.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Reivews\\review_create.js",
+      "PackagePath": "staticwebassets\\js\\Reivews\\review_create.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Variant\\variant_create.js",
+      "PackagePath": "staticwebassets\\js\\Variant\\variant_create.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Voucher\\voucher_create.js",
+      "PackagePath": "staticwebassets\\js\\Voucher\\voucher_create.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\address_v1.js",
+      "PackagePath": "staticwebassets\\js\\address_v1.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\cart.js",
+      "PackagePath": "staticwebassets\\js\\cart.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\chat.js",
+      "PackagePath": "staticwebassets\\js\\chat.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\checkout.js",
+      "PackagePath": "staticwebassets\\js\\checkout.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\details.js",
+      "PackagePath": "staticwebassets\\js\\details.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\login.js",
+      "PackagePath": "staticwebassets\\js\\login.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\nav_menu.js",
+      "PackagePath": "staticwebassets\\js\\nav_menu.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\orderdetails_admin.js",
+      "PackagePath": "staticwebassets\\js\\orderdetails_admin.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\promotion.js",
+      "PackagePath": "staticwebassets\\js\\promotion.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\shared.js",
+      "PackagePath": "staticwebassets\\js\\shared.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.CHERRY.UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.CHERRY.UI.props",
+      "PackagePath": "build\\CHERRY.UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.CHERRY.UI.props",
+      "PackagePath": "buildMultiTargeting\\CHERRY.UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.CHERRY.UI.props",
+      "PackagePath": "buildTransitive\\CHERRY.UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

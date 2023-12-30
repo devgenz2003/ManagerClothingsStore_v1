@@ -1,0 +1,106 @@
+﻿@model CHERRY.BUS.ViewModels.Review.ReviewCreateVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .spinner-overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: spin 2s linear infinite;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    /* CSS cho ngôi sao */
+    .star {
+        font-size: 24px;
+        cursor: pointer;
+        color: #ccc; /* Màu mặc định cho ngôi sao chưa được chọn */
+    }
+
+        /* CSS cho ngôi sao khi hover */
+        .star:hover {
+            color: black; /* Màu khi hover */
+        }
+
+    .selected {
+        color: black; /* Màu cho ngôi sao đã chọn */
+    }
+
+</style>
+<div id="loadingSpinner" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data" id="review-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="IDOrderVariant" type="hidden" />
+            <input asp-for="CreateBy" hidden value="@ViewBag.IDUser" />
+            <input asp-for="IDVariant" type="hidden" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <div class="rating">
+                    <span class="star" data-rating="1">&#9733;</span>
+                    <span class="star" data-rating="2">&#9733;</span>
+                    <span class="star" data-rating="3">&#9733;</span>
+                    <span class="star" data-rating="4">&#9733;</span>
+                    <span class="star" data-rating="5">&#9733;</span>
+                    <input type="hidden" name="Rating" id="rating-value" value="0" />
+                </div>
+                <span id="rating-label" style="margin-left: 10px;"></span>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePaths" class="control-label"></label>
+                <input id="fileInput" type="file" class="form-control" multiple />
+                <span asp-validation-for="ImagePaths" class="text-danger"></span>
+            </div>
+
+            <div id="imagePreview" class="row"></div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<script src="/js/Reivews/review_create.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

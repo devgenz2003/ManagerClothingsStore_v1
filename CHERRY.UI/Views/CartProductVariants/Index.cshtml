@@ -1,0 +1,149 @@
+﻿@using CHERRY.BUS.ViewModels.CartProductVariants;
+@using CHERRY.Utilities;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<CartProductVariantsVM> myCart = ViewBag.CartItems as List<CartProductVariantsVM>;
+}
+@model List<CHERRY.BUS.ViewModels.CartProductVariants.CartProductVariantsVM>
+<style>
+    /* Định dạng cho cột số lượng */
+    .cart-product-quantity {
+        text-align: center;
+    }
+
+    .quant-input input[type="number"] {
+        width: 90px; /* Độ rộng của input */
+        text-align: center; /* Canh giữa nội dung trong input */
+    }
+
+    /* Định dạng cho cột giá đơn vị */
+    .cart-product-sub-total {
+        text-align: center;
+    }
+
+    /* Định dạng cho cột giá TotalPrice */
+    .cart-product-grand-total {
+        text-align: center;
+        font-weight: bold; /* In đậm giá TotalPrice */
+        color: #ff6600; /* Màu văn bản */
+    }
+
+</style>
+
+<div class="body-content outer-top-xs">
+    <div class="container">
+        <div class="row ">
+            <div class="shopping-cart">
+                <div class="shopping-cart-table ">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cart-romove item">Remove</th>
+                                    <th class="cart-description item">Hình Ảnh</th>
+                                    <th class="cart-product-name item">Sản phẩm</th>
+                                    <th class="cart-qty item">Số lượng</th>
+                                    <th class="cart-sub-total item">Giá bán</th>
+                                    <th class="cart-total last-item">Tổng cộng</th>
+                                    <th>Tuỳ chọn</th>
+                                </tr>
+                            </thead><!-- /thead -->
+                            <tbody>
+                                @if (myCart != null)
+                                {
+                                    @foreach (var item in myCart)
+                                    {
+                                        <tr data-product-id="@item.IDOptions">
+                                            <td class="romove-item">
+                                                <form asp-action="RemoveFromCart" method="post">
+                                                    <input type="hidden" name="IDOptions" value="@item.IDOptions" />
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Xóa">
+                                                        <i class="fa fa-trash">Xoá</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td class="cart-image">
+                                                <a class="entry-thumbnail" href="detail.html">
+                                                    @if (item.Imagepaths != null)
+                                                    {
+                                                        <img src="@item.Imagepaths" style="width:60px; height:60px" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="https://png.pngtree.com/element_origin_min_pic/16/11/14/93ccc2f2036a54165fc88fdb31a446db.jpg" alt="Default Image">
+                                                    }
+                                                </a>
+                                            </td>
+                                            <td class="cart-product-name-info">
+                                                <h4 class='cart-product-description'>
+                                                    <a href="detail.html">
+                                                        @item.ProductName
+                                                    </a>
+                                                </h4>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="rating rateit-small"></div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="reviews">
+                                                            (06 Reviews)
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.row -->
+                                                <div class="cart-product-info">
+                                                    <span class="product-color">COLOR:<span>@item.ColorName</span></span>
+                                                    <span class="product-color">SIZES:<span>@item.SizeName</span></span>
+                                                </div>
+                                            </td>
+                                            <td class="cart-product-quantity">
+                                                <div class="quant-input">
+                                                    <button class="quantity-decrease">-</button>
+                                                    <input type="text" class="quantity-input" value="@item.Quantity">
+                                                    <button class="quantity-increase">+</button>
+                                                </div>
+                                            </td>
+
+
+                                            <td class="cart-product-sub-total">
+                                                <span class="cart-sub-total-price">@Currency.FormatCurrency(item.UnitPrice.ToString()) vnđ</span>
+                                            </td>
+                                            <td class="cart-product-grand-total">
+                                                <span class="cart-grand-total-price">@Currency.FormatCurrency(item.Total_Amount.ToString()) vnđ</span>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="selectedProducts" value="@item.IDOptions">
+                                            </td>
+                                            <input type="hidden" id="selectedProductsHidden" name="selectedProducts" />
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 cart-shopping-total">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td colspan="7">
+                                    <div class="shopping-cart-btn" style="display: flex; justify-content: flex-end;">
+                                        <a href="/Home/Index" class="btn btn-upper btn-primary">Tiếp tục mua sắm</a>
+                                        <button id="paymentButton" onclick="buySelectedProducts()" class="btn btn-upper btn-success">
+                                            Thanh toán (<span id="totalPriceDisplay">0 VNĐ</span>)
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/cart.js"></script>

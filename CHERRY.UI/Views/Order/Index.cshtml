@@ -1,0 +1,231 @@
+﻿@using CHERRY.DAL.Entities
+@using CHERRY.Utilities
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<CHERRY.BUS.ViewModels.Order.OrderVM>
+<link rel="stylesheet" href="/css/order_index.css" />
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div id="pagination">
+            <button class="btn-page active" data-status="all">Tất cả</button>
+            <button class="btn-page" data-status="Pending">Chưa giải quyết</button>
+            <button class="btn-page" data-status="Processing">Xử lý</button>
+            <button class="btn-page" data-status="Shipped">Đã vận chuyển</button>
+            <button class="btn-page" data-status="Delivered">Hoàn thành</button>
+        </div>
+
+
+        <h2>Danh sách đơn hàng</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ngày đặt</th>
+                    <th>Địa chỉ</th>
+                    <th class="pt-tt">Tổng tiền</th>
+                    <th>Phương thức</th>
+                    <th>Thanh toán</th>
+                    <th>Giao hàng</th>
+                    <th>Tình trạng</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-status="@item.OrderStatus">
+                        <td class="date-column">@item.CreateDate.ToString("dd-MM-yyyy HH:mm")</td>
+                        <td class="pt-tt">@Html.DisplayFor(modelItem => item.ShippingAddress)</td>
+                        <td class="total-amount">@Currency.FormatCurrency(item.TotalAmount.ToString()) đ</td>
+                        <td class="pt-tt">
+                            @switch (item.PaymentMethod)
+                            {
+                                case PaymentMethod.TienMatKhiGiaoHang:
+                                    <span>Tiền mặt</span>
+                                    break;
+                                case PaymentMethod.ChuyenKhoanNganHang:
+                                    <span>Chuyển khoản</span>
+                                    break;
+
+                            }
+                        </td>
+                        <td class="pt-tt">
+                            @switch (item.PaymentStatus)
+                            {
+                                case PaymentStatus.Unknown:
+                                    <span>Chưa thanh toán</span>
+                                    break;
+                                case PaymentStatus.Success:
+                                    <span>Đã thanh toán</span>
+                                    break;
+                                case PaymentStatus.Pending:
+                                    <span>Chờ xử lý</span>
+                                    break;
+                                case PaymentStatus.Failure:
+                                    <span>Lỗi</span>
+                                    break;
+                            }
+                        </td>
+                        <td class="pt-tt">
+                            @switch (item.ShippingMethod)
+                            {
+                                case ShippingMethod.GiaoHangTieuChuan:
+                                    @:Giao hàng tiêu chuẩn
+                                    break;
+                                case ShippingMethod.GiaoHangNhanh:
+                                    @:Giao hàng nhanh
+                                    break;
+                                case ShippingMethod.GiaoHangTrongNgay:
+                                    @:Giao hàng trong ngày
+                                    break;
+                                case ShippingMethod.NhanTaiCuaHang:
+                                    @:Nhận tại cửa hàng
+                                    break;
+                                case ShippingMethod.GiaoHangQuocTe:
+                                    @:Giao hàng quốc tế
+                                    break;
+                            }
+                        </td>
+                        <td class="pt-tt">
+                            @switch (item.OrderStatus)
+                            {
+                                case OrderStatus.Pending:
+                                    <span>Chưa giải quyết</span>
+                                    break;
+                                case OrderStatus.Processing:
+                                    <span>Xử lý</span>
+                                    break;
+                                case OrderStatus.Shipped:
+                                    <span>Đã vận chuyển</span>
+                                    break;
+                                case OrderStatus.Delivered:
+                                    <span>Hoàn thành</span>
+                                    break;
+                                case OrderStatus.Cancelled:
+                                    <span>Đã hủy</span>
+                                    break;
+                                case OrderStatus.Returned:
+                                    <span>Trả lại</span>
+                                    break;
+                            }
+                        </td>
+                        <td class="pt-tt">
+                            @if (item.OrderStatus == OrderStatus.Delivered && item.TrackingCheck == false)
+                            {
+                                <form method="post" asp-action="ConfirmOrder" asp-controller="Order">
+                                    <input type="hidden" name="IDOrder" value="@item.ID" />
+                                    <input type="hidden" name="trackingCheck" value="true" />
+                                    <button type="submit" class="btn btn-success">Xác nhận</button>
+                                </form>
+                                @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
+                            }
+                            else if (item.TrackingCheck == true && item.OrderStatus == OrderStatus.Delivered)
+                            {
+                                @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Hoá đơn", "PrintOrderPdf", "Order", new { ID = item.ID }, new { @class = "btn btn-info" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Huỷ đơn", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var buttons = document.querySelectorAll('.btn-page');
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var status = this.getAttribute('data-status');
+                var allRows = document.querySelectorAll('tbody tr');
+
+                buttons.forEach(function (btn) {
+                    btn.classList.remove('active');
+                });
+
+                this.classList.add('active');
+
+                if (status === 'all') {
+                    allRows.forEach(function (row) {
+                        row.style.display = 'table-row';
+                    });
+                } else {
+                    allRows.forEach(function (row) {
+                        var dataStatus = row.getAttribute('data-status');
+                        if (dataStatus === status) {
+                            row.style.display = 'table-row';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Hiển thị tất cả đơn hàng khi trang được tải
+        var allRows = document.querySelectorAll('tbody tr');
+        allRows.forEach(function (row) {
+            row.style.display = 'table-row';
+        });
+    });
+</script>
+
+<div class="pagination-container">
+    <ul id="pagination" class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">Previous</a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })">Next</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var pagination = document.getElementById('pagination');
+        pagination.addEventListener('click', function (e) {
+            e.preventDefault();
+            var pageUrl = e.target.getAttribute('href');
+            loadPage(pageUrl);
+        });
+
+        function loadPage(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.body.innerHTML = xhr.responseText;
+                } 
+            };
+            xhr.send();
+        }
+    });
+</script>

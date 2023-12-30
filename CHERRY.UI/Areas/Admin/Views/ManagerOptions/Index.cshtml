@@ -1,0 +1,168 @@
+﻿@model IEnumerable<CHERRY.BUS.ViewModels.Options.OptionsVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<style>
+    #Table tr:hover {
+        background-color: #f5f5f5; /* Màu nền khi hover */
+    }
+
+    #Table th, #Table td {
+        padding: 12px 15px;
+        font-size: 14px; /* Tăng kích thước font */
+    }
+
+    #Table th {
+        color: white;
+        background-color: #4a69bd; /* Màu nền tối hơn */
+    }
+
+    a.asp-action-create {
+        background-color: #4CAF50; /* Màu xanh lá */
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        a.asp-action-create:hover {
+            background-color: #45a049;
+        }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #ddd;
+    }
+
+    .btn-primary.dropdown-toggle {
+        background-color: #6c7ae0;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: white;
+    }
+    /* CSS cho bảng */
+    #Table {
+        font-family: Arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #Table th, #Table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #Table th {
+            background-color: #f2f2f2;
+        }
+
+    /* CSS để định dạng trạng thái */
+    .status-0 {
+        display: none; /* Ẩn trạng thái 0 */
+    }
+
+    .status-1 {
+        color: green; /* Đổi màu văn bản trạng thái 1 thành màu xanh */
+    }
+</style>
+
+<p>
+    <a asp-action="Create">Thêm mới</a>
+</p>
+<table class="Table" id="Table">
+    <thead>
+        <tr>
+            <th style="color: black">ID</th>
+            <th style="color: black">Tên sản phẩm</th>
+            <th style="color: black">Màu</th>
+            <th style="color: black">Size</th>
+            <th style="color: black">Hình ảnh</th>
+            <th style="color: black">Trạng thái</th>
+            <th style="color: black">Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td>@item.ColorName</td>
+                <td>@item.SizeName</td>
+                <td><img src="@item.ImageURL" alt="Image" style="max-width: 100px; max-height: 100px;" /></td>
+                <td>
+                    @switch (item.Status)
+                    {
+                        case 1:
+                            <span class="status-active">Hoạt động</span>
+                            break;
+                        case 2:
+                            <span class="status-waiting">Chờ</span>
+                            break;
+                        default:
+                            @Html.DisplayFor(modelItem => item.Status)
+                            break;
+                    }
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="@Url.Action("Details","ManagerOptions", new { ID = item.ID })">Chi tiết</a>
+                            <a class="dropdown-item" href="@Url.Action("Edit", "ManagerOptions",new { ID = item.ID })">Chỉnh sửa</a>
+                            <a class="dropdown-item" href="@Url.Action("Delete", new { ID = item.ID })">Xóa</a>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#Table').DataTable({
+            "pagingType": "full_numbers", // Loại phân trang
+            "lengthChange": true, // Cho phép thay đổi số lượng bản ghi trên mỗi trang
+            "searching": true, // Cho phép tìm kiếm
+            "ordering": true, // Cho phép sắp xếp
+            "info": true, // Hiển thị thông tin số bản ghi và trang hiện tại
+            "autoWidth": false, // Tự động điều chỉnh chiều rộng cột
+            "responsive": true // Tích hợp tính năng Responsive
+        });
+    });
+</script>

@@ -20,7 +20,8 @@ namespace CHERRY.DAL.Entities
         public enum Types
         {
             Percent,
-            Cash
+            Cash,
+            Unknown
         }
     }
 }

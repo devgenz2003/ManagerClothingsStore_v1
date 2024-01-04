@@ -44,20 +44,16 @@ namespace CHERRY.UI.Controllers
         [Route("review_list")]
         public async Task<IActionResult> Index(Guid IDOptions)
         {
-            try
+            var variant = await _IOptionsRepository.GetVariantByID(IDOptions);
+            var reviewdata = await _IReviewRepository.GetByVariant(variant);
+            if (reviewdata != null)
             {
-                var variant = await _IOptionsRepository.GetVariantByID(IDOptions);
-                var reviewdata = await _IReviewRepository.GetByVariant(variant);
-                if (reviewdata != null)
-                {
-                    return View("~/Views/Review/Index.cshtml", reviewdata);
-                }
+                return View(reviewdata);
             }
-            catch (Exception ex)
+            else
             {
-
+                return BadRequest();
             }
-            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Create(Guid IDOptions, Guid IDOrderVariant)

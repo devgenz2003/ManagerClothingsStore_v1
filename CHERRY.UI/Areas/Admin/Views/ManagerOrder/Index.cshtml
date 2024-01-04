@@ -24,6 +24,14 @@
                             <option value="Đã hủy">Đã hủy</option>
                             <option value="Trả lại">Trả lại</option>
                         </select>
+                        <label for="startDate">Từ ngày:</label>
+                        <input type="date" id="startDate" class="form-control">
+
+                        <label for="endDate">Đến ngày:</label>
+                        <input type="date" id="endDate" class="form-control">
+
+                        <button id="filterByDateBtn" class="btn btn-primary">Lọc theo ngày</button>
+
                     </div>
                     <table id="orderListTable" class="table table-striped table-bordered">
                         <thead>
@@ -43,8 +51,8 @@
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(modelItem => item.HexCode)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.IDUser)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ShippingAddress)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
+                                    <td> @item.ShippingAddress, @item.ShippingAddressLine2</td>
                                     <td>@Currency.FormatCurrency(item.TotalAmount.ToString()) vnđ</td>
                                     <td>
                                         @switch (item.PaymentMethod)
@@ -55,7 +63,6 @@
                                             case PaymentMethod.ChuyenKhoanNganHang:
                                                 <span>Chuyển khoản</span>
                                                 break;
-
                                         }
                                     </td>
                                     <td>
@@ -133,33 +140,11 @@
                                     </td>
                                 </tr>
                             }
-                        </tbody>
+                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-@section scripts {
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var table = $('#orderListTable').DataTable({
-                "pagingType": "full_numbers",
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true
-            });
-
-            $('#statusFilter').on('change', function () {
-                table.column(7).search(this.value).draw(); // Điều chỉnh số này nếu cột trạng thái ở vị trí khác
-            });
-        });
-    </script>
-}
+<script src="/js/Order/order_index_admin.js"></script>

@@ -2065,6 +2065,7 @@ C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\CHERRY.Utilities.AssemblyInfoInputs.cache
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\CHERRY.Utilities.AssemblyInfo.cs
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\CHERRY.Utilities.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\CHERRY.Utilities.sourcelink.json
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\CHERRY.Utilities.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\refint\CHERRY.Utilities.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.Utilities\obj\Debug\net6.0\CHERRY.Utilities.pdb

@@ -21,7 +21,7 @@ namespace CHERRY.BUS.Services._1_Interface
         // Lấy danh sách đơn hàng theo ID khách hàng
         public Task<List<OrderVM>> GetByCustomerIDAsync(string IDUser);
         // Đánh dấu một đơn hàng là đã giao hàng
-        public Task<bool> MarkAsShippedAsync(Guid IDOrder);
+        public Task<bool> MarkAsPaymentSuccessAsync(string HexCode);
         // Đánh dấu một đơn hàng là đã hoàn thành
         public Task<bool> MarkAsDeliveredAsync(Guid IDOrder);
         // Đánh dấu một đơn hàng là đã bị hủy

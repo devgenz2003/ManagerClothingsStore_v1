@@ -18,9 +18,11 @@ namespace CHERRY.UI.Areas.Admin.Models
         public OptionsVM OptionsVM { get; set; }
         public UserVM UserVM { get; set; }
         public OrderVM OrderVM { get; set; }
+        public PromotionVariantsVM PromotionVariantsVM { get; set; }
         public OrderVariantVM OrderVariantVM { get; set; }
         public List<OrderVM> LstOrderVM { get; set; }
         public List<PromotionVariantsVM> LstPromotionVariantsVM { get; set; }
+        public List<PromotionVariant> LstPromotionVariants { get; set; }
         public List<OrderVariantVM> LstOrderVariantVM { get; set; }
         public List<UserVM> LstUser { get; set; }
         public List<CategoryVM> LstCategoryVM { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace CHERRY.BUS.ViewModels.Payment
+﻿using CHERRY.DAL.Entities;
+
+namespace CHERRY.BUS.ViewModels.Payment
 {
     public class PaymentResponseModel
     {
@@ -7,7 +9,7 @@
         public Guid OrderId { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentId { get; set; }
-        public bool Success { get; set; }
+        public PaymentStatus Success { get; set; }
         public string Token { get; set; }
         public string VnPayResponseCode { get; set; }
     }

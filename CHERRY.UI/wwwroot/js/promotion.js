@@ -30,7 +30,7 @@
         updateLabelAndSuffix(); 
     }
 });
-document.addEventListener("DOMContentLoaded", function () {
+function attachCheckboxEvents() {
     var checkAll = document.getElementById('checkAll');
     var checkboxes = document.querySelectorAll('.productCheckbox');
 
@@ -45,7 +45,15 @@ document.addEventListener("DOMContentLoaded", function () {
             checkAll.checked = Array.from(checkboxes).every(c => c.checked);
         });
     });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    attachCheckboxEvents();
 });
+
+attachCheckboxEvents();
+
+
 function submitForm() {
     var sku = document.getElementById('SKU').value;
     var content = document.getElementById('Content').value;

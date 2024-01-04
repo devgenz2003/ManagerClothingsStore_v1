@@ -3,6 +3,7 @@ using CHERRY.BUS.ViewModels.Order;
 using CHERRY.BUS.ViewModels.Payment;
 using CHERRY.DAL.Entities;
 using CHERRY.Utilities;
+using DocumentFormat.OpenXml.Drawing.Charts;
 public class VnPayService : IVnPayService
 {
     private readonly IConfiguration _configuration;
@@ -12,7 +13,6 @@ public class VnPayService : IVnPayService
     }
     public string CreatePaymentUrl(OrderCreateVM model, HttpContext context)
     {
-
         var timeZoneId = "SE Asia Standard Time";
         var timeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
         var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
@@ -52,27 +52,14 @@ public class VnPayService : IVnPayService
         {
             var paymentResponse = new PaymentResponseModel();
             paymentResponse.Token = response.IDUser;
-            paymentResponse.OrderId = response.ID;
+            paymentResponse.OrderId = response.ID; 
             paymentResponse.PaymentId = response.ShippingAddress;
             paymentResponse.VnPayResponseCode = response.ShippingAddressLine2;
             paymentResponse.TransactionId = response.HexCode.ToString();
             paymentResponse.OrderDescription = response.Notes;
-            paymentResponse.Success = DeterminePaymentStatus(response);
+            paymentResponse.Success = PaymentStatus.Success; 
             return paymentResponse;
         }
         return null;
-    }
-    public bool DeterminePaymentStatus(OrderCreateVM response)
-    {
-        if (response != null)
-        {
-            string responseCode = response.PaymentStatus.ToString();
-
-            if (responseCode == "00" || responseCode == "01" || responseCode == "02")
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -7,8 +7,18 @@ public class PromotionVariantsMap : Profile
     public PromotionVariantsMap()
     {
         CreateMap<PromotionVariant, PromotionVariantsVM>()
-            .ForMember(dest => dest.VariantName, opt => opt.MapFrom(src => src.Variants.VariantName)) // Đảm bảo rằng 'Variant' là navigation property chính xác
-            .ForMember(dest => dest.DiscountedPrice, opt => opt.MapFrom(src => src.Promotion.DiscountAmount)) // Và các thuộc tính khác nếu cần
+            .ForMember(dest => dest.VariantName, opt => opt.MapFrom(src => src.Variants.VariantName))
+            .ForMember(dest => dest.DiscountedPrice_Promotion, opt => opt.MapFrom(src => src.Promotion.DiscountAmount))
+           // .ForMember(dest => dest.TimeRemaining, opt => opt.MapFrom(src => GetTimeRemaining(src.Promotion.StartDate, src.Promotion.EndDate)))
+            .ForMember(dest => dest.ImagesURL, opt => opt.MapFrom(src => src.Variants.MediaAssets.Select(c=>c.Path)))
+            .ForMember(dest => dest.Types, opt => opt.MapFrom(src => src.Promotion.Type)) 
             .ReverseMap();
+    }
+    private TimeSpan GetTimeRemaining(DateTime startDate, DateTime endDate)
+    {
+        DateTime now = DateTime.Now;
+        TimeSpan remainingTime = endDate > now ? endDate - now : TimeSpan.Zero;
+
+        return remainingTime;
     }
 }

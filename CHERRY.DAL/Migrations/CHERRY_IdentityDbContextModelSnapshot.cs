@@ -1135,15 +1135,15 @@ namespace CHERRY.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bbd1a3ac-b468-4163-9d25-e55b30f4262d",
-                            ConcurrencyStamp = "233f8f39-0777-4f57-80f9-f67e0655b3ce",
+                            Id = "6c50fab2-a8c9-477c-a356-4d3b62bb5792",
+                            ConcurrencyStamp = "48c40a29-ecd4-4c16-8921-938e040910e2",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "31d5f02b-51af-431f-a8de-54c329d10ee5",
-                            ConcurrencyStamp = "93dd5d51-6def-4b32-a767-6e8a2a6cfe99",
+                            Id = "74a23a2a-660b-40de-8b08-649f12ecfbe2",
+                            ConcurrencyStamp = "25fc685b-5833-4071-8918-8a4a76dfbb7f",
                             Name = "Client",
                             NormalizedName = "Client"
                         });

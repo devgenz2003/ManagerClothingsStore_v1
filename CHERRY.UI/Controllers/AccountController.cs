@@ -54,6 +54,24 @@ namespace CHERRY.UI.Controllers
             }
         }
         [HttpGet]
+        public async Task<IActionResult> Edit(string ID)
+        {
+            var data = await _IUserResponse.GetByIDAsync(ID);
+            ViewBag.IDUser = ID;
+            ViewBag.UserData = data;
+            return View();
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit(string ID, UserUpdateVM request)
+        {
+            var data = await _IUserResponse.UpdateAsync(ID, request);
+            if (data)
+            {
+                return Content("OK");
+            }
+            return BadRequest("KO");
+        }
+        [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
             return View("/Views/Account/ChangePassword.cshtml");
@@ -70,11 +88,9 @@ namespace CHERRY.UI.Controllers
             var result = await _IUserResponse.ChangePasswordAsync(userID, model);
             if (result)
             {
-                // Thông báo thành công
                 return RedirectToAction("Index", "Home");
             }
 
-            // Thông báo lỗi
             ModelState.AddModelError("", "Đổi mật khẩu thất bại.");
             return View(model);
         }

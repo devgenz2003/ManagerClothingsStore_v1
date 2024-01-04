@@ -150,8 +150,7 @@ namespace CHERRY.BUS.Services._2_Implements
                 }
                 catch (Exception)
                 {
-                    // Xử lý lỗi nếu có vấn đề khi upload ảnh lên Cloudinary
-                    // Log ex.Message hoặc thực hiện các bước xử lý khác
+
                 }
             }
             await _dbContext.SaveChangesAsync();
@@ -179,7 +178,9 @@ namespace CHERRY.BUS.Services._2_Implements
                 ID = v.Variant.ID,
                 VariantName = v.Variant.VariantName,
                 BrandName = v.Brand?.Name,
+                CreateDate = v.Variant.CreateDate,
                 MaterialName = v.Material?.Name,
+                Description = v.Variant.Description,
                 Minprice = v.Options.Any() ? v.Options.Min(opt => opt.RetailPrice) : 0,
                 Maxprice = v.Options.Any() ? v.Options.Max(opt => opt.RetailPrice) : 0,
                 TotalOptions = v.Options.Count(),
@@ -212,6 +213,8 @@ namespace CHERRY.BUS.Services._2_Implements
                 ID = v.Variant.ID,
                 VariantName = v.Variant.VariantName,
                 BrandName = v.Brand?.Name,
+                CreateDate = v.Variant.CreateDate,
+                Description = v.Variant.Description,
                 MaterialName = v.Material?.Name,
                 Minprice = v.Options.Any() ? v.Options.Min(opt => opt.RetailPrice) : 0,
                 Maxprice = v.Options.Any() ? v.Options.Max(opt => opt.RetailPrice) : 0,
@@ -321,24 +324,43 @@ namespace CHERRY.BUS.Services._2_Implements
                 return false;
             }
 
-            using var transaction = _dbContext.Database.BeginTransaction(); // Bắt đầu giao dịch
+            using var transaction = _dbContext.Database.BeginTransaction(); 
 
             try
             {
-                // Cập nhật thông tin cơ bản của Variant
+                var checkbrand = await _dbContext.Brand.FirstOrDefaultAsync(c => c.ID == request.IDBrand);
+                var checkmaterial = await _dbContext.Material.FirstOrDefaultAsync(c => c.ID == request.IDMaterial);
+                var checkcategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.ID == request.IDCategory);
+
+                if (checkbrand == null && !string.IsNullOrEmpty(request.BrandName))
+                {
+                    request.IDBrand = await EnsureBrand(request.BrandName);
+                }
+
+                if (checkcategory == null && !string.IsNullOrEmpty(request.CategoryName))
+                {
+                    request.IDCategory = await EnsureCategory(request.CategoryName);
+                }
+
+                if (checkmaterial == null && !string.IsNullOrEmpty(request.MaterialName))
+                {
+                    request.IDMaterial = await EnsureMaterial(request.MaterialName);
+                }
+
+                checkbrand = await _dbContext.Brand.FirstOrDefaultAsync(c => c.ID == request.IDBrand);
+                checkmaterial = await _dbContext.Material.FirstOrDefaultAsync(c => c.ID == request.IDMaterial);
+                checkcategory = await _dbContext.Categories.FirstOrDefaultAsync(c => c.ID == request.IDCategory);
+
                 variantToUpdate.VariantName = request.VariantName;
                 variantToUpdate.Description = request.Description;
                 variantToUpdate.Style = request.Style;
                 variantToUpdate.Origin = request.Origin;
                 variantToUpdate.SKU_v2 = request.SKU_v2;
                 variantToUpdate.Status = request.Status;
+                variantToUpdate.ModifieBy = "";
+                variantToUpdate.ModifieDate = DateTime.UtcNow;
 
-                if (request.IDBrand != Guid.Empty)
-                    variantToUpdate.IDBrand = request.IDBrand;
-                if (request.IDMaterial != Guid.Empty)
-                    variantToUpdate.IDMaterial = request.IDMaterial;
 
-                // Xóa hình ảnh cũ và thêm hình ảnh mới từ request
                 _dbContext.MediaAssets.RemoveRange(variantToUpdate.MediaAssets);
 
                 foreach (var file in request.ImagePaths)
@@ -363,7 +385,9 @@ namespace CHERRY.BUS.Services._2_Implements
                         Path = imageUrl,
                         Status = 1,
                         CreateDate = DateTime.Now,
-                        ModifieBy = request.ModifieBy
+                        ModifieBy = request.ModifieBy,
+                        ModifieDate = DateTime.Now,
+                        CreateBy = imageId.ToString(),
                     };
 
                     _dbContext.MediaAssets.Add(imageEntity);
@@ -375,8 +399,7 @@ namespace CHERRY.BUS.Services._2_Implements
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync(); // Rollback nếu có lỗi
-                                                   // Log the exception or handle it according to your needs
+                await transaction.RollbackAsync(); 
                 return false;
             }
         }

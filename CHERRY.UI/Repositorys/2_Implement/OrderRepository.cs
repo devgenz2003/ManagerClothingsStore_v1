@@ -148,19 +148,16 @@ namespace CHERRY.UI.Repositorys._2_Implement
                 return false;
             }
         }
-        public async Task<bool> MarkAsShippedAsync(Guid ID_Order)
+        public async Task<bool> MarkAsPaymentSuccessAsync(string HexCode)
         {
             try
             {
-                // Gửi yêu cầu HTTP để đánh dấu đơn hàng với ID_Order là đã được vận chuyển
-                var response = await _httpClient.PutAsync($"api/Order/MarkAsShipped/{ID_Order}", null);
+                var response = await _httpClient.PutAsync($"api/Order/MarkAsPaymentSuccessAsync/{HexCode}", null);
 
-                // Kiểm tra xem yêu cầu có thành công không
                 return response.IsSuccessStatusCode;
             }
             catch (Exception)
             {
-                // Xử lý trường hợp xảy ra lỗi trong quá trình gửi yêu cầu
                 return false;
             }
         }

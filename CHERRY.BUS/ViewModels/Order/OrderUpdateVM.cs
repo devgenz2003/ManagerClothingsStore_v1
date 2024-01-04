@@ -3,7 +3,7 @@ namespace CHERRY.BUS.ViewModels.Order
 {
     public class OrderUpdateVM
     {
-        public Guid? ModifieBy { get; set; }
+        public string? ModifieBy { get; set; }
         public int HexCode { get; set; }
         public string? VoucherCode { get; set; }
 

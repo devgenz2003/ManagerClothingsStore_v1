@@ -42,6 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
             unitPriceCell.textContent = formatCurrency(product.UnitPrice);
             row.appendChild(unitPriceCell);
 
+            var discountCell = document.createElement("td");
+            discountCell.textContent = formatCurrency(product.DiscountedPrice);
+            row.appendChild(discountCell);
+            console.log(formatCurrency(product.DiscountedPrice));
+
             var totalPriceCell = document.createElement("td");
             totalPriceCell.textContent = formatCurrency(product.TotalPrice);
             row.appendChild(totalPriceCell);
@@ -51,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         var noProductRow = document.createElement("tr");
         var noProductCell = document.createElement("td");
-        noProductCell.setAttribute("colspan", "7");
+        noProductCell.setAttribute("colspan", "8");
         noProductCell.textContent = "Không có sản phẩm nào được chọn.";
         noProductRow.appendChild(noProductCell);
         tableBody.appendChild(noProductRow);
@@ -113,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var paymentMethod = parseInt(document.querySelector('input[name="PaymentMethod"]:checked').value, 10);
         var notes = document.getElementById("Notes").value.trim();
         var IDUser = document.getElementById("iduser").value;
-        
+
         if (customerName === "" || customerPhone === "" || customerEmail === "" || shippingMethod === "" ||
             shippingAddress === "" || paymentMethod === "") {
             Swal.fire({
@@ -181,54 +186,114 @@ document.addEventListener("DOMContentLoaded", function () {
                     OrderVariantCreateVM: productData
                 };
                 var token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1");
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "https://localhost:7108/api/Order/create", true);
-                xhr.open('POST', '/CreatePaymentUrl', true);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                xhr.setRequestHeader("Authorization", "Bearer " + token);
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            if (paymentMethod === 0) {
-                                try {
-                                    var response = JSON.parse(xhr.responseText);
+                function sendCreatePaymentUrlRequest() {
+                    return new Promise((resolve, reject) => {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/CreatePaymentUrl', true);
+                        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
 
-                                    if (!response || !response.paymentUrl) {
-                                        Swal.fire('Lỗi', 'Không lấy được URL thanh toán. Vui lòng thử lại sau.', 'error');
-                                    } else {
-                                        var PaymentUrl = response.paymentUrl;
-                                        window.location.href = PaymentUrl;
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+                                    try {
+                                        var response = JSON.parse(xhr.responseText);
+
+                                        if (!response || !response.paymentUrl) {
+                                            reject('Không lấy được URL thanh toán. Vui lòng thử lại sau.');
+                                        } else {
+                                            var PaymentUrl = response.paymentUrl;
+                                            resolve(PaymentUrl);
+                                        }
+                                    } catch (error) {
+                                        reject('Lỗi khi phân tích JSON: ' + error);
                                     }
-                                } catch (error) {
-                                    console.error('Error parsing JSON:', error);
+                                } else {
+                                    reject('Đặt hàng không thành công. Vui lòng thử lại sau.');
                                 }
                             }
-                            else {
-                                Swal.fire({
-                                    title: 'Thành công',
-                                    text: 'Đơn hàng đã được đặt thành công.',
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonText: 'Xác nhận',
-                                    timer: 5000,
-                                    timerProgressBar: true,
-                                    willClose: () => {
-                                        window.location.href = '/order_list'; 
-                                    }
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = '/order_list'; 
-                                    }
-                                });
-                            }
-                        } else {
-                            Swal.fire('Lỗi', 'Đặt hàng không thành công. Vui lòng thử lại sau.', 'error');
-                        }
-                    }
-                };
+                        };
 
-                xhr.send(JSON.stringify(formData));
+                        xhr.send(JSON.stringify(formData));
+                    });
+                }
+
+                function sendCreateOrderRequest() {
+                    return new Promise((resolve, reject) => {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "https://localhost:7108/api/Order/create", true);
+                        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+                                    resolve();
+                                } else {
+                                    reject('Đặt hàng không thành công. Vui lòng thử lại sau.');
+                                }
+                            }
+                        };
+
+                        xhr.send(JSON.stringify(formData));
+                    });
+                }
+
+                if (paymentMethod === 0) {
+                    sendCreatePaymentUrlRequest()
+                        .then((PaymentUrl) => {
+                            window.location.href = PaymentUrl;
+                            return sendCreateOrderRequest();
+                        })
+                        .catch((error) => {
+                            Swal.fire('Lỗi', error, 'error');
+                        });
+                } else {
+                    sendCreateOrderRequest()
+                        .then(() => {
+                            Swal.fire({
+                                title: 'Thành công',
+                                text: 'Đơn hàng đã được đặt thành công.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonText: 'Xác nhận',
+                                timer: 5000,
+                                timerProgressBar: true,
+                                willClose: () => {
+                                    var hexcode = document.getElementById("HexCode").value;
+                                    var finalTotalAmount = document.getElementById("FinalTotalAmount").value;
+                                    var data = {
+                                        recipientEmail: customerEmail,
+                                        subject: "Xác nhận đơn hàng thành công",
+                                        message: `Mã đơn hàng ${hexcode} tổng giá trị ${finalTotalAmount} đã được đặt thành công`
+                                    };
+                                    fetch('https://localhost:7108/api/Email/send-email', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(data)
+                                    })
+                                        .then(response => {
+                                            if (response.ok) {
+                                                return response.json();
+                                            }
+                                            throw new Error('Failed to send email.');
+                                        })
+                                        .then(() => {
+                                            window.location.href = '/order_list';
+                                        })
+                                        .catch((error) => {
+                                            Swal.fire('Lỗi', error, 'error');
+                                        });
+                                }
+                            });
+                        })
+                        .catch((error) => {
+                            Swal.fire('Lỗi', error, 'error');
+                        });
+                }
             }
         });
     });

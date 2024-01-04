@@ -11,6 +11,8 @@
 }
 
 <div class="row">
+    <hr />
+
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div id="pagination">
@@ -131,10 +133,10 @@
                                 @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
                                 @Html.ActionLink("Hoá đơn", "PrintOrderPdf", "Order", new { ID = item.ID }, new { @class = "btn btn-info" })
                             }
-                            else
+                            else if(item.OrderStatus != OrderStatus.Returned)
                             {
                                 @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
-                                @Html.ActionLink("Huỷ đơn", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                <button class="btn btn-danger" onclick="markAsCancelled('@item.ID')">Huỷ đơn</button>
                             }
                         </td>
                     </tr>
@@ -146,44 +148,6 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var buttons = document.querySelectorAll('.btn-page');
-        buttons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                var status = this.getAttribute('data-status');
-                var allRows = document.querySelectorAll('tbody tr');
-
-                buttons.forEach(function (btn) {
-                    btn.classList.remove('active');
-                });
-
-                this.classList.add('active');
-
-                if (status === 'all') {
-                    allRows.forEach(function (row) {
-                        row.style.display = 'table-row';
-                    });
-                } else {
-                    allRows.forEach(function (row) {
-                        var dataStatus = row.getAttribute('data-status');
-                        if (dataStatus === status) {
-                            row.style.display = 'table-row';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                }
-            });
-        });
-
-        // Hiển thị tất cả đơn hàng khi trang được tải
-        var allRows = document.querySelectorAll('tbody tr');
-        allRows.forEach(function (row) {
-            row.style.display = 'table-row';
-        });
-    });
-</script>
 
 <div class="pagination-container">
     <ul id="pagination" class="pagination">
@@ -207,25 +171,5 @@
         }
     </ul>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var pagination = document.getElementById('pagination');
-        pagination.addEventListener('click', function (e) {
-            e.preventDefault();
-            var pageUrl = e.target.getAttribute('href');
-            loadPage(pageUrl);
-        });
-
-        function loadPage(url) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    document.body.innerHTML = xhr.responseText;
-                } 
-            };
-            xhr.send();
-        }
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/Order/order_index.js"></script>

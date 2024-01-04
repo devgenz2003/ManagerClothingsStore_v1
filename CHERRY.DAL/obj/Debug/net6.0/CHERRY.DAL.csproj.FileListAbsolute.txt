@@ -898,6 +898,7 @@ C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\CHERRY.DAL.AssemblyInfoInputs.cache
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\CHERRY.DAL.AssemblyInfo.cs
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\CHERRY.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\CHERRY.DAL.sourcelink.json
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\CHERRY.DAL.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\refint\CHERRY.DAL.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.DAL\obj\Debug\net6.0\CHERRY.DAL.pdb

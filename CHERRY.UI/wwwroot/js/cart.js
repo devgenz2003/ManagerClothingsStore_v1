@@ -1,5 +1,4 @@
 ﻿document.getElementById('paymentButton').addEventListener('click', function () {
-    // SweetAlert2 để xác nhận
     Swal.fire({
         title: 'Bạn có chắc không?',
         text: "Bạn có muốn tiếp tục thanh toán không?",
@@ -10,7 +9,6 @@
         confirmButtonText: 'Có, tiếp tục!'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Thu thập dữ liệu
             var selectedProducts = [];
             document.querySelectorAll("input[name='selectedProducts']:checked").forEach(function (checkbox) {
                 var row = checkbox.closest('tr');
@@ -19,8 +17,14 @@
                 var productName = row.querySelector('.cart-product-name-info .cart-product-description a').textContent;
                 var colorName = row.querySelector('.product-color span').textContent;
                 var sizeName = row.querySelector('.product-color span').textContent;
-                var unitPrice = row.querySelector('.cart-product-sub-total .cart-sub-total-price').textContent;
-                var totalPrice = row.querySelector('.cart-product-grand-total .cart-grand-total-price').textContent;
+                var unitPriceElement = row.querySelector('.cart-product-sub-total .cart-sub-total-price');
+                var unitPrice = unitPriceElement.textContent.trim();
+
+                var discountedElement = row.querySelector('.cart-product-discounted-total .cart-grand-total-price');
+                var discounted = discountedElement.textContent.trim();
+
+                var totalPriceElement = row.querySelector('.cart-product-grand-total .cart-grand-total-price');
+                var totalPrice = totalPriceElement.textContent.trim();
 
                 selectedProducts.push({
                     IDOptions: productID,
@@ -29,12 +33,12 @@
                     SizeName: sizeName,
                     Quantity: quantity,
                     TotalPrice: totalPrice,
+                    DiscountedPrice: discounted,
                     UnitPrice: unitPrice
                 });
             });
 
             sessionStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
-
             window.location.href = "/checkout";
         }
     });

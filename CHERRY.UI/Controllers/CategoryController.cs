@@ -14,7 +14,7 @@ namespace CHERRY.UI.Controllers
             _ICategoriesVariantsRepository = iCategoriesVariantsRepository;
         }
         [HttpGet]
-        [Route("category_list")]
+        //[Route("category_list")]
         public async Task<IActionResult> Index()
         {
             try

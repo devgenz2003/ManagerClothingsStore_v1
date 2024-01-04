@@ -773,7 +773,6 @@ C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Drawing.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Drawing.Primitives.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Dynamic.Runtime.dll
-C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Formats.Asn1.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Globalization.Calendars.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Globalization.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Globalization.Extensions.dll
@@ -862,7 +861,6 @@ C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Security.SecureString.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.ServiceModel.Web.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.ServiceProcess.dll
-C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Text.Encoding.CodePages.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Text.Encoding.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Text.Encoding.Extensions.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\bin\Debug\net6.0\refs\System.Text.Encodings.Web.dll
@@ -901,6 +899,7 @@ C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\CHERRY.BUS.AssemblyInfoInputs.cache
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\CHERRY.BUS.AssemblyInfo.cs
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\CHERRY.BUS.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\CHERRY.BUS.sourcelink.json
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\CHERRY.BUS.csproj.CopyComplete
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\CHERRY.BUS.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.BUS\obj\Debug\net6.0\refint\CHERRY.BUS.dll

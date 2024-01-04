@@ -1,0 +1,153 @@
+﻿@model CHERRY.BUS.ViewModels.Variants.VariantsUpdateVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    var datavariant = ViewBag.Variant as CHERRY.BUS.ViewModels.Variants.VariantsVM;
+
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" id="edit_form" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input value="@ViewBag.IDVariant" hidden id="idvariant"/>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDCategory" class="control-label">Danh mục</label>
+                        <select asp-for="IDCategory" class="form-control">
+                            <option value="">-- Select --</option>
+                            @foreach (var CategoryItem in ViewBag.Category)
+                            {
+                                <option value="@CategoryItem.ID">@CategoryItem.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDCategory" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label">Danh mục</label>
+                        <input asp-for="CategoryName" value="@datavariant.CategoryName" data-initial-value="@datavariant.CategoryName" class="form-control" id="CategoryName" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDBrand" class="control-label">Thương hiệu</label>
+                        <select asp-for="IDBrand" class="form-control" id="IDBrand" >
+                            <option value="">-- Select --</option>
+
+                            @foreach (var BrandItem in ViewBag.Brand)
+                            {
+                                <option value="@BrandItem.ID">@BrandItem.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDBrand" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="BrandName" class="control-label">Thương hiệu</label>
+                        <input asp-for="BrandName" data-initial-value="@datavariant.BrandName" value="@datavariant.BrandName" class="form-control" id="BrandName" />
+                        <span asp-validation-for="BrandName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="IDMaterial" class="control-label">ID chất liệu</label>
+                        <select asp-for="IDMaterial" class="form-control" id="IDMaterial">
+                            <option value="">-- Select --</option>
+
+                            @foreach (var MaterialItem in ViewBag.Material)
+                            {
+                                <option value="@MaterialItem.ID">@MaterialItem.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IDMaterial" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MaterialName" class="control-label">Chất liệu</label>
+                        <input asp-for="MaterialName" data-initial-value="@datavariant.MaterialName" value="@datavariant.MaterialName" class="form-control" id="MaterialName" />
+                        <span asp-validation-for="MaterialName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VariantName" class="control-label"></label>
+                <input asp-for="VariantName" value="@datavariant.VariantName" data-initial-value="@datavariant.VariantName" id="VariantName" class="form-control" />
+                <span asp-validation-for="VariantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" value="@datavariant.Description" id="Description" data-initial-value="@datavariant.Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Style" class="control-label"></label>
+                <input asp-for="Style" value="@datavariant.Style" id="Style" class="form-control" data-initial-value="@datavariant.Style" />
+                <span asp-validation-for="Style" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Origin" class="control-label"></label>
+                <input asp-for="Origin" value="@datavariant.Origin" id="Origin" class="form-control" data-initial-value="@datavariant.Origin" />
+                <span asp-validation-for="Origin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePaths" class="control-label">Hình ảnh</label>
+                @if (@datavariant.ImagePaths != null && @datavariant.ImagePaths.Any())
+                {
+                    foreach (var imagePath in @datavariant.ImagePaths)
+                    {
+                        <img src="@imagePath" alt="Hình ảnh" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;" />
+                    }
+                }
+                <input asp-for="ImagePaths" type="file" id="ImagePaths" data-initial-value="@datavariant.ImagePaths" multiple class="form-control" />
+                <span asp-validation-for="ImagePaths" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SKU_v2" class="control-label"></label>
+                <input asp-for="SKU_v2" value="@datavariant.SKU_v2" id="SKU_v2" class="form-control" data-initial-value="@datavariant.SKU_v2" />
+                <span asp-validation-for="SKU_v2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label">Trạng thái</label>
+                <select asp-for="Status" asp-items="@GetStatusSelectList(datavariant.Status)" class="form-control" data-initial-value="@GetStatusSelectList(datavariant.Status)"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+@functions {
+    public SelectList GetStatusSelectList(int selectedValue)
+    {
+        var statusList = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "0", Text = "Ẩn" },
+            new SelectListItem { Value = "1", Text = "Đăng bán" }
+        };
+
+        return new SelectList(statusList, "Value", "Text", selectedValue.ToString());
+    }
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script src="/js/Variant/variant_create.js"></script>

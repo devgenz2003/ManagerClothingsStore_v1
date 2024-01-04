@@ -9,7 +9,7 @@ namespace CHERRY.DAL.Entities
         public string? FirstName { get; set; }
         public string? MiddleName { get; set; }
         public string? SurName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public int Gender { get; set; }
         public int Status { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

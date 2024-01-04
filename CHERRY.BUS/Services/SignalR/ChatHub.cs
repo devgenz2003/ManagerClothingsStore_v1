@@ -51,41 +51,41 @@ namespace CHERRY.BUS.Services.SignalR
             }
         }
 
-        public async Task Join(string roomName)
-        {
-            try
-            {
-                var user = _Connections.Where(u => u.UserName == IdentityName).FirstOrDefault();
-                if (user != null && user.CurrentRoom != roomName)
-                {
-                    // Remove user from others list
-                    if (!string.IsNullOrEmpty(user.CurrentRoom))
-                        await Clients.OthersInGroup(user.CurrentRoom).SendAsync("removeUser", user);
+        //public async Task Join(string roomName)
+        //{
+        //    try
+        //    {
+        //        var user = _Connections.Where(u => u.UserName == IdentityName).FirstOrDefault();
+        //        if (user != null && user.CurrentRoom != roomName)
+        //        {
+        //            // Remove user from others list
+        //            if (!string.IsNullOrEmpty(user.CurrentRoom))
+        //                await Clients.OthersInGroup(user.CurrentRoom).SendAsync("removeUser", user);
 
-                    // Join to new chat room
-                    await Leave(user.CurrentRoom);
-                    await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
-                    user.CurrentRoom = roomName;
+        //            // Join to new chat room
+        //            await Leave(user.CurrentRoom);
+        //            await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
+        //            user.CurrentRoom = roomName;
 
-                    // Tell others to update their list of users
-                    await Clients.OthersInGroup(roomName).SendAsync("addUser", user);
-                }
-            }
-            catch (Exception ex)
-            {
-                await Clients.Caller.SendAsync("onError", "You failed to join the chat room!" + ex.Message);
-            }
-        }
+        //            // Tell others to update their list of users
+        //            await Clients.OthersInGroup(roomName).SendAsync("addUser", user);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await Clients.Caller.SendAsync("onError", "You failed to join the chat room!" + ex.Message);
+        //    }
+        //}
 
         public async Task Leave(string roomName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
         }
 
-        public IEnumerable<UserVM> GetUsers(string roomName)
-        {
-            return _Connections.Where(u => u.CurrentRoom == roomName).ToList();
-        }
+        //public IEnumerable<UserVM> GetUsers(string roomName)
+        //{
+        //    return _Connections.Where(u => u.CurrentRoom == roomName).ToList();
+        //}
 
         //public override Task OnConnectedAsync()
         //{
@@ -130,7 +130,7 @@ namespace CHERRY.BUS.Services.SignalR
                 _Connections.Remove(user);
 
                 // Tell other users to remove you from their list
-                Clients.OthersInGroup(user.CurrentRoom).SendAsync("removeUser", user);
+                //Clients.OthersInGroup(user.CurrentRoom).SendAsync("removeUser", user);
 
                 // Remove mapping
                 _ConnectionsMap.Remove(user.UserName);

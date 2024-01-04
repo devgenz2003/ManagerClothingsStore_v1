@@ -61,9 +61,6 @@
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://localhost:7108/api/Review/create');
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
 
         xhr.onload = function () {
 
@@ -75,7 +72,7 @@
                 });
             } else {
                 console.error("Error:", xhr.statusText);
-                Swal.fire('Lỗi!', 'Có lỗi xảy ra khi gửi dữ liệu. Mã lỗi: ' + xhr.status, 'error');
+                Swal.fire('Lỗi!', 'Có lỗi xảy ra khi gửi dữ liệu. Mã lỗi: ' + xhr.status + '. ' + xhr.responseText, 'error');
             }
         };
         xhr.onerror = function () {

@@ -1,4 +1,6 @@
 ﻿using CHERRY.BUS.Services._1_Interfaces;
+using CHERRY.BUS.Services._2_Implements;
+using CHERRY.BUS.ViewModels.User;
 using CHERRY.BUS.ViewModels.Variants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -16,6 +18,28 @@ namespace CHERRY.API.Controllers
             _IVariantsService = IVariantsService ?? throw new ArgumentNullException(nameof(IVariantsService));
             _cache = cache;
         }
+        [HttpPut]
+        [Route("Update/{ID}")]
+        public async Task<IActionResult> Update(Guid ID, [FromForm] VariantsUpdateVM request)
+        {
+            try
+            {
+                var user = await _IVariantsService.GetByIDAsync(ID);
+
+                if (user != null)
+                {
+                    var data = await _IVariantsService.UpdateAsync(ID, request);
+                    return Ok(data);
+                }
+
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi không thể cập nhật: {ex.Message}");
+            }
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> Create([FromForm] VariantsCreateVM request)

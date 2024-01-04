@@ -1,6 +1,7 @@
 ﻿using CHERRY.BUS.Services._1_Interfaces;
 using CHERRY.BUS.ViewModels.CategoriesVariants;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CHERRY.API.Controllers
 {
@@ -40,7 +41,32 @@ namespace CHERRY.API.Controllers
 
             return Ok(objCollection);
         }
-
+        [HttpGet("priceRange")]
+        public async Task<ActionResult<List<CategoriesVariantsVM>>> GetVariantsWithinPriceRange(decimal minPrice, decimal maxPrice)
+        {
+            try
+            {
+                var variantsInRange = await _ICategoriesVariantsService.GetMinMaxRetails(minPrice, maxPrice);
+                return variantsInRange;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpGet("{IDCategory}/minMaxPrices")]
+        public async Task<ActionResult<Tuple<decimal, decimal>>> GetMinMaxPricesForCategory(Guid IDCategory)
+        {
+            try
+            {
+                var prices = await _ICategoriesVariantsService.GetMinMaxPricesForCategory(IDCategory);
+                return prices;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
         [HttpGet]
         [Route("{IDVariant}/{IDCategory}")]
         public async Task<IActionResult> GetByIdAsync(Guid IDVariant, Guid IDCategory)

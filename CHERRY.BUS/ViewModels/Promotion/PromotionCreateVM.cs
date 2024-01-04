@@ -20,6 +20,6 @@ namespace CHERRY.BUS.ViewModels.Promotion
         public decimal DiscountAmount { get; set; }
         public Types Type { get; set; }
         public int Status { get; set; } = 1;
-        public List<Guid> SelectedVariantIds { get; set; } = new List<Guid>();
+        public List<Guid> SelectedVariantIds { get; set; } 
     }
 }

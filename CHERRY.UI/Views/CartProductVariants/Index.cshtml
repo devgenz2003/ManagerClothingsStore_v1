@@ -45,6 +45,7 @@
                                     <th class="cart-product-name item">Sản phẩm</th>
                                     <th class="cart-qty item">Số lượng</th>
                                     <th class="cart-sub-total item">Giá bán</th>
+                                    <th class="cart-sub-discounted item">Giảm giá</th>
                                     <th class="cart-total last-item">Tổng cộng</th>
                                     <th>Tuỳ chọn</th>
                                 </tr>
@@ -108,6 +109,9 @@
                                             <td class="cart-product-sub-total">
                                                 <span class="cart-sub-total-price">@Currency.FormatCurrency(item.UnitPrice.ToString()) vnđ</span>
                                             </td>
+                                            <td class="cart-product-discounted-total">
+                                                <span class="cart-grand-total-price">@Currency.FormatCurrency(item.DiscountedPrice.ToString()) vnđ</span>
+                                            </td> 
                                             <td class="cart-product-grand-total">
                                                 <span class="cart-grand-total-price">@Currency.FormatCurrency(item.Total_Amount.ToString()) vnđ</span>
                                             </td>

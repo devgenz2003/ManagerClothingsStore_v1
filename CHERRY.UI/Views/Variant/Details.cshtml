@@ -7,6 +7,51 @@
     HashSet<string> uniqueSizes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 }
 <style>
+    /* CSS cho phần review */
+    .review-item {
+        border: 1px solid #ddd; /* Đường viền cho mỗi review */
+        margin-bottom: 15px; /* Khoảng cách giữa các review */
+        padding: 10px; /* Khoảng cách bên trong mỗi review */
+    }
+
+    .username {
+        font-weight: bold; /* Đậm chữ cho tên người đánh giá */
+    }
+
+    .create-date {
+        color: #666; /* Màu chữ nhẹ cho ngày tạo đánh giá */
+        font-size: 0.9em; /* Kích thước chữ nhỏ hơn cho ngày tạo đánh giá */
+    }
+
+    .content {
+        margin-top: 5px; /* Khoảng cách giữa tên người đánh giá và nội dung đánh giá */
+        /* Các thiết lập khác cho nội dung đánh giá */
+    }
+
+    .rating {
+        color: #FFD700; /* Màu vàng cho xếp hạng */
+        /* Các thiết lập khác cho xếp hạng */
+    }
+
+    /* CSS cho hình ảnh đánh giá */
+    .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px; /* Khoảng cách giữa các hình ảnh */
+    }
+
+    .review-image {
+        max-width: 100px; /* Độ rộng tối đa của mỗi hình ảnh */
+        max-height: 100px; /* Độ cao tối đa của mỗi hình ảnh */
+        border: 1px solid #ccc; /* Viền xung quanh hình ảnh */
+        border-radius: 5px; /* Bo tròn góc cho hình ảnh */
+    }
+
+    .no-review {
+        font-style: italic; /* In nghiêng cho thông báo không có đánh giá */
+        color: #888; /* Màu chữ nhẹ hơn */
+    }
+
     #description .product-tab dl {
         margin: 0;
         padding: 0;
@@ -181,7 +226,7 @@
                                         <div class="row">
                                             <div class="col-md-6" style="text-align: center">
                                                 <form method="post" action="/CartProductVariants/AddToCart" id="add-to-cart-form">
-                                                    <input type="hidden" name="IDOptions" id="IDOptionsInput" value="Giá trị mặc định hoặc để trống" />
+                                                    <input type="hidden" name="IDOptions" id="IDOptionsInput" value="" />
                                                     <input type="number" hidden name="Quantity" id="quantityInput" value="1" min="1" />
                                                     <button class="btn btn-primary cart-btn" type="button" id="add-to-cart-button">Thêm vào giỏ hàng</button>
                                                 </form>
@@ -235,11 +280,35 @@
                                         <div class="product-tab">
                                             <div class="review-form">
                                                 <div class="form-container">
-                                                    <p>Phần này để hiện feedback</p>
-                                                </div><!-- /.form-container -->
-                                            </div><!-- /.review-form -->
-                                        </div><!-- /.product-add-review -->
-                                    </div><!-- /.product-tab -->
+                                                    <div>
+                                                        @if (Model.LstReviewVM != null)
+                                                        {
+                                                            @foreach (var item in Model.LstReviewVM)
+                                                            {
+                                                                <div class="review-item">
+                                                                    <div class="username">@item.Username</div>
+                                                                    <div class="create-date">@item.CreateDate</div>
+                                                                    <div class="content">@item.Content</div>
+                                                                    <div class="rating">@item.Rating</div>
+                                                                    <div class="image-container">
+                                                                        @foreach (var imagePath in item.ImagePaths)
+                                                                        {
+                                                                            <img class="review-image" src="@imagePath" alt="Review Image" />
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="no-review">Chưa có đánh giá cho sản phẩm này</p>
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div><!-- /.tab-pane -->
                             </div><!-- /.tab-content -->
                         </div><!-- /.col -->
@@ -249,7 +318,6 @@
             <div class="clearfix"></div>
         </div><!-- /.row -->
     </div><!-- /.container -->
-    </div><!-- /.body-content -->
 </body>
 <script src="/js/details.js"></script>
 <script>
@@ -323,14 +391,14 @@
         }
     }
     document.addEventListener("DOMContentLoaded", function () {
-        var idOptionsValue = "Giá trị cần thiết";
+        var idOptionsValue = "";
 
         const addToCartButton = document.getElementById("addToCart");
         addToCartButton.addEventListener("click", function (e) {
             e.preventDefault();
 
             const idOptionsInput = document.getElementById('IDOptionsInput');
-            idOptionsInput.value = idOptionsValue; 
+            idOptionsInput.value = idOptionsValue;
             const quantityInput = document.getElementById("quantity");
             if (quantityInput) {
                 const quantity = quantityInput.value;
@@ -433,6 +501,5 @@
             }
         });
     });
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

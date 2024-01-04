@@ -15,6 +15,9 @@ namespace CHERRY.BUS.ViewModels.Order
         public string CustomerPhone { get; set; } = null!; // Số điện thoại khách hàng
         public string CustomerEmail { get; set; } = null!;// Địa chỉ email khách hàng
         public string ShippingAddress { get; set; }
+        public string? Province { get; set; }
+        public string? District { get; set; }
+        public string? Ward { get; set; }
         public string? ShippingAddressLine2 { get; set; }
         public DateTime ShipDate { get; set; } = DateTime.UtcNow.AddDays(3);
         public decimal TotalAmount { get; set; }

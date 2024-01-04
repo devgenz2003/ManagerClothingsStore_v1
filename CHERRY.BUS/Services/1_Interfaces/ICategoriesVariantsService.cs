@@ -10,5 +10,8 @@ namespace CHERRY.BUS.Services._1_Interfaces
         public Task<bool> CreateAsync(CategoriesVariantsCreateVM request);
         public Task<bool> RemoveAsync(Guid IDVariant, Guid IDCategory, string IDUserdelete);
         public Task<bool> UpdateAsync(Guid ID, CategoriesVariantsUpdateVM request);
+        public Task<List<CategoriesVariantsVM>> GetMinMaxRetails(decimal MinPrice, decimal MaxPrice);
+        public Task<Tuple<decimal, decimal>> GetMinMaxPricesForCategory(Guid IDCategory);
+
     }
 }

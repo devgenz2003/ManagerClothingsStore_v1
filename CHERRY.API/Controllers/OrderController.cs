@@ -70,13 +70,24 @@ namespace CHERRY.API.Controllers
             if (orders == null) return NotFound();
             return Ok(orders);
         }
-        [HttpGet("date")]
-        public async Task<IActionResult> GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        [HttpGet("bydate")]
+        public async Task<IActionResult> GetByDateRange([FromQuery] string startDate, [FromQuery] string endDate)
         {
-            var orders = await _orderService.GetByDateRangeAsync(startDate, endDate);
-            if (orders == null) return NotFound();
+            if (!DateTime.TryParse(startDate, out DateTime parsedStartDate) ||
+                !DateTime.TryParse(endDate, out DateTime parsedEndDate))
+            {
+                return BadRequest("Invalid date format");
+            }
+
+            var orders = await _orderService.GetByDateRangeAsync(parsedStartDate, parsedEndDate);
+            if (orders == null || !orders.Any())
+            {
+                return NotFound();
+            }
+
             return Ok(orders);
         }
+
         [HttpGet("GetByID/{ID}")]
         public async Task<IActionResult> GetByID(Guid ID)
         {
@@ -105,17 +116,18 @@ namespace CHERRY.API.Controllers
             if (!result) return BadRequest();
             return Ok();
         }
-        [HttpPut("MarkAsReturned/{ID_Order}")]
-        public async Task<IActionResult> MarkAsReturned(Guid ID_Order)
+        [HttpPut("MarkAsReturned/{IDOrder}")]
+        public async Task<IActionResult> MarkAsReturned(Guid IDOrder)
         {
-            var result = await _orderService.MarkAsReturnedAsync(ID_Order);
+            var result = await _orderService.MarkAsReturnedAsync(IDOrder);
             if (!result) return BadRequest();
             return Ok();
         }
-        [HttpPut("MarkAsShipped/{ID_Order}")]
-        public async Task<IActionResult> MarkAsShipped(Guid ID_Order)
+        [HttpPut]
+        [Route("MarkAsPaymentSuccessAsync/{HexCode}")]
+        public async Task<IActionResult> MarkAsPaymentSuccessAsync(string HexCode)
         {
-            var result = await _orderService.MarkAsShippedAsync(ID_Order);
+            var result = await _orderService.MarkAsPaymentSuccessAsync(HexCode);
             if (!result) return BadRequest();
             return Ok();
         }
@@ -126,7 +138,8 @@ namespace CHERRY.API.Controllers
             if (!result) return BadRequest();
             return Ok();
         }
-        [HttpPut("{ID}")]
+        [HttpPut]
+        [Route("Update/{ID}")]
         public async Task<IActionResult> Update(Guid ID, [FromBody] OrderUpdateVM request)
         {
             if (request == null) return BadRequest("Request is null.");

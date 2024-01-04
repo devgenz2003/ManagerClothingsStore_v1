@@ -138,43 +138,43 @@ namespace CHERRY.UI.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
         }
-        [HttpPost]
-        [Route("MarkAsShipped")]
-        public async Task<IActionResult> MarkAsShipped(Guid ID_Order)
-        {
-            try
-            {
-                var order = await _IOrderRepository.GetByIDAsync(ID_Order);
+        //[HttpPost]
+        //[Route("MarkAsShipped")]
+        //public async Task<IActionResult> MarkAsShipped(Guid ID_Order)
+        //{
+        //    try
+        //    {
+        //        var order = await _IOrderRepository.GetByIDAsync(ID_Order);
 
-                if (order == null)
-                {
-                    TempData["ErrorMessage"] = "";
-                    return RedirectToAction("Index");
-                }
+        //        if (order == null)
+        //        {
+        //            TempData["ErrorMessage"] = "";
+        //            return RedirectToAction("Index");
+        //        }
 
-                // Kiểm tra nếu đơn hàng đã hoàn thành
-                if (order.OrderStatus == OrderStatus.Cancelled || order.OrderStatus == OrderStatus.Returned || order.OrderStatus == OrderStatus.Delivered)
-                {
-                    TempData["ErrorMessage"] = "";
-                    return RedirectToAction("Index");
-                }
+        //        // Kiểm tra nếu đơn hàng đã hoàn thành
+        //        if (order.OrderStatus == OrderStatus.Cancelled || order.OrderStatus == OrderStatus.Returned || order.OrderStatus == OrderStatus.Delivered)
+        //        {
+        //            TempData["ErrorMessage"] = "";
+        //            return RedirectToAction("Index");
+        //        }
 
-                var success = await _IOrderRepository.MarkAsShippedAsync(ID_Order);
+        //        var success = await _IOrderRepository.MarkAsPaymentSuccessAsync(ID_Order);
 
-                if (!success)
-                {
-                    TempData["ErrorMessage"] = "";
-                    return RedirectToAction("Index");
-                }
+        //        if (!success)
+        //        {
+        //            TempData["ErrorMessage"] = "";
+        //            return RedirectToAction("Index");
+        //        }
 
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = $"Lỗi: {ex.Message}";
-                return RedirectToAction("Index");
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["ErrorMessage"] = $"Lỗi: {ex.Message}";
+        //        return RedirectToAction("Index");
+        //    }
+        //}
         [HttpPost]
         [Route("MarkAsDelivered")]
         public async Task<IActionResult> MarkAsDelivered(Guid ID_Order)

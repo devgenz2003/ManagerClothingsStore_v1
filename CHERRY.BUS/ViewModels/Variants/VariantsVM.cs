@@ -4,9 +4,11 @@ namespace CHERRY.BUS.ViewModels.Variants
 {
     public class VariantsVM
     {
+        public DateTime CreateDate { get; set; }
         public string VariantName { get; set; }
         public string BrandName { get; set; } = null!;
         public string MaterialName { get; set; } = null!;
+        public string CategoryName { get; set; } = null!;
         public decimal Minprice { get; set; }
         public decimal Maxprice { get; set; }
         public int TotalOptions { get; set; }
@@ -15,6 +17,7 @@ namespace CHERRY.BUS.ViewModels.Variants
         public Guid ID { get; set; }
         public Guid IDBrand { get; set; }
         public Guid IDMaterial { get; set; }
+        public Guid IDCategory { get; set; }
         public string Description { get; set; } = null!;
         public string? SizeName { get; set; } 
         public string? ColorName { get; set; } 

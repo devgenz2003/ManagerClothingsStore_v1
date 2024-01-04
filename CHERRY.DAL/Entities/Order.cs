@@ -49,7 +49,7 @@ namespace CHERRY.DAL.Entities
     }
     public enum OrderStatus
     {
-        Pending,        //Chưa giải quyết,
+        Pending,        //Chưa giải quyết
         Processing,     //Xử lý
         Shipped,        //Đã vận chuyển
         Delivered,      //Đã giao hàng <=> success

@@ -44,17 +44,8 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         [HttpPost]
         [Route("create_promotion")]
         public async Task<IActionResult> Create(PromotionCreateVM request)
-        {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
-            var data = await _IPromotionRepository.CreateAsync(request);
-            if (data)
-            {
-                return View("~/Areas/Admin/Views/ManagerPromotion/Index.cshtml", data);
-            }
-            return BadRequest();
+        {            
+            return View();
         }
         [HttpGet]
         [Route("details_promotion")]

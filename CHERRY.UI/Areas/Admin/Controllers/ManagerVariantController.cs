@@ -136,6 +136,28 @@ namespace CHERRY.UI.Areas.Admin.Controllers
             }
         }
         [HttpGet]
+        [Route("update_variant")]
+        public async Task<IActionResult> Edit(Guid ID)
+        {
+            var category = await _ICategoryRespository.GetAllActiveAsync();
+            ViewBag.Category = category;
+            ViewBag.IDVariant = ID;
+            var brand = await _IBrandRepository.GetAllActiveAsync();
+            ViewBag.Brand = brand;
+
+            var material = await _IMaterialRepository.GetAllActiveAsync();
+            ViewBag.Material = material;
+            var data = await _IVariantRepository.GetByIDAsync(ID);
+            ViewBag.Variant = data;
+            return View("~/Areas/Admin/Views/ManagerVariant/Edit.cshtml");
+        }
+        [HttpPost]
+        [Route("update_variant")]
+        public async Task<IActionResult> Edit()
+        {
+            return View();
+        }
+        [HttpGet]
         [Route("variantlist")]
         public async Task<IActionResult> Index()
         {
@@ -176,21 +198,6 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         [Route("createvariant")]
         public async Task<IActionResult> Create(VariantsCreateVM request)
         {
-            //try
-            //{
-            //    string token = HttpContext.Request.Cookies["token"];
-            //    string userID = ExtractUserIDFromToken(token);
-            //    var isCreated = await _IVariantRepository.CreateAsync(request);
-            //    if (isCreated)
-            //    {
-            //        return View("~/Areas/Admin/Views/ManagerVariant/Index.cshtml", isCreated);
-            //    }
-            //    return BadRequest();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
             return View();
         }
         [HttpGet]

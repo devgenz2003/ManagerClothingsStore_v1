@@ -51,7 +51,45 @@
     .btn-primary:hover {
         background-color: #367fa9;
         border-color: #367fa9;
-    }</style>
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #ddd;
+    }
+
+    .btn-primary.dropdown-toggle {
+        background-color: #6c7ae0;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: white;
+    }
+</style>
 <p>
     <a asp-action="Create">Tạo mới</a>
 </p>

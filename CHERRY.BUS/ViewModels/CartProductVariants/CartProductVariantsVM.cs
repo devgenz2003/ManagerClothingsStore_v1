@@ -11,6 +11,7 @@ namespace CHERRY.BUS.ViewModels.CartProductVariants
         public string? ColorName { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
+        public decimal DiscountedPrice { get; set; }
         public decimal Total_Amount { get; set; }
         public string? Notes { get; set; }
         public string Imagepaths { get; set; } 

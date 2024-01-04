@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using CHERRY.BUS.Services._1_Interfaces;
 using CHERRY.BUS.ViewModels.Promotion;
 using CHERRY.BUS.ViewModels.PromotionVariants;
+using CHERRY.BUS.ViewModels.Variants;
 using CHERRY.DAL.ApplicationDBContext;
 using CHERRY.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -50,23 +51,56 @@ namespace CHERRY.BUS.Services._2_Implements
         }
         public async Task<decimal> ApplyPromotionAsync(Guid ID, decimal originalPrice)
         {
-            var promotion = await _dbContext.Promotion.FindAsync(ID);
-            if (promotion == null) return originalPrice;
+            var promotionVariants = await _dbContext.PromotionVariant
+                .Where(pv => pv.IDPromotion == ID)
+                .ToListAsync();
 
-            switch (promotion.Type)
+            foreach (var promotionVariant in promotionVariants)
             {
-                case Types.Percent:
-                    return originalPrice - (originalPrice * promotion.DiscountAmount / 100);
+                var options = await _dbContext.Options
+                    .Where(opt => opt.IDVariant == promotionVariant.IDVariant)
+                    .ToListAsync();
 
-                case Types.Cash:
-                    return Math.Max(originalPrice - promotion.DiscountAmount, 0);
+                var promotion = await _dbContext.Promotion.FindAsync(ID);
 
-                default:
-                    return originalPrice;
+                if (promotion != null)
+                {
+                    foreach (var option in options)
+                    {
+                        decimal discountAmount = 0;
+
+                        switch (promotion.Type)
+                        {
+                            case Types.Percent:
+                                discountAmount = option.RetailPrice * promotion.DiscountAmount / 100;
+                                break;
+
+                            case Types.Cash:
+                                discountAmount = Math.Min(option.RetailPrice, promotion.DiscountAmount);
+                                break;
+                        }
+
+                        option.DiscountedPrice = discountAmount;
+                    }
+                }
             }
+
+            await _dbContext.SaveChangesAsync();
+
+            return originalPrice;
         }
         public async Task<bool> CreateAsync(PromotionCreateVM request)
         {
+            foreach (var variantId in request.SelectedVariantIds)
+            {
+                var existingPromotionVariant = await _dbContext.PromotionVariant
+                    .FirstOrDefaultAsync(pv => pv.IDVariant == variantId && pv.Status == 1);
+
+                if (existingPromotionVariant != null)
+                {
+                    existingPromotionVariant.Status = 0; 
+                }
+            }
             var newPromotion = new Promotion
             {
                 SKU = request.SKU,
@@ -93,6 +127,18 @@ namespace CHERRY.BUS.Services._2_Implements
                 };
                 await _dbContext.PromotionVariant.AddAsync(promotionVariant);
             }
+            await _dbContext.SaveChangesAsync();
+            foreach (var variantId in request.SelectedVariantIds)
+            {
+                var optionsToUpdate = await _dbContext.Options.Where(opt => opt.IDVariant == variantId).ToListAsync();
+
+                foreach (var optionToUpdate in optionsToUpdate)
+                {
+                    var discountedPrice = await ApplyPromotionAsync(newPromotion.ID, optionToUpdate.RetailPrice);
+                    optionToUpdate.DiscountedPrice = discountedPrice;
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
             return true;
         }

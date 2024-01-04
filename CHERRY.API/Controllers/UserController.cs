@@ -34,7 +34,27 @@ namespace CHERRY.API.Controllers
 
             return NotFound("User not found or role change failed");
         }
+        [HttpPut]
+        [Route("Update/{ID}")]
+        public async Task<IActionResult> Update(string ID, [FromForm] UserUpdateVM request)
+        {
+            try
+            {
+                var user = await _IUserService.GetByIDAsync(ID);
 
+                if (user != null)
+                {
+                    var data = await _IUserService.UpdateAsync(ID, request);
+                    return Ok(data);
+                }
+
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi không thể cập nhật người dùng: {ex.Message}");
+            }
+        }
         [HttpPost]
         [Route("{IDUser}/changepassword")]
         public async Task<IActionResult> ChangePassword(string IDUser, [FromBody] ChangePasswordViewModel request)
@@ -61,7 +81,6 @@ namespace CHERRY.API.Controllers
 
             return Ok(objCollection);
         }
-
         [HttpGet]
         [Route("getallactive")]
         public async Task<IActionResult> GetAllActiveAsync()

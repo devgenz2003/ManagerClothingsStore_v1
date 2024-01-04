@@ -1,6 +1,5 @@
 ﻿using CHERRY.BUS.Services._1_Interface;
 using CHERRY.BUS.Services._1_Interfaces;
-using CHERRY.BUS.Services.SignalR;
 using CHERRY.BUS.ViewModels.Order;
 using CHERRY.DAL.Entities;
 using CHERRY.UI.Areas.Admin.Models;
@@ -15,6 +14,7 @@ using Rotativa.AspNetCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using PagedList;
+using CHERRY.BUS.Services.SignalR;
 namespace CHERRY.UI.Controllers
 {
     public class OrderController : Controller
@@ -72,7 +72,16 @@ namespace CHERRY.UI.Controllers
 
             if (response != null)
             {
-                return View("Success");
+                var markSuccess = await _IOrderRepository.MarkAsPaymentSuccessAsync(response.TransactionId);
+
+                if (markSuccess)
+                {
+                    return View("Success");
+                }
+                else
+                {
+                    return BadRequest("Có lỗi khi cập nhật trạng thái thanh toán!");
+                }
             }
 
             return BadRequest("Có lỗi nhỏ xảy ra!");
@@ -211,7 +220,7 @@ namespace CHERRY.UI.Controllers
             int GenerateHexCode()
             {
                 var now = DateTime.Now;
-                var dateString = now.ToString("yyyyMMdd"); 
+                var dateString = now.ToString("yyyyMMdd");
 
                 var random = new Random();
                 var randomPart = random.Next(1000, 9999);
@@ -250,6 +259,12 @@ namespace CHERRY.UI.Controllers
             {
                 return Json(new { success = false, message = "Xảy ra lỗi khi xử lý đơn hàng." });
             }
+        }
+        [HttpPost]
+        [Route("seen_mail")]
+        public async Task<IActionResult> SeenMail()
+        {
+            return View();
         }
     }
 }

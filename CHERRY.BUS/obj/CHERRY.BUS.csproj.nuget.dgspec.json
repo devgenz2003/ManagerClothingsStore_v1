@@ -77,6 +77,10 @@
               "target": "Package",
               "version": "[1.23.0, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
             "Microsoft.AspNetCore.Authentication": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -112,6 +116,10 @@
             "Microsoft.IdentityModel.Logging": {
               "target": "Package",
               "version": "[6.33.0, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

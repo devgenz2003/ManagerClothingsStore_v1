@@ -23,9 +23,6 @@ namespace CHERRY.BUS.ViewModels.User
         public string PhoneNumber { get; set; } = null!;
         public string? ImagePath { get; set; }
         public int Gender { get; set; }
-        public string CurrentRoom { get; set; }
-        public string Device { get; set; }
-
         public int Status { get; set; } // 0 = Delete
     }
 }

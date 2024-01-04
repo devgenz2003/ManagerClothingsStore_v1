@@ -22,6 +22,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<CHERRY_DBCONTEXT>();
 builder.Services.AddTransient<IVnPayService, VnPayService>();
+builder.Services.AddTransient<IPromotionVariantRepository, PromotionVariantRepository>();
 builder.Services.AddTransient<IColorsRepository, ColorsRepository>();
 builder.Services.AddTransient<ISizesRepository, SizesRepository>();
 builder.Services.AddTransient<IPromotionRepository, PromotionRepository>();

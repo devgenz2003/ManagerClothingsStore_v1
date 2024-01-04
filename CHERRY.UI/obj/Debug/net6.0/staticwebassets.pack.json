@@ -489,6 +489,14 @@
       "PackagePath": "staticwebassets\\js\\Options\\options_create.js"
     },
     {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Order\\order_index.js",
+      "PackagePath": "staticwebassets\\js\\Order\\order_index.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Order\\order_index_admin.js",
+      "PackagePath": "staticwebassets\\js\\Order\\order_index_admin.js"
+    },
+    {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Reivews\\review_create.js",
       "PackagePath": "staticwebassets\\js\\Reivews\\review_create.js"
     },
@@ -509,6 +517,10 @@
       "PackagePath": "staticwebassets\\js\\cart.js"
     },
     {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\category.js",
+      "PackagePath": "staticwebassets\\js\\category.js"
+    },
+    {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\chat.js",
       "PackagePath": "staticwebassets\\js\\chat.js"
     },
@@ -519,6 +531,10 @@
     {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\details.js",
       "PackagePath": "staticwebassets\\js\\details.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\index.js",
+      "PackagePath": "staticwebassets\\js\\index.js"
     },
     {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\login.js",

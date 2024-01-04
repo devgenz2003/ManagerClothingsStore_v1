@@ -85,13 +85,12 @@ namespace CHERRY.BUS.Services._2_Implements
                             IDOptions = option.ID,
                             UnitPrice = option.RetailPrice,
                             Quantity = directItem.Quantity,
-                            TotalAmount = option.RetailPrice * directItem.Quantity,
+                            TotalAmount = (option.RetailPrice * directItem.Quantity) - option.DiscountedPrice.Value,
                             Status = 1,
                             CreateBy  = option.CreateBy
                         };
                         orderDetailsList.Add(ordervariant);
-                        decimal discountValue = directItem.Discount ?? 0;
-                        totalAmount += (ordervariant.UnitPrice * ordervariant.Quantity) - discountValue;
+                        totalAmount += (ordervariant.UnitPrice * ordervariant.Quantity) - option.DiscountedPrice.Value;
 
                     }
                     else
@@ -292,7 +291,6 @@ namespace CHERRY.BUS.Services._2_Implements
 
                 order.OrderStatus = OrderStatus.Delivered;
                 order.PaymentStatus = PaymentStatus.Success;
-                // Tìm tất cả các OrderVariants liên quan và cập nhật trạng thái của chúng
                 var orderVariants = await _dbContext.OrderVariant
                     .Where(ov => ov.IDOrder == IDOrder)
                     .ToListAsync();
@@ -324,16 +322,17 @@ namespace CHERRY.BUS.Services._2_Implements
             await _dbContext.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> MarkAsShippedAsync(Guid IDOrder)
+        public async Task<bool> MarkAsPaymentSuccessAsync(string HexCode)
         {
             var order = await _dbContext.Order
-                               .FirstOrDefaultAsync(o => o.ID == IDOrder);
+                               .FirstOrDefaultAsync(o => o.HexCode == Convert.ToInt32(HexCode));
 
-            if (order == null || order.TrackingCheck)
+            if (order == null)
             {
                 return false;
             }
-            order.OrderStatus = OrderStatus.Shipped;
+            order.PaymentStatus = PaymentStatus.Success;
+
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -372,14 +371,36 @@ namespace CHERRY.BUS.Services._2_Implements
         }
         public async Task<bool> UpdateAsync(Guid ID, OrderUpdateVM request)
         {
-            var order = await _dbContext.Order
-                               .FirstOrDefaultAsync(o => o.ID == ID);
+
+            var order = await _dbContext.Order.FirstOrDefaultAsync(o => o.ID == ID);
 
             if (order == null || order.TrackingCheck)
             {
                 return false;
             }
-            _mapper.Map(request, order);
+
+            order.ModifieBy = request.ModifieBy;
+            order.ModifieDate = DateTime.Now;
+            order.HexCode = request.HexCode;
+            order.VoucherCode = request.VoucherCode;
+            order.IDUser = request.IDUser;
+            order.CustomerName = request.CustomerName;
+            order.CustomerPhone = request.CustomerPhone;
+            order.CustomerEmail = request.CustomerEmail;
+            order.ShippingAddress = request.ShippingAddress;
+            order.ShippingAddressLine2 = request.ShippingAddressLine2;
+            order.ShipDate = request.ShipDate;
+            order.TotalAmount = request.TotalAmount;
+            order.Cotsts = request.Cotsts;
+            order.Notes = request.Notes;
+            order.TrackingCheck = request.TrackingCheck;
+            order.PaymentMethod = request.PaymentMethod;
+            order.PaymentStatus = request.PaymentStatus;
+            order.ShippingMethod = request.ShippingMethod;
+            order.OrderStatus = request.OrderStatus;
+            order.Status = request.Status;
+            
+            _dbContext.Order.Update(order);
             await _dbContext.SaveChangesAsync();
             return true;
         }

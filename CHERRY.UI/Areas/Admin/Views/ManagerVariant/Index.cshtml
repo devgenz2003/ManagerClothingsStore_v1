@@ -185,7 +185,7 @@
                             }
                         </div>
                     </td>
-                    <td>@item.VariantName</td>
+                    <td>@item.Description</td>
                     <td>
                         <div class="amount-display">
                             @Currency.FormatCurrency(item.Minprice.ToString()) đ
@@ -220,7 +220,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="@Url.Action("Details","ManagerVariant", new { IDVariant = item.ID })">Chi tiết</a>
-                                <a class="dropdown-item" href="@Url.Action("Edit", new { ID = item.ID })">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="@Url.Action("Edit", "ManagerVariant",new { ID = item.ID })">Chỉnh sửa</a>
                                 <a class="dropdown-item" href="@Url.Action("Delete", new { ID = item.ID })">Xóa</a>
                             </div>
                         </div>

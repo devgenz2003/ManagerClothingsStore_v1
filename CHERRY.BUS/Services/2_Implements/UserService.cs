@@ -200,6 +200,7 @@ namespace CHERRY.BUS.Services._2_Implements
                 user.MiddleName = request.MiddleName;
                 user.SurName = request.SurName;
                 user.Email = request.Gmail;
+                user.DateOfBirth = request.DateOfBirth;
                 user.PhoneNumber = request.PhoneNumber;
                 user.Status = request.Status;
 

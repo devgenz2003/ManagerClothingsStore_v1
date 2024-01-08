@@ -157,7 +157,6 @@ namespace CHERRY.BUS.Services._2_Implements
 
             return true;
         }
-
         public async Task<List<VariantsVM>> GetAllActiveAsync()
         {
             var activeVariants = await _dbContext.Variants

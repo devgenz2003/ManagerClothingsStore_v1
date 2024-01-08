@@ -39,7 +39,6 @@ namespace CHERRY.BUS.Services.SignalR
                         Content = Regex.Replace(message, @"<.*?>", string.Empty),
                         FromUserName = sender.UserName,
                         FromFullName = sender.FirstAndLastName,
-                        Avatar = sender.ImagePath,
                         Room = "",
                         Timestamp = DateTime.Now
                     };

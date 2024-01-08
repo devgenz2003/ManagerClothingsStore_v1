@@ -11,6 +11,7 @@ namespace CHERRY.BUS.ViewModels.Promotion
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
+        public List<Guid>? SelectedVariantIds { get; set; }
 
         public decimal DiscountAmount { get; set; }
         public Types Type { get; set; }

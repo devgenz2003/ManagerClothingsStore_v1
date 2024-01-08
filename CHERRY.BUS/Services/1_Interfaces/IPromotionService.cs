@@ -16,7 +16,7 @@ namespace CHERRY.BUS.Services._1_Interfaces
         public Task<bool> ActivatePromotionAsync(Guid ID);  // Kích hoạt khuyến mại
         public Task<bool> DeactivatePromotionAsync(Guid ID);  // Hủy kích hoạt khuyến mại
         public Task<bool> ValidatePromotionAsync(Guid ID);  // Kiểm tra tính hợp lệ của khuyến mại
-        public Task<decimal> ApplyPromotionAsync(Guid ID, decimal originalPrice);  // Áp dụng khuyến mại
+        public Task<decimal> ApplyPromotionAsync(Guid promotionID, List<Guid> variantIDs, decimal originalPrice);
         public Task<List<PromotionVariantsVM>> GetVariantsInPromotionAsync(Guid ID);
     }
 }

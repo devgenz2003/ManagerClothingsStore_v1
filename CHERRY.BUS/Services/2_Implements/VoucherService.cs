@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CHERRY.BUS.Services._1_Interfaces;
+using CHERRY.BUS.ViewModels.PromotionVariants;
 using CHERRY.BUS.ViewModels.Voucher;
 using CHERRY.BUS.ViewModels.VoucherUser;
 using CHERRY.DAL.ApplicationDBContext;
@@ -113,6 +115,24 @@ namespace CHERRY.BUS.Services._2_Implements
 
             return _mapper.Map<VoucherVM>(obj);
         }
+        public async Task<List<VoucherUserVM>> GetUserInPromotionAsync(Guid ID)
+        {
+            var specificPromotion = await _dbcontext.Vouchers
+
+                              .FirstOrDefaultAsync(p => p.ID == ID && p.IsActive);
+            if (specificPromotion == null)
+            {
+                return new List<VoucherUserVM>();
+            }
+
+            var variants = await _dbcontext.VoucherUser
+                .Where(v => v.IDVoucher == ID && v.Status != 0)
+                .ProjectTo<VoucherUserVM>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return variants;
+        }
+
         public async Task<List<VoucherVM>> GetVoucherByUser(string IDUser)
         {
             var datavoucher = await _dbcontext.VoucherUser

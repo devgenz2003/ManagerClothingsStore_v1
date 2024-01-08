@@ -56,7 +56,7 @@ public class VnPayService : IVnPayService
             paymentResponse.PaymentId = response.ShippingAddress;
             paymentResponse.VnPayResponseCode = response.ShippingAddressLine2;
             paymentResponse.TransactionId = response.HexCode.ToString();
-            paymentResponse.OrderDescription = response.Notes;
+            paymentResponse.OrderDescription = response.CustomerEmail;
             paymentResponse.Success = PaymentStatus.Success; 
             return paymentResponse;
         }

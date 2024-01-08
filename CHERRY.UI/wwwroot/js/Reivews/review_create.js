@@ -67,8 +67,14 @@
             document.getElementById('loadingSpinner').style.display = 'none';
 
             if (xhr.status === 200) {
-                Swal.fire('Thành công!', 'Dữ liệu đã được gửi thành công.', 'success').then((result) => {
-                    window.location.href = '/review_list';
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Dữ liệu đã được gửi thành công.',
+                    icon: 'success',
+                    timer: 5000, // Thời gian chờ trước khi tự động chuyển hướng (tính bằng mili giây, 5000 mili giây = 5 giây)
+                    showConfirmButton: false // Ẩn nút OK
+                }).then(() => {
+                    window.location.href = '/Home/Index'; // Chuyển hướng sau khi thông báo biến mất
                 });
             } else {
                 console.error("Error:", xhr.statusText);

@@ -14,6 +14,7 @@ namespace CHERRY.BUS.AutoMapperConfigurations
                 .ForMember(dest => dest.MaterialName, opt => opt.MapFrom(erc => erc.Material.Name))
                 .ForMember(dest => dest.IDCategory, opt => opt.MapFrom(erc => erc.CategoriesVariants.FirstOrDefault().IDCategories))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(erc => erc.CategoriesVariants.FirstOrDefault().Categories.Name))
+                .ForMember(dest => dest.CountReview, opt => opt.MapFrom(c=>c.Reviews.Count()))
                 .ForMember(dest => dest.Minprice, opt => opt.MapFrom(src =>
                         src.Options != null && src.Options.Any() ? src.Options.Min(opt => opt.RetailPrice) : 0))
                 .ForMember(dest => dest.Maxprice, opt => opt.MapFrom(src =>

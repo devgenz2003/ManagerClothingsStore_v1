@@ -93,19 +93,6 @@ namespace CHERRY.BUS.Services._2_Implements
 
                         _dbcontext.MemberRank.Add(memberrank);
                     }
-
-                    string fileName = null;
-                    if (request.ImagePath != null)
-                    {
-                        var imagePath = Path.Combine("wwwroot", "UserImages");
-                        Directory.CreateDirectory(imagePath);
-                        fileName = $"{Guid.NewGuid()}{Path.GetExtension(request.ImagePath.FileName)}";
-                        var fullPath = Path.Combine(imagePath, fileName);
-                        using (var stream = new FileStream(fullPath, FileMode.Create))
-                        {
-                            await request.ImagePath.CopyToAsync(stream);
-                        }
-                    }
                     var user = new User
                     {
                         ID_MemberRank = memberrank.ID,

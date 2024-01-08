@@ -4,141 +4,110 @@
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    var dataoptions = ViewBag.Options as CHERRY.BUS.ViewModels.Options.OptionsVM;
+
 }
-<style>
-    .edit-container {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-    }
-
-    h4 {
-        color: #4a4a4a;
-        margin-bottom: 25px;
-        font-weight: 600;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    label {
-        font-weight: 600;
-        color: #4a4a4a;
-    }
-
-    input[type="number"],
-    input[type="text"],
-    select,
-    textarea {
-        width: 100%;
-        padding: 12px;
-        border-radius: 5px;
-        border: 1px solid #d1d1d1;
-        font-size: 14px;
-        background-color: #f7f7f7;
-    }
-
-    input[type="submit"] {
-        padding: 12px 25px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-
-    .back-to-list {
-        margin-top: 25px;
-        padding: 10px 20px;
-        background-color: #6c757d;
-        color: white;
-        border-radius: 5px;
-        text-decoration: none;
-    }
-
-        .back-to-list:hover {
-            background-color: #5a6268;
-        }
-
-    .text-danger {
-        color: #dc3545;
-    }
-</style>
 <div class="edit-container">
     <h4>Chỉnh sửa phân loại 3</h4>
     <hr />
     <div class="row">
-        <div class="col-md-6">
-            <form asp-action="Edit">
+        <div class="col-md-9">
+            <form asp-action="Edit" id="options_update" enctype="multipart/form-data" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="CostPrice" class="control-label">Giá nhập vào</label>
-                    <input asp-for="CostPrice" type="number" class="form-control" />
-                    <span asp-validation-for="CostPrice" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="RetailPrice" class="control-label">Giá bán ra</label>
-                    <input asp-for="RetailPrice" type="number" class="form-control" />
-                    <span asp-validation-for="RetailPrice" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DiscountedPrice" class="control-label">Giá khuyến mại</label>
-                    <input asp-for="DiscountedPrice" type="number" class="form-control" />
-                    <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                <input value="@ViewBag.IDOptions" hidden id="idoptions" />
+                <input asp-for="IDVariant" value="@ViewBag.IDVariant" hidden id="IDVariant" />
+                <input asp-for="ModifieBy" value="@ViewBag.IDUser" hidden id="IDUser" />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CostPrice" class="control-label">Giá nhập vào</label>
+                            <input id="CostPrice" value="@dataoptions.CostPrice" asp-for="CostPrice" type="number" class="form-control" />
+                            <span asp-validation-for="CostPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="RetailPrice" class="control-label">Giá bán ra</label>
+                            <input id="RetailPrice" value="@dataoptions.RetailPrice" asp-for="RetailPrice" type="number" class="form-control" />
+                            <span asp-validation-for="RetailPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DiscountedPrice" class="control-label">Giá khuyến mại</label>
+                            <input id="DiscountedPrice" value="@dataoptions.DiscountedPrice" asp-for="DiscountedPrice" type="number" class="form-control" />
+                            <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="StockQuantity" class="control-label">Số lượng</label>
-                    <input asp-for="StockQuantity" type="number" class="form-control" />
+                    <input id="StockQuantity" value="@dataoptions.StockQuantity" asp-for="StockQuantity" type="number" class="form-control" />
                     <span asp-validation-for="StockQuantity" class="text-danger"></span>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label asp-for="IDColor" class="control-label">ID màu</label>
-                        <input asp-for="IDColor" class="form-control" />
-                        <span asp-validation-for="IDColor" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="IDColor" class="control-label"></label>
+                            <select asp-for="IDColor" class="form-control">
+                                <option value="">Chọn</option>
+                                @foreach (var color in ViewBag.Color)
+                                {
+                                    <option value="@color.ID">@color.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IDColor" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label asp-for="ColorName" class="control-label">Màu</label>
-                        <input asp-for="ColorName" class="form-control" />
-                        <span asp-validation-for="ColorName" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label asp-for="IDSizes" class="control-label">ID kích cỡ</label>
-                        <input asp-for="IDSizes" class="form-control" />
-                        <span asp-validation-for="IDSizes" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label asp-for="SizesName" class="control-label">Kích cỡ</label>
-                        <input asp-for="SizesName" class="form-control" />
-                        <span asp-validation-for="SizesName" class="text-danger"></span>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ColorName" class="control-label"></label>
+                            <input asp-for="ColorName" value="@dataoptions.ColorName" class="form-control" />
+                            <span asp-validation-for="ColorName" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label">Mô tả</label>
-                    <textarea asp-for="Description" class="form-control"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="IDSizes" class="control-label"></label>
+                            <select asp-for="IDSizes" class="form-control">
+                                <option value="">Chọn</option>
+                                @foreach (var size in ViewBag.Size)
+                                {
+                                    <option value="@size.ID">@size.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IDSizes" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SizesName" class="control-label"></label>
+                            <input asp-for="SizesName" value="@dataoptions.SizeName" class="form-control" />
+                            <span asp-validation-for="SizesName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ImageURL" class="control-label">Hình ảnh</label>
+                        @if (!string.IsNullOrEmpty(dataoptions.ImageURL))
+                        {
+                            <img src="@dataoptions.ImageURL" alt="Hình ảnh" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;" />
+                        }
+                        <input asp-for="ImageURL" type="file" id="ImagePaths" class="form-control" />
+                        <span asp-validation-for="ImageURL" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Status" class="control-label">Trạng thái</label>
-                    <select asp-for="Status" class="form-control">
-                        <option value="">Chọn trạng thái</option>
-                        <option value="1">Kích hoạt</option>
-                        <option value="0">Không kích hoạt</option>
-                    </select>
+                    <select id="Status" asp-for="Status" asp-items="@GetStatusSelectList(dataoptions.Status)" class="form-control" data-initial-value="@GetStatusSelectList(dataoptions.Status)"></select>
                     <span asp-validation-for="Status" class="text-danger"></span>
                 </div>
+
+                <hr />
                 <div class="form-group">
                     <input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" />
                 </div>
@@ -146,7 +115,21 @@
         </div>
     </div>
 </div>
+@functions {
+    public SelectList GetStatusSelectList(int selectedValue)
+    {
+        var statusList = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "0", Text = "Ẩn" },
+            new SelectListItem { Value = "1", Text = "Đăng bán" }
+        };
+
+        return new SelectList(statusList, "Value", "Text", selectedValue.ToString());
+    }
+}
 
 <div>
     <a href="@Url.Action("Index")" class="back-to-list">Quay Lại Danh Sách</a>
 </div>
+<script src="/js/Options/options_update.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

@@ -193,16 +193,16 @@
         color: white;
     }
 </style>
-
+<h1>Sản phẩm phân loại 1</h1>
+<hr />
 <div class="row">
     <div class="col-md-6">
-        <!-- Hiển thị slideshow ảnh sản phẩm -->
         <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
             <div class="carousel-inner">
-                @foreach (var imagePath in Model.VariantsVM.ImagePaths)
+                @for (var i = 0; i < Model.VariantsVM.ImagePaths.Count; i++)
                 {
-                    <div class="carousel-item active">
-                        <img src="@imagePath" class="d-block w-50" alt="...">
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <img src="@Model.VariantsVM.ImagePaths[i]" class="d-block img-fluid" alt="...">
                     </div>
                 }
             </div>
@@ -223,14 +223,14 @@
             <p><span class="info-label">ID:</span> @Model.VariantsVM.ID</p>
             <p><span class="info-label">Tên:</span> @Model.VariantsVM.VariantName</p>
             <p><span class="info-label">Mô tả:</span> @Model.VariantsVM.Description</p>
+
             <p class="price-info">
                 <div class="amount-display">
                     <span class="info-label">Giá tối thiểu:</span>
                     @Currency.FormatCurrency(Model.VariantsVM.Minprice.ToString()) đ
                 </div>
                 <div class="amount-text">
-@*                     <small>(@Currency.NumberToText(minPriceDouble, true))</small>
- *@                </div>
+                </div>
             </p>
 
             <p class="price-info">
@@ -239,24 +239,27 @@
                     @Currency.FormatCurrency(Model.VariantsVM.Maxprice.ToString()) đ
                 </div>
                 <div class="amount-text">
-@*                     <small>(@Currency.NumberToText(maxPriceDouble, true))</small>
- *@                </div>
+                </div>
             </p>
 
-            <p><span class="info-label">Số lượng:</span> @Model.VariantsVM.TotalQuantity</p>
+            <p><span class="info-label">Số lượng:</span> @Currency.FormatCurrency(Model.VariantsVM.TotalQuantity.ToString())</p>
             <p><span class="info-label">Tổng phân loại:</span> @Model.VariantsVM.TotalOptions</p>
+            <p><span class="info-label">Giảm giá( nếu có ):</span> @Model.VariantsVM.HasPromotions</p>
+            <p>
+                <a class="dropdown-item" href="@Url.Action("Edit", "ManagerVariant",new { ID = @Model.VariantsVM.ID })">Chỉnh sửa</a>
+            </p>
         </div>
     </div>
 
 </div>
 
-<!-- Hiển thị danh sách tùy chọn -->
 @if (Model.LstOptionsVM != null)
 {
-    <div class="clear"></div> <!-- Dùng để xóa float và chuyển sang dòng mới -->
+    <div class="clear"></div> 
     <table class="options-table">
         <thead style="text-align: center">
             <tr>
+                <th>ID</th>
                 <th>Ảnh</th>
                 <th>Kích cỡ</th>
                 <th>Màu</th>
@@ -269,17 +272,18 @@
             @foreach (var option in Model.LstOptionsVM)
             {
                 <tr>
+                    <td style="max-width: 150px;"><a href="@Url.Action("Details","ManagerOptions", new { ID = option.ID })">@option.ID</a> </td>
                     <td>
                         <div class="option-image">
                             <img src="@option.ImageURL" alt="Image" />
                         </div>
                     </td>
-                    <td>@option.SizeName</td>
-                    <td>@option.ColorName</td>
+                    <td style="max-width: 80px;">@option.SizeName</td>
+                    <td style="max-width: 80px;">@option.ColorName</td>
                   
                     <td>
                         @Currency.FormatCurrency(option.RetailPrice.ToString()) vnđ
-                       
+                       <small>| Giảm:( @Currency.FormatCurrency(option.DiscountedPrice.ToString()) đ)</small>
                     </td>
                     <td>@option.StockQuantity</td>
                     <td>

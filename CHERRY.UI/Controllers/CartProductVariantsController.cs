@@ -118,7 +118,7 @@ namespace CHERRY.UI.Controllers
                 if (existingCartItem != null)
                 {
                     existingCartItem.Quantity += 1; 
-                    existingCartItem.Total_Amount = (existingCartItem.Quantity * existingCartItem.UnitPrice) - existingCartItem.DiscountedPrice;
+                    existingCartItem.Total_Amount = (existingCartItem.Quantity * existingCartItem.UnitPrice) - (existingCartItem.DiscountedPrice * existingCartItem.Quantity);
                 }
                 else
                 {
@@ -138,7 +138,7 @@ namespace CHERRY.UI.Controllers
                                 ColorName = string.Join(", ", vov.Color.Name),
                                 UnitPrice = options.RetailPrice,
                                 Quantity = Quantity,
-                                DiscountedPrice = options.DiscountedPrice.Value,
+                                DiscountedPrice = options.DiscountedPrice.Value * Quantity,
                                 Status = 1,
                                 Imagepaths = vov.ImageURL,
                                 Total_Amount = (options.RetailPrice * 1) - options.DiscountedPrice.Value,

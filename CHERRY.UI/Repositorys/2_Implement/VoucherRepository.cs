@@ -1,5 +1,7 @@
 ﻿using CHERRY.BUS.ViewModels.Brand;
+using CHERRY.BUS.ViewModels.PromotionVariants;
 using CHERRY.BUS.ViewModels.Voucher;
+using CHERRY.BUS.ViewModels.VoucherUser;
 using CHERRY.UI.Repositorys._1_Interface;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using System.IdentityModel.Tokens.Jwt;
@@ -108,6 +110,11 @@ namespace CHERRY.UI.Repositorys._2_Implement
         public async Task<List<VoucherVM>> GetVoucherByUser(string IDUser)
         {
             return await _httpClient.GetFromJsonAsync<List<VoucherVM>>($"api/Voucher/GetVoucherByIDUser/{IDUser}");
+        }
+
+        public async Task<List<VoucherUserVM>> GetUserInPromotionAsync(Guid ID)
+        {
+            return await _httpClient.GetFromJsonAsync<List<VoucherUserVM>>($"api/Voucher/{ID}/User");
         }
     }
 }

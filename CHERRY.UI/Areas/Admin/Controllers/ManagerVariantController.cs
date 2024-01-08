@@ -1,13 +1,10 @@
 ﻿using CHERRY.BUS.Services._1_Interface;
 using CHERRY.BUS.ViewModels.Variants;
-using CHERRY.DAL.Entities;
 using CHERRY.UI.Areas.Admin.Models;
 using CHERRY.UI.Models;
 using CHERRY.UI.Repositorys._1_Interface;
-using CHERRY.UI.Repositorys._2_Implement;
 using CHERRY.Utilities;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,14 +14,25 @@ namespace CHERRY.UI.Areas.Admin.Controllers
     [Area("admin")]
     public class ManagerVariantController : Controller
     {
+        private readonly IOptionsRepository _IOptionsRepository;
+        private readonly IColorsRepository _ColorsRepository;
+        private readonly ISizesRepository _SizesRepository;
         private readonly IVariantRepository _IVariantRepository;
         private readonly ICategoryRespository _ICategoryRespository;
         private readonly IBrandRepository _IBrandRepository;
         private readonly IMaterialRepository _IMaterialRepository;
-        private readonly IMediaAssetsRepository _IMediaAssetsRepository; 
+        private readonly IMediaAssetsRepository _IMediaAssetsRepository;
         private readonly HttpClient _httpClient;
-        public ManagerVariantController(IBrandRepository IBrandRepository, IMaterialRepository IMaterialRepository,ICategoryRespository ICategoryRespository,IVariantRepository IVariantRepository, HttpClient httpClient, IMediaAssetsRepository IMediaAssetsRepository)
+        public ManagerVariantController(IBrandRepository IBrandRepository, IMaterialRepository IMaterialRepository,
+            ICategoryRespository ICategoryRespository, IVariantRepository IVariantRepository, HttpClient httpClient,
+            IMediaAssetsRepository IMediaAssetsRepository, IOptionsRepository IOptionsRepository, IColorsRepository colorsRepository,
+            ISizesRepository ISizesRepository
+            )
         {
+            _IOptionsRepository = IOptionsRepository;
+            _ColorsRepository = colorsRepository;
+            _SizesRepository = ISizesRepository;
+
             _ICategoryRespository = ICategoryRespository;
             _IMediaAssetsRepository = IMediaAssetsRepository;
             _IVariantRepository = IVariantRepository;
@@ -101,13 +109,12 @@ namespace CHERRY.UI.Areas.Admin.Controllers
                         foreach (var option in options)
                         {
                             optionsWorksheet.Cell(optionCurrentRow, 1).Value = option.IDVariant.ToString();
-                            optionsWorksheet.Cell(optionCurrentRow, 2).Value = Currency.FormatCurrency(option.CostPrice.ToString()) +"đ";
-                            optionsWorksheet.Cell(optionCurrentRow, 3).Value = Currency.FormatCurrency(option.RetailPrice.ToString()) +"đ";
-                            optionsWorksheet.Cell(optionCurrentRow, 4).Value = Currency.FormatCurrency(option.DiscountedPrice.ToString()) +"đ";
+                            optionsWorksheet.Cell(optionCurrentRow, 2).Value = Currency.FormatCurrency(option.CostPrice.ToString()) + "đ";
+                            optionsWorksheet.Cell(optionCurrentRow, 3).Value = Currency.FormatCurrency(option.RetailPrice.ToString()) + "đ";
+                            optionsWorksheet.Cell(optionCurrentRow, 4).Value = Currency.FormatCurrency(option.DiscountedPrice.ToString()) + "đ";
                             optionsWorksheet.Cell(optionCurrentRow, 5).Value = option.StockQuantity;
-                            optionsWorksheet.Cell(optionCurrentRow, 6).Value = option.Description;
-                            optionsWorksheet.Cell(optionCurrentRow, 7).Value = option.ColorName;
-                            optionsWorksheet.Cell(optionCurrentRow, 8).Value = option.SizeName;
+                            optionsWorksheet.Cell(optionCurrentRow, 6).Value = option.ColorName;
+                            optionsWorksheet.Cell(optionCurrentRow, 7).Value = option.SizeName;
                             if (!string.IsNullOrEmpty(option.ImageURL))
                             {
                                 var cell = optionsWorksheet.Cell(optionCurrentRow, 9);
@@ -135,6 +142,7 @@ namespace CHERRY.UI.Areas.Admin.Controllers
                 }
             }
         }
+
         [HttpGet]
         [Route("update_variant")]
         public async Task<IActionResult> Edit(Guid ID)
@@ -151,7 +159,7 @@ namespace CHERRY.UI.Areas.Admin.Controllers
             ViewBag.Variant = data;
             return View("~/Areas/Admin/Views/ManagerVariant/Edit.cshtml");
         }
-        [HttpPost]
+        [HttpPut]
         [Route("update_variant")]
         public async Task<IActionResult> Edit()
         {
@@ -176,22 +184,23 @@ namespace CHERRY.UI.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 // Trả về một trang lỗi
-                return View("Error", new ErrorViewModel { Message = ex.Message }); // Hoặc sử dụng RedirectToAction để chuyển hướng đến một trang xử lý lỗi
+                return View("Error", new ErrorViewModel { Message = ex.Message });
             }
         }
+
         [HttpGet]
         [Route("createvariant")]
         public async Task<IActionResult> Create()
         {
+            string token = HttpContext.Request.Cookies["token"];
+            string userID = ExtractUserIDFromToken(token);
+            ViewBag.IDUser = userID;
             var category = await _ICategoryRespository.GetAllActiveAsync();
             ViewBag.Category = category;
-
             var brand = await _IBrandRepository.GetAllActiveAsync();
             ViewBag.Brand = brand;
-
             var material = await _IMaterialRepository.GetAllActiveAsync();
             ViewBag.Material = material;
-
             return View("~/Areas/Admin/Views/ManagerVariant/Create.cshtml");
         }
         [HttpPost]

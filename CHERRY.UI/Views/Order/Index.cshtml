@@ -29,22 +29,29 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Ngày đặt</th>
-                    <th>Địa chỉ</th>
+                    <th style="text-align: center;">Ngày đặt</th>
+                    <th style="text-align: center;">Địa chỉ</th>
                     <th class="pt-tt">Tổng tiền</th>
-                    <th>Phương thức</th>
-                    <th>Thanh toán</th>
-                    <th>Giao hàng</th>
-                    <th>Tình trạng</th>
-                    <th>Hành động</th>
+                    <th style="text-align: center;">Phương thức</th>
+                    <th style="text-align: center;">Thanh toán</th>
+                    <th style="text-align: center;">Giao hàng</th>
+                    <th style="text-align: center;">Tình trạng</th>
+                    <th style="text-align: center;">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr data-status="@item.OrderStatus">
-                        <td class="date-column">@item.CreateDate.ToString("dd-MM-yyyy HH:mm")</td>
-                        <td class="pt-tt">@Html.DisplayFor(modelItem => item.ShippingAddress)</td>
+                        <td class="date-column">
+                            <a id="HexCode" href="@Url.Action("OrderDetails", "Order", new { IDOrder = item.ID })">@item.HexCode</a><br />
+                            <small>@item.CreateDate.ToString("dd-MM-yyyy HH:mm")</small>
+                        </td>
+                        <td class="pt-tt">
+                            @item.ShippingAddressLine2 @item.ShippingAddress
+                            <br />
+                            <small>(@item.CustomerEmail - @item.CustomerPhone)</small>
+                        </td>
                         <td class="total-amount">@Currency.FormatCurrency(item.TotalAmount.ToString()) đ</td>
                         <td class="pt-tt">
                             @switch (item.PaymentMethod)
@@ -99,7 +106,7 @@
                             @switch (item.OrderStatus)
                             {
                                 case OrderStatus.Pending:
-                                    <span>Chưa giải quyết</span>
+                                    <span>Chờ</span>
                                     break;
                                 case OrderStatus.Processing:
                                     <span>Xử lý</span>
@@ -126,18 +133,20 @@
                                     <input type="hidden" name="trackingCheck" value="true" />
                                     <button type="submit" class="btn btn-success">Xác nhận</button>
                                 </form>
-                                @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
                             }
                             else if (item.TrackingCheck == true && item.OrderStatus == OrderStatus.Delivered)
                             {
-                                @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
                                 @Html.ActionLink("Hoá đơn", "PrintOrderPdf", "Order", new { ID = item.ID }, new { @class = "btn btn-info" })
                             }
-                            else if(item.OrderStatus != OrderStatus.Returned)
+                            else if (item.OrderStatus != OrderStatus.Returned)
                             {
-                                @Html.ActionLink("Chi tiết", "OrderDetails", "Order", new { IDOrder = item.ID }, new { @class = "btn btn-info" })
                                 <button class="btn btn-danger" onclick="markAsCancelled('@item.ID')">Huỷ đơn</button>
                             }
+                            else if (item.OrderStatus == OrderStatus.Returned)
+                            {
+                                <p>Đã huỷ</p>
+                            }
+
                         </td>
                     </tr>
                 }

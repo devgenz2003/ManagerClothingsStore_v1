@@ -13,7 +13,7 @@ namespace CHERRY.DAL.Entities
         public Guid? IDColor { get; set; }
         public Guid? IDSizes { get; set; }
        
-        public string ImageURL { get; set; } = null!;
+        public string? ImageURL { get; set; } 
         public virtual Colors? Color { get; set; }
         public virtual Sizes? Sizes { get; set; }
         public virtual Variants? Variants { get; set; }

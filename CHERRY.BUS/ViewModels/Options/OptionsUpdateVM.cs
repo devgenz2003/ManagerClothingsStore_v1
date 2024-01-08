@@ -16,8 +16,7 @@ namespace CHERRY.BUS.ViewModels.Options
         public Guid? IDSizes { get; set; }
         public string ColorName { get; set; }
         public string SizesName { get; set; }
-        public string Description { get; set; } = null!;
-        public IFormFile ImageURL { get; set; } = null!;
+        public IFormFile ImageURL { get; set; } 
         public int Status { get; set; }
     }
 }

@@ -429,10 +429,6 @@
       "PackagePath": "staticwebassets\\css\\category_index.css"
     },
     {
-      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\chat.css",
-      "PackagePath": "staticwebassets\\css\\chat.css"
-    },
-    {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\checkout.css",
       "PackagePath": "staticwebassets\\css\\checkout.css"
     },
@@ -489,6 +485,10 @@
       "PackagePath": "staticwebassets\\js\\Options\\options_create.js"
     },
     {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Options\\options_update.js",
+      "PackagePath": "staticwebassets\\js\\Options\\options_update.js"
+    },
+    {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Order\\order_index.js",
       "PackagePath": "staticwebassets\\js\\Order\\order_index.js"
     },
@@ -503,6 +503,10 @@
     {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Variant\\variant_create.js",
       "PackagePath": "staticwebassets\\js\\Variant\\variant_create.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Variant\\varriant_update.js",
+      "PackagePath": "staticwebassets\\js\\Variant\\varriant_update.js"
     },
     {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Voucher\\voucher_create.js",
@@ -531,6 +535,10 @@
     {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\details.js",
       "PackagePath": "staticwebassets\\js\\details.js"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\edit_promotion.js",
+      "PackagePath": "staticwebassets\\js\\edit_promotion.js"
     },
     {
       "Id": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\index.js",

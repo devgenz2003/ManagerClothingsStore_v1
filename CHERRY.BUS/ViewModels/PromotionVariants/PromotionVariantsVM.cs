@@ -14,7 +14,6 @@ namespace CHERRY.BUS.ViewModels.PromotionVariants
         public string VariantName { get; set; } = null!;
         public decimal DiscountedPrice_Promotion { get; set; } 
         public DateTime TimeRemaining { get; set; }
-        //public decimal DiscountedPrice_Variant { get; set; } 
         public decimal RetailsPrice { get; set; } 
         public Types Types { get; set; }
         public List<string> ImagesURL { get; set; }

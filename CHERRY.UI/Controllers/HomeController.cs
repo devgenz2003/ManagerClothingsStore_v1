@@ -62,35 +62,6 @@ namespace CHERRY.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUser registerUser, string role)
         {
-            #region Regíter
-            //try
-            //{
-            //    var registerUserJSON = JsonConvert.SerializeObject(registerUser);
-
-            //    var stringContent = new StringContent(registerUserJSON, Encoding.UTF8, "application/json");
-
-            //    role = "Client";
-            //    var queryString = $"?role={role}";
-
-            //    var response = await _httpClient.PostAsync($"https://localhost:7108/api/Register{queryString}", stringContent);
-
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        ViewBag.Message = "Đăng ký thành công!";
-            //        return RedirectToAction("Login", "Home");
-            //    }
-            //    else
-            //    {
-            //        ViewBag.Message = "Đã xảy ra lỗi khi đăng ký.";
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Xử lý ngoại lệ ở đây, ví dụ:
-            //    ViewBag.Message = $"Đã xảy ra lỗi: {ex.Message}";
-            //}
-
-            #endregion
             return View(); 
         }
 

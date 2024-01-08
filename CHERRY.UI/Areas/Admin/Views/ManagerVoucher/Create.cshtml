@@ -82,14 +82,14 @@
         <div>
             <input type="checkbox" id="checkAll"> Chọn tất cả
         </div>
-        <!-- Danh sách người dùng sẽ được lặp qua ở đây -->
+
         @foreach (var user in Model.LstUser)
         {
             <div class="variant-item">
-                <input type="checkbox" class="userCheckbox" name="VoucherCreateVM.SelectedUser" value="@user.ID">
+                <input type="checkbox" class="productCheckbox" name="PromotionCreateVM.SelectedVariantIds" value="@user.ID">
                 <div class="variant-info">
-                    <span>@user.UserName</span>
-                    <span class="variant-detail">Họ tên: @user.FirstAndLastName</span>
+                    <span>@user.FirstAndLastName</span>
+                    <span class="variant-detail">SKU: @user.UserName</span>
                 </div>
             </div>
         }

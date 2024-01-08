@@ -5,26 +5,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
-
-    decimal minPriceDecimal = 0m;
-    double minPriceDouble = 0;
-    decimal maxPriceDecimal = 0m;
-    double maxPriceDouble = 0;
-
-    if (Model != null && Model.Any())
-    {
-        minPriceDecimal = Model.Min(c => c.Minprice);
-        minPriceDouble = (double)minPriceDecimal;
-
-        maxPriceDecimal = Model.Max(c => c.Maxprice);
-        maxPriceDouble = (double)maxPriceDecimal;
-    }
-    else
-    {
-    }
 }
 <link src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
 <style>
+
     .export-button {
         display: inline-block;
         background-color: #28a745; /* Màu xanh lá */
@@ -59,15 +43,6 @@
         color: #333; /* Màu sắc cho số tiền */
     }
 
-    .amount-text {
-        color: #6c757d; /* Màu sắc cho văn bản chuyển đổi */
-        font-size: 0.8em; /* Giảm kích thước font */
-        margin-top: 4px; /* Khoảng cách từ số tiền */
-    }
-
-        .amount-text small {
-            display: block; /* Đảm bảo hiển thị trên một dòng mới */
-        }
     /* CSS cho bảng */
     #variantsTable {
         font-family: Arial, sans-serif;
@@ -148,22 +123,27 @@
         color: white;
     }
 </style>
-<a asp-action="ExportToExcel" class="export-button" asp-route-month="@DateTime.Now.ToString("yyyy-MM")">Xuất dữ liệu sản phẩm</a>
+<h1>Quản lý sản phẩm phân loại 1</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6 text-start">
+        <a asp-action="Create" class="export-button">Thêm mới sản phẩm</a>
+    </div>
 
-<p>
-    <a asp-action="Create">Thêm mới sản phẩm</a>
-</p>
+    <div class="col-md-6 text-end">
+        <a asp-action="ExportToExcel" class="export-button" asp-route-month="@DateTime.Now.ToString("yyyy-MM")">Xuất dữ liệu sản phẩm</a>
+    </div>
+</div>
 <table id="variantsTable">
     <thead>
         <tr>
             <th>Tên sản phẩm</th>
             <th>Hình ảnh</th>
-            <th>Dòng sản phẩm</th>
             <th>Tối thiểu</th>
             <th>Tối đa</th>
             <th>Phân loại</th>
             <th>Trạng thái</th>
-            <th>Hành động</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -172,7 +152,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.VariantName</td>
+                    <td style="max-width: 200px;"><a href="@Url.Action("Details","ManagerVariant", new { IDVariant = item.ID })">@item.VariantName</a> </td>
                     <td>
                         <div class="option-image">
                             @if(item.ImagePaths != null)
@@ -185,22 +165,15 @@
                             }
                         </div>
                     </td>
-                    <td>@item.Description</td>
                     <td>
                         <div class="amount-display">
                             @Currency.FormatCurrency(item.Minprice.ToString()) đ
                         </div>
-                        <div class="amount-text">
-@*                             <small>(@Currency.NumberToText(minPriceDouble, true))</small>
- *@                        </div>
                     </td>
                     <td>
                         <div class="amount-display">
                             @Currency.FormatCurrency(item.Maxprice.ToString()) đ
                         </div>
-                        <div class="amount-text">
-@*                             <small>(@Currency.NumberToText(maxPriceDouble, true))</small>
- *@                        </div>
                     </td>
                     <td>@item.TotalOptions</td>
                     <td>
@@ -239,13 +212,8 @@
 <script>
     $(document).ready(function () {
         $('#variantsTable').DataTable({
-            "pagingType": "full_numbers", // Loại phân trang
-            "lengthChange": true, // Cho phép thay đổi số lượng bản ghi trên mỗi trang
-            "searching": true, // Cho phép tìm kiếm
-            "ordering": true, // Cho phép sắp xếp
-            "info": true, // Hiển thị thông tin số bản ghi và trang hiện tại
-            "autoWidth": false, // Tự động điều chỉnh chiều rộng cột
-            "responsive": true // Tích hợp tính năng Responsive
+            "pagingType": "full_numbers", 
+            "info": true,
         });
     });
 </script>

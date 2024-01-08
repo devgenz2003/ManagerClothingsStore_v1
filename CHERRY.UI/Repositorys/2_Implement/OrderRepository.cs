@@ -2,6 +2,7 @@
 using CHERRY.BUS.ViewModels.OrderVariant;
 using CHERRY.DAL.Entities;
 using CHERRY.UI.Repositorys._1_Interface;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -186,6 +187,11 @@ namespace CHERRY.UI.Repositorys._2_Implement
             {
                 return false;
             }
+        }
+
+        public async Task<OrderVM> GetByHexCodeAsync(string HexCode)
+        {
+            return await _httpClient.GetFromJsonAsync<OrderVM>($"api/Order/GetByHexCode/{HexCode}");
         }
     }
 }

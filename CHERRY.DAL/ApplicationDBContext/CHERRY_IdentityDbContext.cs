@@ -59,7 +59,7 @@ namespace CHERRY.DAL.ApplicationDBContext
         {
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlServer(
-                        "Data Source=.;Initial Catalog=CHERRY.v2023.POL_23.ED_24.v1.1;Integrated Security=True"
+                        "Data Source=.;Initial Catalog=CHERRY.v2023;Integrated Security=True"
                         );
         }
         public virtual DbSet<VoucherUser> VoucherUser { get; set; } = null!;

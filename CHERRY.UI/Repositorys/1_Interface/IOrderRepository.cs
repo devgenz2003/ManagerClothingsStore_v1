@@ -6,6 +6,8 @@ namespace CHERRY.UI.Repositorys._1_Interface
 {
     public interface IOrderRepository
     {
+        public Task<OrderVM> GetByHexCodeAsync(string HexCode);
+
         public Task<List<OrderVM>> GetAllAsync();
         public Task<List<OrderVM>> GetAllActiveAsync();
         public Task<OrderVM> GetByIDAsync(Guid ID);

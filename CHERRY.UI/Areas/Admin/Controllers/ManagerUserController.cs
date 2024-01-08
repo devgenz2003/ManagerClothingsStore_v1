@@ -12,11 +12,13 @@ namespace CHERRY.UI.Areas.Admin.Controllers
     {
         private readonly IUserResponse _IUserRepository;
         private readonly IOrderRepository _IOrderRepository;
-
-        public ManagerUserController(IUserResponse IUserRepository, IOrderRepository IOrderRepository)
+        private readonly IVoucherRepository _IVoucherRepository;
+        public ManagerUserController(IUserResponse IUserRepository, IOrderRepository IOrderRepository, IVoucherRepository iVoucherRepository)
         {
             _IOrderRepository = IOrderRepository;
             _IUserRepository = IUserRepository;
+            _IVoucherRepository = iVoucherRepository;
+
         }
         [HttpGet]
         [Route("user_list")]
@@ -57,10 +59,11 @@ namespace CHERRY.UI.Areas.Admin.Controllers
                     return NotFound("Không tìm thấy người dùng với ID này.");
                 }
                 var orders = await _IOrderRepository.GetByCustomerIDAsync(IDUser);
-
+                var data = await _IVoucherRepository.GetVoucherByUser(IDUser);
                 var viewModel = new ModelCompositeShare
                 {
                     UserVM = user,
+                    LstVoucherVM = data,
                     LstOrderVM = orders
                 };
 

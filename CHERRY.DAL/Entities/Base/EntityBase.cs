@@ -7,7 +7,7 @@ namespace CHERRY.DAL.Entities.Base
     {
         public Guid ID { get; set; } = Guid.NewGuid();
         [BindProperty, DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         public string CreateBy { get; set; }
         [BindProperty, DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ModifieDate { get; set; }

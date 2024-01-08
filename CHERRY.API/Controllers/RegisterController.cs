@@ -16,7 +16,7 @@ namespace CHERRY.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterUser registerUser, string role)
+        public async Task<IActionResult> Register([FromBody]RegisterUser registerUser, string role)
         {
             var result = await _registerService.RegisterAsync(registerUser, role);
             return StatusCode(result.StatusCode, result.Message);

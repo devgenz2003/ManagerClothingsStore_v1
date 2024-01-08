@@ -29,7 +29,7 @@
     // Cập nhật label và suffix khi trang tải xong
     updateLabelAndSuffix();
 });
-document.addEventListener("DOMContentLoaded", function () {
+function attachCheckboxEvents() {
     var checkAll = document.getElementById('checkAll');
     var checkboxes = document.querySelectorAll('.productCheckbox');
 
@@ -39,19 +39,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Cập nhật trạng thái của checkbox "Chọn tất cả" khi một checkbox được thay đổi
     checkboxes.forEach(function (checkbox) {
         checkbox.addEventListener('change', function () {
             checkAll.checked = Array.from(checkboxes).every(c => c.checked);
         });
     });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    attachCheckboxEvents();
 });
-document.getElementById('checkAll').addEventListener('click', function () {
-    var checkboxes = document.querySelectorAll('.userCheckbox');
-    for (var checkbox of checkboxes) {
-        checkbox.checked = this.checked;
-    }
-});
+
+attachCheckboxEvents();
 
 function submitForm() {
     var code = document.getElementById('Code').value;

@@ -6,12 +6,12 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<h1>Thêm phân loại</h1>
+<h1>Thêm phân loại 2</h1>
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Create" id="createOptionForm" enctype="multipart/form-data">
-            <input asp-for="CreateBy" hidden value="abc"/>
+        <form id="createOptionForm" enctype="multipart/form-data">
+            <input asp-for="CreateBy" hidden value="@ViewBag.IDUser" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="IDVariant" class="control-label">Sản phẩm</label>
@@ -24,23 +24,31 @@
                 </select>
                 <span asp-validation-for="IDVariant" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CostPrice" class="control-label"></label>
-                <input asp-for="CostPrice" class="form-control" />
-                <span asp-validation-for="CostPrice" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CostPrice" class="control-label">Giá nhập</label>
+                        <input asp-for="CostPrice" class="form-control" />
+                        <span asp-validation-for="CostPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="RetailPrice" class="control-label">Giá bán</label>
+                        <input asp-for="RetailPrice" class="form-control" />
+                        <span asp-validation-for="RetailPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="DiscountedPrice" class="control-label"></label>
+                        <input asp-for="DiscountedPrice" class="form-control" />
+                        <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="RetailPrice" class="control-label"></label>
-                <input asp-for="RetailPrice" class="form-control" />
-                <span asp-validation-for="RetailPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountedPrice" class="control-label"></label>
-                <input asp-for="DiscountedPrice" class="form-control" />
-                <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StockQuantity" class="control-label"></label>
+                <label asp-for="StockQuantity" class="control-label">Số lượng</label>
                 <input asp-for="StockQuantity" class="form-control" />
                 <span asp-validation-for="StockQuantity" class="text-danger"></span>
             </div>
@@ -89,7 +97,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="ImagePaths" class="control-label"></label>
+                <label asp-for="ImagePaths" class="control-label">Hình ảnh</label>
                 <input type="file" asp-for="ImagePaths" class="form-control" name="ImagePaths" multiple class="form-control-file" />
                 <span asp-validation-for="ImagePaths" class="text-danger"></span>
             </div>
@@ -106,6 +114,8 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+    <div class="col-md-6">
     </div>
 </div>
 <script src="/js/Options/options_create.js"></script>

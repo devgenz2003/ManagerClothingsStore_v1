@@ -4,13 +4,13 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
     var datavariant = ViewBag.Variant as CHERRY.BUS.ViewModels.Variants.VariantsVM;
-
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+<h1>Chỉnh sửa phân loại 1</h1>
+<hr />
 <div class="row">
-    <div class="col-md-12">
-        <form asp-action="Edit" id="edit_form" enctype="multipart/form-data" method="post">
+    <div class="col-md-6">
+        <form id="edit_form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input value="@ViewBag.IDVariant" hidden id="idvariant"/>
             <div class="row">
@@ -128,7 +128,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" id="edit_submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -149,5 +149,5 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-<script src="/js/Variant/variant_create.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="/js/Variant/varriant_update.js"></script>

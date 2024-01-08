@@ -1,0 +1,115 @@
+﻿@using CHERRY.UI.Areas.Admin.Models
+@using CHERRY.Utilities
+@using static CHERRY.DAL.Entities.Voucher
+@model ModelCompositeShare
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    var dataPromotion = ViewBag.Promotions as CHERRY.BUS.ViewModels.Promotion.PromotionVM;
+
+}
+<link rel="stylesheet" href="/css/Promotions/promotion_create.css" />
+
+
+<h2>Edit</h2>
+
+<h4>PromotionUpdateVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="edit_promotion" asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden value="@ViewBag.IDUser" id="ModifiedBy" asp-for="@Model.PromotionUpdateVM.ModifiedBy" class="form-control" />
+            <input hidden value="@ViewBag.ID" id="ID" class="form-control" />
+            <div class="form-group">
+                <label asp-for="@Model.PromotionUpdateVM.SKU" class="control-label"></label>
+                <input asp-for="@Model.PromotionUpdateVM.SKU" value="@dataPromotion.SKU" class="form-control" id="SKU" name="Model.PromotionUpdateVM.SKU" />
+                <span asp-validation-for="@Model.PromotionUpdateVM.SKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.PromotionUpdateVM.Content" class="control-label"></label>
+                <input asp-for="@Model.PromotionUpdateVM.Content" value="@dataPromotion.Content" class="form-control" id="Content" name="Model.PromotionUpdateVM.Content" />
+                <span asp-validation-for="@Model.PromotionUpdateVM.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.PromotionUpdateVM.StartDate" class="control-label">Ngày bắt đầu</label>
+                <input value="@dataPromotion.StartDate.ToString("yyyy-MM-ddTHH:mm")" asp-for="@Model.PromotionUpdateVM.StartDate" class="form-control" id="StartDate" type="datetime-local" />
+                <span asp-validation-for="@Model.PromotionUpdateVM.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.PromotionUpdateVM.EndDate" class="control-label">Ngày kết thúc</label>
+                <input value="@dataPromotion.EndDate.ToString("yyyy-MM-ddTHH:mm")" asp-for="@Model.PromotionUpdateVM.EndDate" class="form-control" id="EndDate" type="datetime-local" />
+                <span asp-validation-for="@Model.PromotionUpdateVM.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input type="checkbox"  class="form-check-input" id="IsActive" @(dataPromotion.IsActive ? "checked" : "") /> Kích hoạt
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Kiểu khuyến mãi</label>
+                <div class="form-check">
+                    <input asp-for="@Model.PromotionUpdateVM.Type" class="form-check-input" type="radio" id="typePercentage" checked="@((Model.PromotionUpdateVM.Type == Types.Percent).ToString().ToLower())">
+                    <label class="form-check-label" for="typePercentage">Giảm phần trăm</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="@Model.PromotionUpdateVM.Type" class="form-check-input" type="radio" id="typeCash" checked="@((Model.PromotionUpdateVM.Type == Types.Cash).ToString().ToLower())">
+                    <label class="form-check-label" for="typeCash">Giảm tiền mặt</label>
+                </div>
+                <span asp-validation-for="@Model.PromotionUpdateVM.Type" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label id="labelForReducedValue" asp-for="@Model.PromotionUpdateVM.DiscountAmount" class="control-label">Giá trị giảm</label>
+                <div class="input-group">
+                    <input value="@Currency.FormatCurrency(dataPromotion.DiscountAmount.ToString())" asp-for="@Model.PromotionUpdateVM.DiscountAmount" class="form-control" id="DiscountAmount" />
+                    <span id="reducedValueSuffix" class="input-group-text">...</span>
+                </div>
+                <span asp-validation-for="@Model.PromotionUpdateVM.DiscountAmount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="Lưu" id="edit_submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <div>Sản phẩm áp dụng</div>
+        <div>
+            <input type="checkbox" id="checkAll" name="checkAll"> Chọn tất cả
+        </div>
+        @foreach (var variant in Model.LstVariantsVM)
+        {
+            <div class="variant-item">
+                <input type="checkbox"  class="productCheckbox" name="PromotionCreateVM.SelectedVariantIds" value="@variant.ID" data-id="@variant.ID"
+                @(dataPromotion.IDVariant != null && dataPromotion.IDVariant.Contains(variant.ID) ? "checked" : "")>
+                <div class="variant-info">
+                    <a href="@Url.Action("Details","ManagerVariant", new { IDVariant = variant.ID })">
+                        <img src="@variant.ImagePaths.FirstOrDefault()" class="variant-image" alt="Sản phẩm">
+                        <span>@variant.VariantName</span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script src="/js/edit_promotion.js"></script>
+@* <script>
+    $(document).ready(function () {
+        var isPercent = @((dataPromotion.Type == Types.Percent).ToString().ToLower());
+
+        if (isPercent) {
+            $('#typeRadio[value="@nameof(Types.Percent)"]').prop('checked', true);
+        } else {
+            $('#typeRadio[value="@nameof(Types.Cash)"]').prop('checked', true);
+        }
+    });
+</script>
+ *@<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

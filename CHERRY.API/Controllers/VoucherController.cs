@@ -1,5 +1,8 @@
 ﻿using CHERRY.BUS.Services._1_Interfaces;
+using CHERRY.BUS.Services._2_Implements;
+using CHERRY.BUS.ViewModels.PromotionVariants;
 using CHERRY.BUS.ViewModels.Voucher;
+using CHERRY.BUS.ViewModels.VoucherUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +18,25 @@ namespace CHERRY.API.Controllers
         {
             _voucherService = voucherService;
         }
+        [HttpGet]
+        [Route("{ID}/User")]
+        public async Task<ActionResult<List<VoucherUserVM>>> GetUserInPromotionAsync(Guid ID)
+        {
+            try
+            {
+                var user = await _voucherService.GetUserInPromotionAsync(ID);
+                if (user == null)
+                {
+                    return NotFound(); // Return 404 if no variants found
+                }
+                return Ok(user); // Return 200 with the variants
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error"); 
+            }
+        }
+
         [HttpGet]
         [Route("getall")]
         public async Task<IActionResult> GetAllAsync()

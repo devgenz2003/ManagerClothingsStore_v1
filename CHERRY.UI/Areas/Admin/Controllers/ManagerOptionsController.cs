@@ -2,6 +2,8 @@
 using CHERRY.UI.Repositorys._1_Interface;
 using CHERRY.UI.Repositorys._2_Implement;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace CHERRY.UI.Areas.Admin.Controllers
 {
@@ -27,10 +29,37 @@ namespace CHERRY.UI.Areas.Admin.Controllers
             var data = await _IOptionsRepository.GetAllActiveAsync();
             return View("~/Areas/Admin/Views/ManagerOptions/Index.cshtml", data);
         }
+        private string ExtractUserIDFromToken(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+                if (jwtToken?.Claims != null)
+                {
+                    var userIDClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier);
+                    if (userIDClaim != null && Guid.TryParse(userIDClaim.Value, out Guid userID))
+                    {
+                        return userIDClaim.Value;
+                    }
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+
         [HttpGet]
         [Route("createoption")]
         public async Task<IActionResult> Create()
         {
+            string token = HttpContext.Request.Cookies["token"];
+            string userID = ExtractUserIDFromToken(token);
+            ViewBag.IDUser = userID;
+
             var variant = await _VariantRepository.GetAllActiveAsync();
             ViewBag.Variant = variant;
             var color = await _ColorsRepository.GetAllActiveAsync();
@@ -44,16 +73,6 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         public async Task<IActionResult> Create(OptionsCreateVM request)
         {
             return View();
-            //if (request == null)
-            //{
-            //    throw new ArgumentNullException(nameof(request));
-            //}
-            //var data = await _IOptionsRepository.CreateAsync(request);
-            //if (data)
-            //{
-            //    return RedirectToAction("Index", "ManagerOptions");
-            //}
-            //return View(request);
         }
         [HttpGet]
         [Route("detailsoptions")]
@@ -72,26 +91,21 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         [HttpGet]
         [Route("update/{ID}")]
         public async Task<IActionResult> Edit(Guid ID)
-        {
+        {            
+            var color = await _ColorsRepository.GetAllActiveAsync();
+            ViewBag.Color = color;
+            var size = await _SizesRepository.GetAllActiveAsync();
+            ViewBag.Size = size;
+            string token = HttpContext.Request.Cookies["token"];
+            string userID = ExtractUserIDFromToken(token);
+            ViewBag.IDUser = userID;
+            ViewBag.IDOptions = ID;
             var variant = await _VariantRepository.GetAllAsync();
             ViewBag.Variant = variant;
             var dataold = await _IOptionsRepository.GetByIDAsync(ID);
-            var updateVM = new OptionsUpdateVM
-            {
-                IDColor = dataold.IDColor,
-                IDSizes = dataold.IDSizes,
-                IDVariant = dataold.IDVariant,
-                ColorName = dataold.ColorName,
-                SizesName = dataold.SizeName,
-                CostPrice = dataold.CostPrice,
-                RetailPrice = dataold.RetailPrice,
-                DiscountedPrice = dataold.DiscountedPrice,
-                Description = dataold.Description,
-                //ImageURL = dataold.ImageURL,
-                StockQuantity = dataold.StockQuantity,
-                Status = dataold.Status,
-            };
-            return View("~/Areas/Admin/Views/ManagerOptions/Edit.cshtml", updateVM);
+            ViewBag.Options = dataold;
+            ViewBag.IDVariant = dataold.IDVariant;
+            return View("~/Areas/Admin/Views/ManagerOptions/Edit.cshtml");
         }
         [HttpPut]
         [Route("update/{ID}")]

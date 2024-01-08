@@ -1,7 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    var form = document.querySelector('.form');
+    var form = document.getElementById('registerForm');
     form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Ngăn hành vi submit mặc định của form
+        event.preventDefault();
 
         Swal.fire({
             title: 'Xác nhận đăng ký?',
@@ -24,14 +24,14 @@
                 });
 
                 var formData = {
-                    Username: document.querySelector("input[name='Username']").value,
-                    Email: document.querySelector("input[name='Email']").value,
-                    SurName: document.querySelector("input[name='SurName']").value,
-                    MiddleName: document.querySelector("input[name='MiddleName']").value,
-                    FirstName: document.querySelector("input[name='FirstName']").value,
-                    PhoneNumber: document.querySelector("input[name='PhoneNumber']").value,
-                    Password: document.querySelector("input[name='Password']").value,
-                    ConfirmPassword: document.querySelector("input[name='ConfirmPassword']").value,
+                    Username: document.getElementById('username').value,
+                    Email: document.getElementById('email').value,
+                    SurName: document.getElementById('surname').value,
+                    MiddleName: document.getElementById('middlename').value,
+                    FirstName: document.getElementById('name').value,
+                    PhoneNumber: document.getElementById('phoneNumber').value,
+                    Password: document.getElementById('password').value,
+                    ConfirmPassword: document.getElementById('confirmPassword').value,
                 };
                 console.log(formData);
                 var queryString = `?role=Client`;

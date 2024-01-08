@@ -76,6 +76,8 @@ function executeCancellation(IDOrder) {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
+            location.reload();
+
             Swal.fire({
                 title: 'Thành công!',
                 text: 'Huỷ đơn thành công.',

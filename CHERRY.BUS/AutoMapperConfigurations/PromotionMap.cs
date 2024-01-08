@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using CHERRY.BUS.ViewModels.Promotion;
 using CHERRY.DAL.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CHERRY.BUS.AutoMapperConfigurations
 {
@@ -13,7 +9,9 @@ namespace CHERRY.BUS.AutoMapperConfigurations
     {
         public PromotionMap()
         {
-            CreateMap<Promotion, PromotionVM>().ReverseMap();
+            CreateMap<Promotion, PromotionVM>()
+ .ForMember(dest => dest.IDVariant, opt => opt.MapFrom(src => src.PromotionVariants.Select(c=>c.IDVariant).ToList()))
+                .ReverseMap();
         }
     }
 }

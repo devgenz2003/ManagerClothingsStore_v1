@@ -10,6 +10,7 @@ namespace CHERRY.BUS.Services._1_Interface
         public Task<List<OrderVM>> GetAllAsync();
         public Task<List<OrderVM>> GetAllActiveAsync();
         public Task<OrderVM> GetByIDAsync(Guid ID);
+        public Task<OrderVM> GetByHexCodeAsync(string HexCode);
         public Task<List<OrderVariantVM>> GetOrderVariantByIDAsync(Guid IDOrder);
         public Task<bool> CreateAsync(OrderCreateVM request);
         public Task<bool> RemoveAsync(Guid ID, string IDUserdelete);
@@ -21,6 +22,8 @@ namespace CHERRY.BUS.Services._1_Interface
         // Lấy danh sách đơn hàng theo ID khách hàng
         public Task<List<OrderVM>> GetByCustomerIDAsync(string IDUser);
         // Đánh dấu một đơn hàng là đã giao hàng
+        public Task<bool> MarkAsShippedAsync(Guid IDOrder);
+
         public Task<bool> MarkAsPaymentSuccessAsync(string HexCode);
         // Đánh dấu một đơn hàng là đã hoàn thành
         public Task<bool> MarkAsDeliveredAsync(Guid IDOrder);
@@ -30,6 +33,6 @@ namespace CHERRY.BUS.Services._1_Interface
         public Task<bool> MarkAsReturnedAsync(Guid IDOrder);
         // Xác nhận đơn hàng với trạng thái theo dõi
         public Task<bool> ConfirmOrderAsync(Guid IDOrder, bool trackingCheck);
-
+        public Task<bool> MarkAsProcessingAsync(Guid IDOrder);
     }
 }

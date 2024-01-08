@@ -7,41 +7,60 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
 }
-
-<section class="sherah-adashboard sherah-show">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="sherah-body">
-                    <div class="mb-12">
+<h1>Quản lý đơn hàng</h1>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="">
+            <div class="sherah-body">
+                <div class="row">
+                    <div class="col-md-6">
                         <label for="statusFilter" class="form-label">Lọc theo trạng thái:</label>
                         <select id="statusFilter" class="form-control">
                             <option value="">Tất cả trạng thái</option>
-                            <option value="Chưa giải quyết">Chưa giải quyết</option>
+                            <option value="Chờ">Chờ</option>
                             <option value="Xử lý">Xử lý</option>
-                            <option value="Đã vận chuyển">Đã vận chuyển</option>
-                            <option value="Đã giao hàng">Đã giao hàng</option>
-                            <option value="Đã hủy">Đã hủy</option>
+                            <option value="Vận chuyển">Vận chuyển</option>
+                            <option value="Hoàn thành">Hoàn thành</option>
+                            <option value="Hủy">Hủy</option>
                             <option value="Trả lại">Trả lại</option>
                         </select>
-                        <label for="startDate">Từ ngày:</label>
-                        <input type="date" id="startDate" class="form-control">
-
-                        <label for="endDate">Đến ngày:</label>
-                        <input type="date" id="endDate" class="form-control">
-
-                        <button id="filterByDateBtn" class="btn btn-primary">Lọc theo ngày</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="minTotal">Từ:</label>
+                                <input type="text" id="minTotal" class="form-control" placeholder="Từ">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="maxTotal">Đến:</label>
+                                <input type="text" id="maxTotal" class="form-control" placeholder="Đến">
+                            </div>
+                        </div>
+                        <button id="filterByTotalBtn" class="btn btn-primary">Lọc theo tổng</button>
 
                     </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="startDate">Từ ngày:</label>
+                                <input type="date" id="startDate" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="endDate">Đến ngày:</label>
+                                <input type="date" id="endDate" class="form-control">
+                            </div>
+                            <button id="filterByDateBtn" class="btn btn-primary">Lọc theo ngày</button>
+                        </div>
+                    </div>
+                    <hr />
                     <table id="orderListTable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Mã đơn</th>
                                 <th>Người dùng</th>
-                                <th>Địa chỉ giao hàng</th>
+                                <th>Giao hàng</th>
+                                <th>Tổng</th>
+                                <th>Phương thức</th>
                                 <th>Thanh toán</th>
-                                <th>Phương thức thanh toán</th>
-                                <th>Trạng thái thanh toán</th>
                                 <th>Trạng thái</th>
                                 <th>Actions</th>
                             </tr>
@@ -50,10 +69,22 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.HexCode)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
-                                    <td> @item.ShippingAddress, @item.ShippingAddressLine2</td>
-                                    <td>@Currency.FormatCurrency(item.TotalAmount.ToString()) vnđ</td>
+                                    <td>
+                                        <a id="HexCode" href="@Url.Action("Details_Order", new { IDOrder = item.ID })">
+                                            @item.HexCode
+                                        </a>
+                                        <br />
+                                        <small id="date">@item.CreateDate.ToString("dd-MM-yyyy HH:mm")</small>
+                                    </td>
+                                    <td>
+                                        @item.CustomerName 
+                                        <small>@item.CustomerPhone</small>
+                                    </td>
+                                    <td>
+                                        @item.ShippingAddress, @item.ShippingAddressLine2
+                                        <small id="customerEmail">(@item.CustomerEmail)</small>
+                                    </td>
+                                    <td data-search="@item.TotalAmount">@Currency.FormatCurrency(item.TotalAmount.ToString()) vnđ</td>
                                     <td>
                                         @switch (item.PaymentMethod)
                                         {
@@ -86,19 +117,19 @@
                                         @switch (item.OrderStatus)
                                         {
                                             case OrderStatus.Pending:
-                                                <span>Chưa giải quyết</span>
+                                                <span>Chờ</span>
                                                 break;
                                             case OrderStatus.Processing:
-                                                <span>Xử lý</span>
+                                                <span></span>
                                                 break;
                                             case OrderStatus.Shipped:
-                                                <span>Đã vận chuyển</span>
+                                                <span>Vận chuyển</span>
                                                 break;
                                             case OrderStatus.Delivered:
-                                                <span>Đã giao hàng</span>
+                                                <span>Hoàn thành</span>
                                                 break;
                                             case OrderStatus.Cancelled:
-                                                <span>Đã hủy</span>
+                                                <span>Hủy</span>
                                                 break;
                                             case OrderStatus.Returned:
                                                 <span>Trả lại</span>
@@ -106,45 +137,31 @@
                                         }
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Chi tiết", "Details_Order", new { IDOrder = item.ID }, new { @class = "btn btn-sm btn-primary" })
-                                        @if (item.OrderStatus == OrderStatus.Delivered)
+                                        @if (item.OrderStatus == OrderStatus.Delivered || item.OrderStatus == OrderStatus.Cancelled)
                                         {
-                                            <p class="btn btn-sm btn-success">Successs</p>
+                                            @Html.ActionLink("Xem", "Details_Order", new { IDOrder = item.ID }, new { @class = "btn btn-sm btn-primary", @id = "detailLink" })
                                         }
-                                        else
+                                        else if (item.OrderStatus == OrderStatus.Pending)
                                         {
-                                            @using (Html.BeginForm("MarkAsCancelled", "ManagerOrder", FormMethod.Post, new { @class = "d-inline" }))
-                                            {
-                                                <input type="hidden" name="ID_Order" value="@item.ID" />
-                                                <button type="submit" class="btn btn-sm btn-danger">Huỷ</button>
-                                            }
-
-                                            @using (Html.BeginForm("MarkAsReturned", "ManagerOrder", FormMethod.Post, new { @class = "d-inline" }))
-                                            {
-                                                <input type="hidden" name="ID_Order" value="@item.ID" />
-                                                <button type="submit" class="btn btn-sm btn-warning">Trả lại</button>
-                                            }
-
-                                            @using (Html.BeginForm("MarkAsShipped", "ManagerOrder", FormMethod.Post, new { @class = "d-inline" }))
-                                            {
-                                                <input type="hidden" name="ID_Order" value="@item.ID" />
-                                                <button type="submit" class="btn btn-sm btn-primary">Đã vận chuyển</button>
-                                            }
-                                            @using (Html.BeginForm("MarkAsDelivered", "ManagerOrder", FormMethod.Post, new { @class = "d-inline" }))
-                                            {
-                                                <input type="hidden" name="ID_Order" value="@item.ID" />
-                                                <button type="submit" class="btn btn-sm btn-success">Hoàn thành</button>
-                                            }
+                                            <button class="btn btn-sm btn-primary confirmOrderButton" data-order-id="@item.ID">Duyệt</button>
                                         }
-
+                                        else if (item.OrderStatus == OrderStatus.Processing)
+                                        {
+                                            <button class="btn btn-sm btn-primary " id="shipping" data-order-id="@item.ID">Giao</button>
+                                        }
+                                        else if (item.OrderStatus == OrderStatus.Shipped)
+                                        {
+                                            <button class="btn btn-sm btn-primary " id="Delivered" data-order-id="@item.ID">Xong</button>
+                                        }
                                     </td>
                                 </tr>
                             }
-                         </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 <script src="/js/Order/order_index_admin.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

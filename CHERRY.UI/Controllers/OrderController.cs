@@ -73,10 +73,35 @@ namespace CHERRY.UI.Controllers
             if (response != null)
             {
                 var markSuccess = await _IOrderRepository.MarkAsPaymentSuccessAsync(response.TransactionId);
+                var order = await _IOrderRepository.GetByHexCodeAsync(response.TransactionId);
 
                 if (markSuccess)
                 {
-                    return View("Success");
+                    try
+                    {
+                        var client = new HttpClient();
+                        var emailModel = new
+                        {
+                            RecipientEmail = order.CustomerEmail,
+                            Subject = "Thanh toán thành công",
+                            Message = $"Chúc mừng! Đơn hàng {order.HexCode} của bạn đã thanh toán thành công {order.TotalAmount.ToString("N0")} đ. Địa chỉ nhận hàng {order.ShippingAddressLine2}, {order.ShippingAddress}"
+                        };
+
+                        var response_1 = await client.PostAsJsonAsync("https://localhost:7108/api/Email/send-email", emailModel);
+
+                        if (response_1.IsSuccessStatusCode)
+                        {
+                            return View("Success");
+                        }
+                        else
+                        {
+                            return BadRequest("Có lỗi khi gửi email.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest("Có lỗi khi gửi email: " + ex.Message);
+                    }
                 }
                 else
                 {

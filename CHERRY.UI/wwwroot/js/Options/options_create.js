@@ -1,9 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     var form = document.getElementById('createOptionForm');
-    document.getElementById('createOptionForm').addEventListener('submit', function (e) {
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // Hiển thị thông báo xác nhận trước khi gửi
         Swal.fire({
             title: 'Xác nhận gửi dữ liệu?',
             text: "Bạn xác nhận tạo phân loại này chứ?",
@@ -14,47 +13,50 @@
             confirmButtonText: 'Xác nhận!'
         }).then((result) => {
             if (result.isConfirmed) {
-                sendFormData(form);
+                sendData(form);
             }
         });
     });
-});
 
-function sendFormData(form) {
-    var formData = new FormData(form);
-    fetch('https://localhost:7108/api/Options/create', {
-        method: 'POST',
-        body: formData
-    })
-        .then(function (response) {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+    function sendData(form) {
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+
+        xhr.onloadstart = function () {
+            Swal.fire({
+                title: 'Đang xử lý...',
+                html: '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+        };
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Tạo phân loại thành công.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = "/optionlist";
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Something went wrong.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
             }
-            return response.json();
-        })
-        .then(function (data) {
-            // Hiển thị thông báo thành công
-            Swal.fire({
-                title: 'Thành công!',
-                text: 'Tạo phân loại thành công.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                window.location.href = "/optionlist"; 
-            });
-        })
-        .catch(function (error) {
-            // Hiển thị thông báo lỗi
-            Swal.fire({
-                title: 'Error!',
-                text: 'Something went wrong.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        });
-}
+        };
 
-document.addEventListener('DOMContentLoaded', function () {
+        xhr.open('POST', 'https://localhost:7108/api/Options/create');
+        xhr.send(formData);
+    }
+
     function updateInputField(selectElementId, inputElementId) {
         var selectElement = document.getElementById(selectElementId);
         selectElement.addEventListener('change', function () {

@@ -1,4 +1,5 @@
 ﻿using CHERRY.BUS.ViewModels.Voucher;
+using CHERRY.BUS.ViewModels.VoucherUser;
 
 namespace CHERRY.BUS.Services._1_Interfaces
 {
@@ -15,6 +16,7 @@ namespace CHERRY.BUS.Services._1_Interfaces
         public Task<bool> ActivateVoucherAsync(Guid ID);
         public Task<bool> DeactivateVoucherAsync(Guid ID);
         public Task<List<VoucherVM>> GetVouchersByExpirationDateAsync(DateTime expirationDate);
+        public Task<List<VoucherUserVM>> GetUserInPromotionAsync(Guid ID);
 
     }
 }

@@ -8,10 +8,12 @@
 <div id="loadingSpinner" class="spinner-overlay">
     <div class="spinner"></div>
 </div>
+<h1>Thêm phân loại 1</h1>
+<hr />
 
 <div class="row">
-    <div class="col-md-8">
-        <form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="col-md-6">
+        <form  enctype="multipart/form-data" id="variantcreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-6">
@@ -135,3 +137,4 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <script src="/js/Variant/variant_create.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

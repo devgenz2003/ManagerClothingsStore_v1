@@ -15,7 +15,7 @@ namespace CHERRY.BUS.ViewModels.Options
 
         public string ColorName { get; set; } 
         public string SizesName { get; set; } 
-        public IFormFile ImagePaths { get; set; } = null!;
+        public IFormFile ImagePaths { get; set; } 
         public int Status { get; set; }
     }
 }

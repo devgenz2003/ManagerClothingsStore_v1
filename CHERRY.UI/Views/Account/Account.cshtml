@@ -7,7 +7,8 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4>Thông tin tài khoản</h4>
@@ -30,9 +31,6 @@
                             <dd class="col-sm-8">@Html.DisplayFor(model => model.Gmail)</dd>
 
                         }
-                        <dt class="col-sm-4">Date of Birth:</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.DateOfBirth)</dd>
-
                         <dt class="col-sm-4">Phone:</dt>
                         @if (Model.PhoneNumber == null)
                         {
@@ -42,25 +40,7 @@
                         {
                             <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
                         }
-                        <dt class="col-sm-4">Gender:</dt>
-                        <dd class="col-sm-8">
-                            @{
-                                if (Model.Gender == 0)
-                                {
-                                    <text>Nam</text>
-                                }
-                                else if (Model.Gender == 1)
-                                {
-                                    <text>Nữ</text>
-                                }
-                                else
-                                {
-                                    <text>Other</text>
-                                }
-                            }
-                        </dd>
-
-                        <dt class="col-sm-4">Status:</dt>
+                        <dt class="col-sm-4">Trạng thái:</dt>
                         <dd class="col-sm-8">
                             @{
                                 if (Model.Status == 0)
@@ -85,6 +65,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
 </div>
 

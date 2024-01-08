@@ -1,6 +1,7 @@
 ﻿using CHERRY.BUS.ViewModels.Voucher;
 using CHERRY.UI.Areas.Admin.Models;
 using CHERRY.UI.Repositorys._1_Interface;
+using CHERRY.UI.Repositorys._2_Implement;
 using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -85,15 +86,14 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(Guid ID)
         {
-            try
+            var data = await _IVoucherRepository.GetByIDAsync(ID);
+            var user = await _IVoucherRepository.GetUserInPromotionAsync(ID);
+            var model = new ModelCompositeShare()
             {
-                var data = await _IVoucherRepository.GetByIDAsync(ID);
-                return View("~/Areas/Admin/Views/ManagerVoucher/Details.cshtml", data);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Chưa có cập nhật gì về voucher");
-            }
+                VoucherVM = data,
+                LstVoucherUserVM = user
+            };
+            return View("~/Areas/Admin/Views/ManagerVoucher/Details.cshtml", model);
         }
     }
 }

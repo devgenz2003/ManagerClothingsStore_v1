@@ -21,7 +21,6 @@ namespace CHERRY.BUS.ViewModels.User
         public string? Gmail { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PhoneNumber { get; set; } = null!;
-        public string? ImagePath { get; set; }
         public int Gender { get; set; }
         public int Status { get; set; } // 0 = Delete
     }

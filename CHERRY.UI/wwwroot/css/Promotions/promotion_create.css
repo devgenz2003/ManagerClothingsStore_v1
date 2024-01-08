@@ -104,3 +104,23 @@
     font-size: 14px; /* Kích thước font cho text */
 }
 
+.variant-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .variant-item .variant-info {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 200px; /* Điều chỉnh chiều rộng tối đa của tên sản phẩm */
+    }
+
+        .variant-item .variant-info img {
+            max-width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }

@@ -3,6 +3,7 @@ using CHERRY.DAL.Entities;
 using CHERRY.UI.Areas.Admin.Models;
 using CHERRY.Utilities;
 using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,8 @@ namespace CHERRY.UI.Areas.Admin.Controllers
     [Area("admin")]
     [Route("admin")]
     [Route("admin/homeadmin")]
-    public class HomeController : Controller
+	//[Authorize(Roles = "Admin")]
+	public class HomeController : Controller
     {
         private readonly CHERRY_DBCONTEXT _dbContext;
         private int totalOrders;

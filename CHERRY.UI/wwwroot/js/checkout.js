@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
             var discountCell = document.createElement("td");
             discountCell.textContent = formatCurrency(product.DiscountedPrice);
             row.appendChild(discountCell);
-            console.log(formatCurrency(product.DiscountedPrice));
 
             var totalPriceCell = document.createElement("td");
             totalPriceCell.textContent = formatCurrency(product.TotalPrice);
@@ -73,7 +72,7 @@ function deleteProduct(product, selectedProducts, tableBody) {
         cancelButtonText: 'Hủy'
     }).then((result) => {
         if (result.isConfirmed) {
-
+            location.reload();
             var index = selectedProducts.indexOf(product);
             if (index !== -1) {
                 selectedProducts.splice(index, 1);
@@ -108,6 +107,7 @@ function findRowByProduct(product, tableBody) {
     }
     return null;
 }
+
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("confirmOrderButton").addEventListener("click", function () {
         var customerName = document.getElementById("CustomerName").value;
@@ -115,10 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
         var customerEmail = document.getElementById("CustomerEmail").value;
         var shippingMethod = parseInt(document.getElementById("ShippingMethod").value, 10);
         var shippingAddress = document.getElementById("shippingAddress").value.trim();
+        var shippingAddress2 = document.getElementById("ShippingAddressLine2").value.trim();
         var paymentMethod = parseInt(document.querySelector('input[name="PaymentMethod"]:checked').value, 10);
         var notes = document.getElementById("Notes").value.trim();
         var IDUser = document.getElementById("iduser").value;
-
         if (customerName === "" || customerPhone === "" || customerEmail === "" || shippingMethod === "" ||
             shippingAddress === "" || paymentMethod === "") {
             Swal.fire({
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     ShippingMethod: shippingMethod,
                     TrackingCheck: false,
                     ShippingAddress: shippingAddress,
-                    ShippingAddressLine2: document.getElementById("ShippingAddressLine2").value,
+                    ShippingAddressLine2: shippingAddress2,
                     TotalAmount: finalTotalAmount,
                     PaymentMethod: paymentMethod,
                     Notes: notes,
@@ -217,8 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         xhr.send(JSON.stringify(formData));
                     });
-                }
-
+                }       
                 function sendCreateOrderRequest() {
                     return new Promise((resolve, reject) => {
                         var xhr = new XMLHttpRequest();
@@ -266,8 +265,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                     var data = {
                                         recipientEmail: customerEmail,
                                         subject: "Xác nhận đơn hàng thành công",
-                                        message: `Mã đơn hàng ${hexcode} tổng giá trị ${finalTotalAmount} đã được đặt thành công`
+                                        message: `Mã đơn hàng ${hexcode} tổng giá trị ${finalTotalAmount} đã được đặt thành công tới địa chỉ ${shippingAddress2}, ${shippingAddress}`
                                     };
+                                    window.location.href = '/order_list';
                                     fetch('https://localhost:7108/api/Email/send-email', {
                                         method: 'POST',
                                         headers: {
@@ -275,18 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                         },
                                         body: JSON.stringify(data)
                                     })
-                                        .then(response => {
-                                            if (response.ok) {
-                                                return response.json();
-                                            }
-                                            throw new Error('Failed to send email.');
-                                        })
-                                        .then(() => {
-                                            window.location.href = '/order_list';
-                                        })
-                                        .catch((error) => {
-                                            Swal.fire('Lỗi', error, 'error');
-                                        });
                                 }
                             });
                         })
@@ -298,19 +286,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-document.getElementById('applyVoucherButton').addEventListener('click', function () {
-    var selectedVoucher = document.querySelector('input.voucher-radio:checked');
-    if (selectedVoucher) {
-        var discountValue = parseFloat(selectedVoucher.getAttribute('data-discount'));
-        var discountType = selectedVoucher.getAttribute('data-type');
-        document.getElementById('discountText').textContent = formatCurrency(discountValue, discountType);
 
-        $('#voucherModal').modal('hide');
-    } else {
-        alert('Vui lòng chọn một voucher trước khi áp dụng.');
-    }
-});
-document.getElementById('applyVoucherButton').addEventListener('click', function () {
+document.getElementById('applyVoucherButton').addEventListener('click', applyVoucher);
+
+function applyVoucher() {
     var selectedVoucher = document.querySelector('input.voucher-radio:checked');
     if (selectedVoucher) {
         var discountValue = parseFloat(selectedVoucher.getAttribute('data-discount'));
@@ -318,7 +297,7 @@ document.getElementById('applyVoucherButton').addEventListener('click', function
 
         document.getElementById('selectedVoucherCode').value = selectedVoucher.id;
 
-        var totalAmount = parseFloat(document.getElementById('TotalAmount').value.replace(/[^\d.-]/g, ''));
+        var totalAmount = calculateTotalAmount();
         var discountedAmount = 0;
 
         if (discountType === 'Percent') {
@@ -327,68 +306,62 @@ document.getElementById('applyVoucherButton').addEventListener('click', function
             discountedAmount = discountValue;
         }
 
-        var formattedDiscount = discountType === 'Percent' ? '-' + discountValue + '%' : '-' + formatCurrency(discountedAmount);
+        var formattedDiscount = discountType === 'Percent' ? `-${discountValue}%` : `-${formatCurrency(discountedAmount)}`;
         document.getElementById('discountText').textContent = formattedDiscount;
 
         $('#voucherModal').modal('hide');
+        updateTotalPriceAndAmount(); 
     } else {
-        alert('Vui lòng chọn một voucher trước khi áp dụng.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Vui lòng chọn một voucher trước khi áp dụng.'
+        });
     }
-});
-document.getElementById('applyVoucherButton').addEventListener('click', function () {
-    updateTotalPriceAndAmount();
-});
+}
+
 function updateTotalPriceAndAmount() {
     var totalAmount = calculateTotalAmount();
     var discountAmount = calculateDiscountAmount();
+    var finalTotalAmount = totalAmount - discountAmount;
 
-    // Cập nhật các trường trên giao diện
+    finalTotalAmount = Math.max(finalTotalAmount, 5000);
+
     document.getElementById('TotalAmount').value = formatCurrency(totalAmount);
     document.getElementById('DiscountedTotalAmount').value = formatCurrency(discountAmount);
-    var finalTotalAmount = totalAmount - discountAmount;
     document.getElementById('FinalTotalAmount').value = formatCurrency(finalTotalAmount);
+
+    if (finalTotalAmount < 5000) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Tổng giá trị đơn hàng không thể nhỏ hơn 5000 VND.'
+        });
+        return;
+    }
 }
+
 function calculateTotalAmount() {
     var selectedProducts = JSON.parse(sessionStorage.getItem('selectedProducts') || '[]');
-    var totalAmount = 0;
-
-    selectedProducts.forEach(function (product) {
-        totalAmount += parseCurrencyToNumber(product.TotalPrice);
-    });
-
-    return totalAmount;
+    return selectedProducts.reduce((total, product) => total + parseCurrencyToNumber(product.TotalPrice), 0);
 }
+
 function calculateDiscountAmount() {
     var selectedVoucher = document.querySelector('input.voucher-radio:checked');
-    var totalAmount = calculateTotalAmount();
-    var discountAmount = 0;
-
     if (selectedVoucher) {
         var discountValue = parseFloat(selectedVoucher.getAttribute('data-discount'));
         var discountType = selectedVoucher.getAttribute('data-type');
+        var totalAmount = calculateTotalAmount();
 
         if (discountType === 'Percent') {
-            discountAmount = totalAmount * (discountValue / 100);
+            return totalAmount * (discountValue / 100);
         } else {
-            discountAmount = parseCurrencyToNumber(discountValue);
+            return parseCurrencyToNumber(discountValue);
         }
     }
+    return 0;
+}
 
-    return discountAmount;
-}
-function applyVoucher() {
-    updateTotalPriceAndAmount();
-    $('#voucherModal').modal('hide');
-}
-function updateTotalAmount() {
-    var selectedProducts = JSON.parse(sessionStorage.getItem('selectedProducts') || '[]');
-    var totalAmount = 0;
-    selectedProducts.forEach(function (product) {
-        totalAmount += product.TotalPrice;
-    });
-    document.getElementById('TotalAmount').value = formatCurrency(totalAmount);
-}
-document.getElementById('applyVoucherButton').addEventListener('click', applyVoucher);
 document.addEventListener("DOMContentLoaded", function () {
-    updateTotalPriceAndAmount();
+    updateTotalPriceAndAmount(); // Cập nhật tổng giá và tổng giảm giá khi tài liệu đã tải
 });

@@ -85,13 +85,12 @@ namespace CHERRY.BUS.Services._2_Implements
                             IDOptions = option.ID,
                             UnitPrice = option.RetailPrice,
                             Quantity = directItem.Quantity,
-                            TotalAmount = (option.RetailPrice * directItem.Quantity) - option.DiscountedPrice.Value,
+                            TotalAmount = (option.RetailPrice * directItem.Quantity) - (option.DiscountedPrice.Value * directItem.Quantity),
                             Status = 1,
                             CreateBy  = option.CreateBy
                         };
                         orderDetailsList.Add(ordervariant);
-                        totalAmount += (ordervariant.UnitPrice * ordervariant.Quantity) - option.DiscountedPrice.Value;
-
+                        totalAmount += (ordervariant.UnitPrice * ordervariant.Quantity) - (option.DiscountedPrice.Value * ordervariant.Quantity);
                     }
                     else
                     {
@@ -116,7 +115,7 @@ namespace CHERRY.BUS.Services._2_Implements
                     }
 
                     var discountAmount = CalculateDiscountAmount(voucher, totalAmount);
-                    totalAmount -= discountAmount;
+                    totalAmount -= Math.Min(discountAmount, totalAmount - 5000);
 
                     voucher.Quantity -= 1;
                     if (voucher.Quantity <= 0)
@@ -137,7 +136,16 @@ namespace CHERRY.BUS.Services._2_Implements
                     };
                     _dbContext.VoucherHistory.Add(voucherhistory);
                 }
+                decimal minimumTotal = 5000;
 
+                if (totalAmount < minimumTotal)
+                {
+                    order.TotalAmount = minimumTotal; 
+                }
+                else
+                {
+                    order.TotalAmount = totalAmount; 
+                }
                 order.TotalAmount = totalAmount;
                 _dbContext.Order.Add(order);
                 _dbContext.OrderVariant.AddRange(orderDetailsList);
@@ -210,9 +218,11 @@ namespace CHERRY.BUS.Services._2_Implements
         }
         public async Task<List<OrderVM>> GetByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
+            var endDateExtended = endDate.AddDays(1); // Khoảng thời gian mở rộng lên ngày hôm sau
             var orders = await _dbContext.Order
-                               .Where(o => o.CreateDate >= startDate && o.CreateDate <= endDate)
-                               .ToListAsync();
+                .Where(o => o.CreateDate >= startDate && o.CreateDate < endDateExtended)
+                .ToListAsync();
+
 
             return _mapper.Map<List<OrderVM>>(orders);
         }
@@ -336,6 +346,7 @@ namespace CHERRY.BUS.Services._2_Implements
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
         public async Task<bool> RemoveAsync(Guid ID, string IDUserdelete)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
@@ -401,6 +412,40 @@ namespace CHERRY.BUS.Services._2_Implements
             order.Status = request.Status;
             
             _dbContext.Order.Update(order);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<OrderVM> GetByHexCodeAsync(string HexCode)
+        {
+            var order = await _dbContext.Order.FirstOrDefaultAsync(o => o.HexCode.ToString() == HexCode);
+            return order != null ? _mapper.Map<OrderVM>(order) : null;
+        }
+
+        public async Task<bool> MarkAsProcessingAsync(Guid IDOrder)
+        {
+            var order = await _dbContext.Order
+                                                    .FirstOrDefaultAsync(o => o.ID == IDOrder);
+
+            if (order == null || order.TrackingCheck)
+            {
+                return false;
+            }
+            order.OrderStatus = OrderStatus.Processing;
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> MarkAsShippedAsync(Guid IDOrder)
+        {
+            var order = await _dbContext.Order
+                                                                .FirstOrDefaultAsync(o => o.ID == IDOrder);
+
+            if (order == null || order.TrackingCheck)
+            {
+                return false;
+            }
+            order.OrderStatus = OrderStatus.Shipped;
             await _dbContext.SaveChangesAsync();
             return true;
         }

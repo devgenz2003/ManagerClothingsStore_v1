@@ -60,10 +60,23 @@
                 <div class="sherah-body">
                     <div class="order-info">
                         <h3>Thông tin Đơn Hàng</h3>
-                        <p>ID Đơn Hàng: @Model.OrderVM.ID</p>
-                        <p>Địa chỉ Giao Hàng: @Model.OrderVM.ShippingAddress</p>
-                        <p>Tổng tiền: @Currency.FormatCurrency(Model.OrderVM.TotalAmount.ToString()) vnđ</p>
-                        <p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>ID Đơn Hàng: @Model.OrderVM.ID</p>
+                                <p>Địa chỉ Giao Hàng: @Model.OrderVM.ShippingAddress</p>
+                                <p>Địa chỉ cụ thể: @Model.OrderVM.ShippingAddressLine2</p>
+                                <p>Voucher: @Model.OrderVM.VoucherCode</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Người nhận: @Model.OrderVM.CustomerName</p>
+                                <p>Email: @Model.OrderVM.CustomerEmail</p>
+                                <p>Số điện thoại: @Model.OrderVM.CustomerPhone</p>
+                                <p>Ngày đặt: @Model.OrderVM.CreateDate.ToString("dd/MM/yyyy HH:mm:ss")</p>
+                            </div>
+                        </div>
+                        <p class="total-amount">Tổng tiền: @Currency.FormatCurrency(Model.OrderVM.TotalAmount.ToString()) vnđ</p>
+                        <p class="cots">Phụ giá: @Currency.FormatCurrency(Model.OrderVM.Cotsts.ToString()) vnđ</p>
+                        <p class="order-status @Model.OrderVM.OrderStatus.ToString()">
                             Trạng thái đơn hàng:
                             @switch (Model.OrderVM.OrderStatus)
                             {
@@ -94,29 +107,52 @@
 
                     <!-- Hiển thị chi tiết đơn hàng -->
                     <div>
-                        <h3>Chi Tiết Đơn Hàng</h3>
                         <table id="orderDetailsTable" class="table">
                             <thead>
                                 <tr>
-                                    <th>Mã Sản Phẩm</th>
-                                    <th>Số Lượng</th>
-                                    <th>Giá</th>
-                                    <th>Tổng giá</th>
+                                    <th style="text-align:center">Tên Sản Phẩm</th>
+                                    <th style="text-align:center">Số</th>
+                                    <th style="text-align:center">Phân loại</th>
+                                    <th style="text-align:center">Giá bán</th>
+                                    <th style="text-align:center">Tổng</th>
+                                    <th style="text-align:center">Actions</th>
                                     <!-- Các trường khác -->
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var detail in Model.LstOrderVariantVM)
+                                @foreach (var variant in Model.LstOrderVariantVM)
                                 {
-                                    <tr>
-                                        <td>@detail.IDOptions</td>
-                                        <td>@detail.Quantity</td>
-                                        <td>@Currency.FormatCurrency(detail.UnitPrice.ToString()) vnđ</td>
+                                    <tr style="text-align:center">
+                                        <td style="text-align:center">@variant.VariantName</td>
+                                        <td style="text-align:center">@variant.Quantity</td>
+                                        <td style="text-align:center">Màu sắc: @variant.ColorName,<br> Kích cỡ: @variant.SizeName</td>
+                                        <td style="text-align:center">
+                                            @Currency.FormatCurrency(variant.UnitPrice.ToString()) đ
+                                            <br>
+                                            <small class="bold-text">(@Currency.NumberToText((double)variant.UnitPrice, true))</small>
+                                        </td>
                                         @{
-                                            var totalPrice = detail.UnitPrice * detail.Quantity;
+                                            var totalPrice = variant.UnitPrice * variant.Quantity;
                                         }
-                                        <td>@Currency.FormatCurrency(totalPrice.ToString()) vnđ</td>
+                                        <td style="text-align:center">
+                                            @Currency.FormatCurrency(totalPrice.ToString()) đ
+                                            <br>
+                                            <small class="bold-text">(@Currency.NumberToText((double)totalPrice, true))</small>
+                                        </td>
+
+                                        <td style="text-align:center">
+                                            @if (variant.HasReviewed == false && variant.HasPurchased == true)
+                                            {
+                                                @Html.ActionLink("Đánh giá", "Create", "Review",
+                                                         new { IDOptions = variant.IDOptions, IDOrderVariant = variant.ID }, new { @class = "btn btn-warning" })
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Xem đánh giá", "Index", "Review", new { IDOptions = variant.IDOptions }, new { @class = "btn btn-warning" })
+                                            }
+                                        </td>
                                     </tr>
+
                                 }
 
                             </tbody>
@@ -138,3 +174,4 @@
         });
     </script>
 }
+

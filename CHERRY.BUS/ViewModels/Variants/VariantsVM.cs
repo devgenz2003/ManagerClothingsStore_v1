@@ -9,6 +9,7 @@ namespace CHERRY.BUS.ViewModels.Variants
         public string BrandName { get; set; } = null!;
         public string MaterialName { get; set; } = null!;
         public string CategoryName { get; set; } = null!;
+        public int CountReview { get; set; }
         public decimal Minprice { get; set; }
         public decimal Maxprice { get; set; }
         public int TotalOptions { get; set; }

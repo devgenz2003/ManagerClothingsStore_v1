@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y5JwbcuieCGucJGVrvK49sTu6Hs7489yy+85frykEk0=",
+  "Hash": "HfDrQ6fRiEZkAl2UJ0FsW2qapbc1Qyayk9YcSXCe3to=",
   "Source": "CHERRY.UI",
   "BasePath": "_content/CHERRY.UI",
   "Mode": "Default",
@@ -1936,25 +1936,6 @@
       "OriginalItemSpec": "wwwroot\\css\\category_index.css"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\chat.css",
-      "SourceId": "CHERRY.UI",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\",
-      "BasePath": "_content/CHERRY.UI",
-      "RelativePath": "css/chat.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\chat.css"
-    },
-    {
       "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\css\\checkout.css",
       "SourceId": "CHERRY.UI",
       "SourceType": "Discovered",
@@ -2430,6 +2411,25 @@
       "OriginalItemSpec": "wwwroot\\js\\details.js"
     },
     {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\edit_promotion.js",
+      "SourceId": "CHERRY.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\",
+      "BasePath": "_content/CHERRY.UI",
+      "RelativePath": "js/edit_promotion.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\edit_promotion.js"
+    },
+    {
       "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\index.js",
       "SourceId": "CHERRY.UI",
       "SourceType": "Discovered",
@@ -2504,6 +2504,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Options\\options_create.js"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Options\\options_update.js",
+      "SourceId": "CHERRY.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\",
+      "BasePath": "_content/CHERRY.UI",
+      "RelativePath": "js/Options/options_update.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Options\\options_update.js"
     },
     {
       "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Order\\order_index.js",
@@ -2656,6 +2675,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Variant\\variant_create.js"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Variant\\varriant_update.js",
+      "SourceId": "CHERRY.UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\",
+      "BasePath": "_content/CHERRY.UI",
+      "RelativePath": "js/Variant/varriant_update.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Variant\\varriant_update.js"
     },
     {
       "Identity": "C:\\Users\\Administrator\\Desktop\\CHERRY_v2023.POL.v1.1\\CHERRY.UI\\wwwroot\\js\\Voucher\\voucher_create.js",

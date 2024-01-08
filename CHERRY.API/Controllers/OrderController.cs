@@ -76,13 +76,19 @@ namespace CHERRY.API.Controllers
             if (!DateTime.TryParse(startDate, out DateTime parsedStartDate) ||
                 !DateTime.TryParse(endDate, out DateTime parsedEndDate))
             {
-                return BadRequest("Invalid date format");
+                return BadRequest(new { error = "Invalid date format" });
+            }
+
+            if (parsedStartDate > parsedEndDate)
+            {
+                return BadRequest(new { error = "StartDate should be before EndDate" });
             }
 
             var orders = await _orderService.GetByDateRangeAsync(parsedStartDate, parsedEndDate);
+
             if (orders == null || !orders.Any())
             {
-                return NotFound();
+                return NotFound(new { error = "Không có đơn hàng nào" });
             }
 
             return Ok(orders);
@@ -94,8 +100,15 @@ namespace CHERRY.API.Controllers
             var order = await _orderService.GetByIDAsync(ID);
             if (order == null) return NotFound();
             return Ok(order);
+        } 
+        [HttpGet("GetByHexCode/{HexCode}")]
+        public async Task<IActionResult> GetByHexCode(string HexCode)
+        {
+            var order = await _orderService.GetByHexCodeAsync(HexCode);
+            if (order == null) return NotFound();
+            return Ok(order);
         }
-        [HttpGet("{status}")]
+        [HttpGet("MarkAsStatus/{status}")]
         public async Task<IActionResult> GetByStatus(OrderStatus status)
         {
             var orders = await _orderService.GetByStatusAsync(status);
@@ -120,6 +133,21 @@ namespace CHERRY.API.Controllers
         public async Task<IActionResult> MarkAsReturned(Guid IDOrder)
         {
             var result = await _orderService.MarkAsReturnedAsync(IDOrder);
+            if (!result) return BadRequest();
+            return Ok();
+        } 
+        
+        [HttpPut("MarkAsProcessing/{IDOrder}")]
+        public async Task<IActionResult> MarkAsProcessingAsync(Guid IDOrder)
+        {
+            var result = await _orderService.MarkAsProcessingAsync(IDOrder);
+            if (!result) return BadRequest();
+            return Ok();
+        }
+        [HttpPut("MarkAsShipped/{IDOrder}")]
+        public async Task<IActionResult> MarkAsShippedAsync(Guid IDOrder)
+        {
+            var result = await _orderService.MarkAsShippedAsync(IDOrder);
             if (!result) return BadRequest();
             return Ok();
         }

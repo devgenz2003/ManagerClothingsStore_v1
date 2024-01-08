@@ -68,7 +68,7 @@ namespace CHERRY.API.Controllers
         }
 
         [HttpPut]
-        [Route("{ID}")]
+        [Route("Edit_promotion/{ID}")]
         public async Task<IActionResult> Update(Guid ID, PromotionUpdateVM request)
         {
             var result = await _promotionService.UpdateAsync(ID, request);
@@ -103,13 +103,5 @@ namespace CHERRY.API.Controllers
             var result = await _promotionService.ValidatePromotionAsync(ID);
             return result ? Ok() : NotFound();
         }
-
-        [HttpPost("apply/{ID}")]
-        public async Task<IActionResult> Apply(Guid ID, [FromBody] decimal originalPrice)
-        {
-            var discountedPrice = await _promotionService.ApplyPromotionAsync(ID, originalPrice);
-            return Ok(discountedPrice);
-        }
-
     }
 }

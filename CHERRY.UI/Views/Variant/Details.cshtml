@@ -160,7 +160,7 @@
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="reviews">
-                                                    <a href="#" class="lnk">(13 Reviews)</a>
+                                                    <a href="#" class="lnk">(@Model.VariantsVM.CountReview Reviews)</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -262,13 +262,13 @@
                                         <div class="product-tab">
                                             <dl class="row">
                                                 <dt class="col-sm-4">Thương hiệu:</dt>
-                                                <dd class="col-sm-8">@Model.VariantsVM.IDBrand</dd>
+                                                <dd class="col-sm-8">@Model.VariantsVM.BrandName</dd>
 
                                                 <dt class="col-sm-4">Xuất xứ:</dt>
                                                 <dd class="col-sm-8">@Model.VariantsVM.Origin</dd>
 
                                                 <dt class="col-sm-4">Chất liệu:</dt>
-                                                <dd class="col-sm-8">@Model.VariantsVM.IDMaterial</dd>
+                                                <dd class="col-sm-8">@Model.VariantsVM.MaterialName</dd>
 
                                                 <dt class="col-sm-4">Phong cách:</dt>
                                                 <dd class="col-sm-8">@Model.VariantsVM.Style</dd>
@@ -287,9 +287,18 @@
                                                             {
                                                                 <div class="review-item">
                                                                     <div class="username">@item.Username</div>
-                                                                    <div class="create-date">@item.CreateDate</div>
+                                                                    <div class="create-date">@item.CreateDate.ToString("dd-MM-yyyy")</div>
                                                                     <div class="content">@item.Content</div>
-                                                                    <div class="rating">@item.Rating</div>
+                                                                    <div class="review-rating">
+                                                                        @for (int i = 0; i < item.Rating; i++)
+                                                                        {
+                                                                            <span class="fas fa-star checked"></span>
+                                                                        }
+                                                                        @for (int i = item.Rating; i < 5; i++)
+                                                                        {
+                                                                            <span class="far fa-star"></span>
+                                                                        }
+                                                                    </div>
                                                                     <div class="image-container">
                                                                         @foreach (var imagePath in item.ImagePaths)
                                                                         {
@@ -320,6 +329,8 @@
     </div><!-- /.container -->
 </body>
 <script src="/js/details.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
 <script>
     var idOptions = "";
 

@@ -110,12 +110,11 @@ namespace CHERRY.BUS.Services._2_Implements
                 RetailPrice = request.RetailPrice,
                 StockQuantity = request.StockQuantity,
                 DiscountedPrice = request.DiscountedPrice,
-                Status = request.Status,
+                Status = 1,
                 CreateBy = request.CreateBy,
             };
             _dbcontext.Options.Add(option);
 
-            // Tải ảnh lên Cloudinary
             var cloudinaryUrl = await UploadImageToCloudinary(request.ImagePaths);
 
             if (!string.IsNullOrEmpty(cloudinaryUrl))

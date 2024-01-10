@@ -24,7 +24,7 @@
         });
     });
 
-    var form = document.querySelector('#review-form'); 
+    var form = document.querySelector('#review-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -41,14 +41,10 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
-                    title: 'Đang gửi...',
-                    text: 'Vui lòng đợi...',
-                    onBeforeOpen: () => {
-                        Swal.showLoading();
-                    },
+                    title: 'Đang xử lý...',
+                    html: '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>',
+                    showConfirmButton: false,
                     allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    allowEnterKey: false
                 });
 
                 sendFormData(formData);

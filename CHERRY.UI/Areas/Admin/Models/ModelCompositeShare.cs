@@ -4,6 +4,7 @@ using CHERRY.BUS.ViewModels.Order;
 using CHERRY.BUS.ViewModels.OrderVariant;
 using CHERRY.BUS.ViewModels.Promotion;
 using CHERRY.BUS.ViewModels.PromotionVariants;
+using CHERRY.BUS.ViewModels.Review;
 using CHERRY.BUS.ViewModels.User;
 using CHERRY.BUS.ViewModels.Variants;
 using CHERRY.BUS.ViewModels.Voucher;
@@ -32,6 +33,7 @@ namespace CHERRY.UI.Areas.Admin.Models
         public List<CategoryVM> LstCategoryVM { get; set; }
         public List<VariantsVM> LstVariantsVM { get; set; }
         public List<OptionsVM> LstOptionsVM { get; set; }
+        public List<ReviewVM> LstReviewVM { get; set; }
         public PromotionVM PromotionVM { get; set; }
         //Create
         public VariantsCreateVM VariantsCreateVM { get; set; }

@@ -25,6 +25,7 @@ namespace CHERRY.DAL.ApplicationDBContext
                 .ToTable("AspNetUsers")
                 .HasIndex(u => u.Email)
                 .IsUnique();
+            modelBuilder.ApplyConfiguration(new DiscountHistoryConfiguration());
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new CartProductVariantsConfiguration());
@@ -62,6 +63,7 @@ namespace CHERRY.DAL.ApplicationDBContext
                         "Data Source=.;Initial Catalog=CHERRY.v2023;Integrated Security=True"
                         );
         }
+        public virtual DbSet<DiscountHistory> DiscountHistory { get; set; } = null!;
         public virtual DbSet<VoucherUser> VoucherUser { get; set; } = null!;
         public virtual DbSet<GhtkOrderRequest> GhtkOrderRequest { get; set; } = null!;
         public virtual DbSet<Brand> Brand { get; set; } = null!;

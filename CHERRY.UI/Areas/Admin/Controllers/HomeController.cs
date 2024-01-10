@@ -12,13 +12,14 @@ namespace CHERRY.UI.Areas.Admin.Controllers
     [Area("admin")]
     [Route("admin")]
     [Route("admin/homeadmin")]
-	//[Authorize(Roles = "Admin")]
-	public class HomeController : Controller
+    //[Authorize(Roles = "Admin")]
+    public class HomeController : Controller
     {
         private readonly CHERRY_DBCONTEXT _dbContext;
         private int totalOrders;
         private int totalOrdersnosuccess;
         private int totalOrderssuccess;
+        private int TotalQuantityOptions;
         private decimal totalRevenue = 0M;
         private decimal totalCost = 0M;
 
@@ -29,8 +30,17 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         private async Task<MonthlyStatistic> CalculateStatistics(string month)
         {
             DateTime selectedMonth = string.IsNullOrEmpty(month) ? DateTime.Now : DateTime.Parse(month);
+
             var startDate = new DateTime(selectedMonth.Year, selectedMonth.Month, 1);
             var endDate = startDate.AddMonths(1).AddDays(-1);
+            var bankPaymentOrders = await GetBankPaymentOrders(selectedMonth);
+            var totalStockQuantity = await _dbContext.Options
+                .SumAsync(option => option.StockQuantity);
+            ViewBag.TotalQuantityOptions = totalStockQuantity;
+
+            decimal totalBankPayments = bankPaymentOrders.Sum(order => order.TotalAmount);
+            ViewBag.BankPaymentOrders = bankPaymentOrders;
+            ViewBag.TotalBankPayments = totalBankPayments;
 
             var orders = _dbContext.Order.Where(o => o.CreateDate >= startDate && o.CreateDate <= endDate && o.OrderStatus == OrderStatus.Delivered);
 
@@ -44,7 +54,9 @@ namespace CHERRY.UI.Areas.Admin.Controllers
 
             if (await expenses.AnyAsync())
             {
-                totalCost = await expenses.SumAsync(e => e.CostPrice);
+                totalCost = await expenses
+                       .Select(e => e.CostPrice * e.StockQuantity)
+                       .SumAsync();
             }
             totalCost = Math.Max(0, totalCost);
 
@@ -59,13 +71,14 @@ namespace CHERRY.UI.Areas.Admin.Controllers
             totalOrderssuccess = await _dbContext.Order
                    .Where(order => order.CreateDate >= startDate && order.CreateDate <= endDate && order.OrderStatus == OrderStatus.Delivered)
                    .CountAsync();
-
+            var bestSellingProducts = await CalculateBestSellingProducts(startDate, endDate);
             return new MonthlyStatistic
             {
                 TotalOrdersnosuccess = totalOrdersnosuccess,
                 TotalOrder = totalOrders,
                 Month = startDate,
                 TotalRevenue = totalRevenue,
+                BestSellingProducts = bestSellingProducts,
                 TotalCost = totalCost,
                 TotalOrderssuccess = totalOrderssuccess
             };
@@ -82,7 +95,16 @@ namespace CHERRY.UI.Areas.Admin.Controllers
 
             return orderCount;
         }
+        public async Task<List<Order>> GetBankPaymentOrders(DateTime selectedMonth)
+        {
+            var bankPaymentOrders = await _dbContext.Order
+                .Where(order => order.PaymentMethod == PaymentMethod.ChuyenKhoanNganHang
+                             && order.CreateDate.Year == selectedMonth.Year
+                             && order.CreateDate.Month == selectedMonth.Month)
+                .ToListAsync();
 
+            return bankPaymentOrders;
+        }
         [HttpGet]
         [Route("")]
         [Route("indexhome")]
@@ -136,6 +158,37 @@ namespace CHERRY.UI.Areas.Admin.Controllers
                 var content = stream.ToArray();
                 return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Statistics_{statistics.Month.ToString("yyyy_MM")}.xlsx");
             }
+        }
+        private async Task<Dictionary<Guid, int>> CalculateBestSellingProducts(DateTime startDate, DateTime endDate)
+        {
+            var orders = await _dbContext.Order
+                .Where(order => order.CreateDate >= startDate && order.CreateDate <= endDate && order.OrderStatus == OrderStatus.Delivered)
+                .Include(order => order.OrderVariant)
+                .ToListAsync();
+
+            var productSalesCount = new Dictionary<Guid, int>();
+
+            foreach (var order in orders)
+            {
+                foreach (var orderVariant in order.OrderVariant)
+                {
+                    var productId = orderVariant.IDOptions;
+                    var quantitySold = orderVariant.Quantity;
+
+                    if (!productSalesCount.ContainsKey(productId))
+                    {
+                        productSalesCount[productId] = quantitySold;
+                    }
+                    else
+                    {
+                        productSalesCount[productId] += quantitySold;
+                    }
+                }
+            }
+
+            var sortedProducts = productSalesCount.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            return sortedProducts;
         }
     }
 }

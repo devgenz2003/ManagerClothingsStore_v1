@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CHERRY.BUS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac8006b5fc0520b96904ec9af7de54aba43fdde5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d16b665048433a745d346d8caf57d879d5348a41")]
 [assembly: System.Reflection.AssemblyProductAttribute("CHERRY.BUS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CHERRY.BUS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

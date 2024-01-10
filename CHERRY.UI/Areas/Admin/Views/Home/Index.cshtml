@@ -8,6 +8,32 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model MonthlyStatistic
 <style>
+    /* Style cho phần tổng thể của danh sách sản phẩm bán chạy nhất */
+    .best-selling-products {
+        font-family: Arial, sans-serif;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Style cho tiêu đề của danh sách */
+    .product-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    /* Style cho danh sách các sản phẩm */
+    .product-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    /* Style cho từng sản phẩm trong danh sách */
+    .product-item {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
     /* Định dạng Form */
     form {
         margin: 20px 0;
@@ -98,6 +124,48 @@
         max-width: 450px; /* Giới hạn kích thước tối đa của biểu đồ */
         height: auto; /* Độ cao tự động điều chỉnh */
     }
+
+    .bank-payment-details {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .bank-payment-details h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .bank-payment-details h4 {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .bank-payment-details ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .bank-payment-details li {
+            margin-bottom: 5px;
+            font-size: 1em;
+            color: #777;
+        }
+
+        .bank-payment-details a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+            .bank-payment-details a:hover {
+                text-decoration: underline;
+            }
 </style>
 
 <h1>Trang chủ</h1>
@@ -113,8 +181,10 @@
         <p>Chi phí: @Currency.FormatCurrency(Model.TotalCost.ToString()) <small>đ</small></p>
         <p>Lợi nhuận: @Currency.FormatCurrency(Model.TotalProfit.ToString()) <small>đ</small></p>
         <p>Tổng đơn hàng: @Model.TotalOrder</p>
-        <p>Đơn hàng chưa thanh toán: @Model.TotalOrdersnosuccess</p>
-        <p>Đơn hàng đã thanh toán: @Model.TotalOrderssuccess</p>
+        <p>Đơn hàng chưa xử lý: @Model.TotalOrdersnosuccess</p>
+        <p>Đơn hàng đã xử lý: @Model.TotalOrderssuccess</p>
+        <p>Tổng sản phẩm: @ViewBag.TotalProduct</p>
+        <p>Tổng số lượng phân loại: @ViewBag.TotalQuantityOptions</p>
     </div>
     <div class="chart-container">
         <canvas id="revenueChart"></canvas>
@@ -123,6 +193,38 @@
         <canvas id="orderChart"></canvas>
     </div>
 </div>
+<div class="bank-payment-details">
+    <h3>Tổng đơn thanh toán ngân hàng: @Currency.FormatCurrency(ViewBag.TotalBankPayments.ToString()) đ</h3>
+
+    <h4>Các đơn hàng thanh toán tại NCB</h4>
+    <ul>
+        @foreach (var order in ViewBag.BankPaymentOrders)
+        {
+            <li>
+                <a id="HexCode" href="@Url.Action("Details_Order", "ManagerOrder",new { IDOrder = order.ID })">
+                    @order.HexCode
+                </a>
+                - Tổng giá trị: @Currency.FormatCurrency(order.TotalAmount.ToString()) đ
+            </li>
+        }
+    </ul>
+</div>
+@if (Model != null && Model.BestSellingProducts != null)
+{
+    <div class="best-selling-products">
+        <h2 class="product-title">Top sản phẩm bán chạy</h2>
+        <ul class="product-list">
+            @foreach (var product in Model.BestSellingProducts)
+            {
+                <li class="product-item">Product ID:
+                    <a href="@Url.Action("Details","ManagerOptions", new { ID = product.Key })">
+                        @product.Key
+                    </a>
+                    - Quantity Sold: @product.Value</li>
+            }
+        </ul>
+    </div>
+}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -130,12 +232,12 @@
     var revenueChart = new Chart(ctxRevenue, {
         type: 'bar',
         data: {
-            labels: ['Doanh thu', 'Chi phí', 'Lợi nhuận'],
+            labels: ['Chi phí', 'Lợi nhuận'],
             datasets: [{
                 label: 'Tổng số (đ)',
-                data: [@Model.TotalRevenue, @Model.TotalCost, @Model.TotalProfit],
-                backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(75, 192, 192, 0.2)'],
-                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
+                data: [@Model.TotalCost, @Model.TotalProfit],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
                 borderWidth: 1
             }]
         },

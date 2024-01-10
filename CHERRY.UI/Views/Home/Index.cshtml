@@ -17,18 +17,18 @@
                     <nav class="yamm megamenu-horizontal">
                         <ul class="nav">
                             <li class="dropdown menu-item">
-                                @foreach (var item in Model.LstCategoryVM)
+                                @if (Model.LstCategoryVM != null)
                                 {
-                                    @if (Model.LstCategoryVM != null)
+                                    @foreach (var item in Model.LstCategoryVM)
                                     {
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="icon fa fa-shopping-bag" aria-hidden="true"></i>@item.Name
                                         </a>
                                     }
-                                    else
-                                    {
-                                        <p>Hiện tại chưa có cập nhật gì cả</p>
-                                    }
+                                }
+                                else
+                                {
+                                    <p>Hiện tại chưa có cập nhật gì cả</p>
                                 }
                             </li>
                         </ul>
@@ -82,105 +82,16 @@
                                         <div class="product-info text-left m-t-20">
                                             <h3 class="name"><a href="@Url.Action("Details", "Variant", new { IDVariant = item.IDVariant })">@item.VariantName</a></h3>
                                             <div class="product-price">
-                                                @* <span class="price">
-                                        @Currency.FormatCurrency(item.DiscountedPrice_Variant.ToString())
-                                        </span>
-                                        <span class="price-before-discount">
-                                        @Currency.FormatCurrency(item.RetailsPrice.ToString())
-                                        </span> *@
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             }
                         }
-                        else
-                        {
-                            <p>Hiện tại chưa có cập nhật gì cả</p>
-                        }
                     </div>
                 </div>
                 <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-                    <h3 class="section-title">Special Offer</h3>
-                    <div class="sidebar-widget-body outer-top-xs">
-                        <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
-                            <div class="item">
-                                <div class="products special-product">
-                                    <div class="product">
-                                        <div class="product-micro">
-                                            <div class="row product-micro-row">
-                                                <div class="col col-xs-5">
-                                                    <div class="product-image">
-                                                        <div class="image">
-                                                            <a href="#"> <img src="assets\images\products\p30.jpg" alt=""> </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col col-xs-7">
-                                                    <div class="product-info">
-                                                        <h3 class="name"><a href="#">Floral Print Shirt</a></h3>
-                                                        <div class="rating rateit-small"></div>
-                                                        <div class="product-price"> <span class="price"> $450.99 </span> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="product-micro">
-                                            <div class="row product-micro-row">
-                                                <div class="col col-xs-5">
-                                                    <div class="product-image">
-                                                        <div class="image">
-                                                            <a href="#"> <img src="assets\images\products\p29.jpg" alt=""> </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col col-xs-7">
-                                                    <div class="product-info">
-                                                        <h3 class="name"><a href="#">Floral Print Shirt</a></h3>
-                                                        <div class="rating rateit-small"></div>
-                                                        <div class="product-price"> <span class="price"> $450.99 </span> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="product-micro">
-                                            <div class="row product-micro-row">
-                                                <div class="col col-xs-5">
-                                                    <div class="product-image">
-                                                        <div class="image">
-                                                            <a href="#"> <img src="assets\images\products\p28.jpg" alt=""> </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col col-xs-7">
-                                                    <div class="product-info">
-                                                        <h3 class="name"><a href="#">Floral Print Shirt</a></h3>
-                                                        <div class="rating rateit-small"></div>
-                                                        <div class="product-price"> <span class="price"> $450.99 </span> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-widget product-tag wow fadeInUp">
-                    <h3 class="section-title">Product tags</h3>
-                    <div class="sidebar-widget-body outer-top-xs">
-                        <div class="tag-list">
-                            <a class="item" title="Phone" href="category.html">Phone</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-                    <h3 class="section-title">Special Deals</h3>
+                    <h3 class="section-title">Sản phẩm bán chạy</h3>
                     <div class="sidebar-widget-body outer-top-xs">
                         <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
                             <div class="item">
@@ -289,8 +200,8 @@
                                                             <div class="product-image">
                                                                 <div class="image">
                                                                     <a href="@Url.Action("Details", "Variant", new { IDVariant = variant.ID })">
-                                                                        <img src="@variant.ImagePaths.FirstOrDefault()"
-                                                                             alt="">
+                                                                        <img src="@variant.ImagePaths.FirstOrDefault()" alt="" style="width: 200px; height: 200px;">
+
                                                                     </a>
                                                                 </div>
 
@@ -334,15 +245,7 @@
                                                 </div>
 
                                             }
-                                            else
-                                            {
-                                                <p>Hiện tại chưa có cập nhật gì cả</p>
-                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        <p>Hiện tại chưa có cập nhật gì cả</p>
                                     }
                                 </div>
                             </div>
@@ -406,15 +309,7 @@
                                         </div>
                                     </div>
                                 }
-                                else
-                                {
-                                    <p>Hiện tại chưa có cập nhật gì cả</p>
-                                }
                             }
-                        }
-                        else
-                        {
-                            <p>Hiện tại chưa có cập nhật gì cả</p>
                         }
                     </div>
                 </section>

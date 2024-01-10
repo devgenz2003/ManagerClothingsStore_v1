@@ -2,11 +2,13 @@
 using CHERRY.BUS.Services._2_Implements;
 using CHERRY.BUS.ViewModels.User;
 using CHERRY.BUS.ViewModels.Variants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace CHERRY.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class VariantsController : ControllerBase

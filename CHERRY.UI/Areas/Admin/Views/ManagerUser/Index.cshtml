@@ -7,15 +7,11 @@
     Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Quản lý người dùng</h1>
+<hr />
 <table id="dataTable" class="display" style="width:100%">
     <thead>
         <tr>
-            <th>
-                ID
-            </th>
             <th>
                 UserName
             </th>
@@ -24,9 +20,6 @@
             </th>
             <th>
                 Số điện thoại
-            </th>
-            <th>
-                Giới tính
             </th>
             <th>
                 Trạng thái
@@ -39,9 +32,6 @@
         {
             <tr>
                 <td>
-                    <a href="@Url.Action("Details", "ManagerUser", new { IDUser = item.ID })" class="btn btn-info btn-sm">@item.ID</a>
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
@@ -49,16 +39,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @if (item.Gender == 0)
-                    {
-                        <span>Nữ</span>
-                    }
-                    else if (item.Gender == 1)
-                    {
-                        <span>Nam</span>
-                    }
                 </td>
                 <td>
                     @if (item.Status == 0)
@@ -71,7 +51,7 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a href="@Url.Action("Details", "ManagerUser", new { IDUser = item.ID })" class="btn btn-info btn-sm">Xem</a>
                 </td>
             </tr>
         }

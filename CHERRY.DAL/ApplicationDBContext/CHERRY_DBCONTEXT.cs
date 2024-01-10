@@ -40,9 +40,11 @@ namespace CHERRY.DAL.ApplicationDBContext
             modelBuilder.ApplyConfiguration(new VoucherHistoryConfiguration());
             modelBuilder.ApplyConfiguration(new CategoriesVariantsConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new DiscountHistoryConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
+        public virtual DbSet<DiscountHistory> DiscountHistory { get; set; } = null!;
         public virtual DbSet<VoucherHistory> VoucherHistory { get; set; } = null!;
         public virtual DbSet<VoucherUser> VoucherUser { get; set; } = null!;
         public virtual DbSet<Order> Order { get; set; } = null!;

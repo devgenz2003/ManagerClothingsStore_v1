@@ -9,105 +9,66 @@
 <div>
     <h4>Phân loại 3</h4>
     <hr />
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ID)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.ID)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IDVariant)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.IDVariant)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Giá nhập
-                </th>
-                <td>
-                    @Currency.FormatCurrency(Model.CostPrice.ToString()) <span>đ</span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Giá bán ra
-                </th>
-                <td>
-                    @Currency.FormatCurrency(Model.RetailPrice.ToString()) <span>đ</span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Khuyến mãi
-                </th>
-                <td>
-                    @Currency.FormatCurrency(Model.DiscountedPrice.ToString()) <span>đ</span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Số lượng tồn
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.StockQuantity)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Màu
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.ColorName)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Size
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.SizeName)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Tên sản phẩm
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Name)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Hình ảnh
-                </th>
-                <td>
-                    <img src="@Model.ImageURL" class="image-container" style="width:70px; height:90px;" />
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Trạng thái
-                </th>
-                <td>
-                    @if (Model.Status == 0)
-                    {
-                        <span class="status-0">Ẩn</span>
-                    }
-                    else if (Model.Status == 1)
-                    {
-                        <span class="status-1">Đang bán</span>
-                    }
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.ID)</th>
+                        <td>@Html.DisplayFor(model => model.ID)</td>
+                    </tr>
+                    <tr>
+                        <th>Giá nhập</th>
+                        <td>@Currency.FormatCurrency(Model.CostPrice.ToString()) <span>đ</span></td>
+                    </tr>
+                    <tr>
+                        <th>Giá bán ra</th>
+                        <td>@Currency.FormatCurrency(Model.RetailPrice.ToString()) <span>đ</span></td>
+                    </tr>
+                    <tr>
+                        <th>Khuyến mãi</th>
+                        <td>@Currency.FormatCurrency(Model.DiscountedPrice.ToString()) <span>đ</span></td>
+                    </tr>
+                    <tr>
+                        <th>Số lượng tồn</th>
+                        <td>@Html.DisplayFor(model => model.StockQuantity)</td>
+                    </tr>
+                    <tr>
+                        <th>Màu</th>
+                        <td>@Html.DisplayFor(model => model.ColorName)</td>
+                    </tr>
+                    <tr>
+                        <th>Size</th>
+                        <td>@Html.DisplayFor(model => model.SizeName)</td>
+                    </tr>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <td>  <a href="@Url.Action("Details","ManagerVariant", new { IDVariant = Model.IDVariant })">@Html.DisplayFor(model => model.Name)</a></td>
+                    </tr>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <td>
+                            <img src="@Model.ImageURL" class="image-container" style="width:70px; height:90px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Trạng thái</th>
+                        <td>
+                            @if (Model.Status == 0)
+                            {
+                                <span class="status-0">Ẩn</span>
+                            }
+                            else if (Model.Status == 1)
+                            {
+                                <span class="status-1">Đang bán</span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
 </div>
 <div class="action-links">
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "action-link" }) |

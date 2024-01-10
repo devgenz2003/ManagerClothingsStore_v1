@@ -1,5 +1,4 @@
-﻿
-const config = {
+﻿const backEndConfig = {
     "BackEndAPIURL": "https://localhost:7299",
 };
 
@@ -11,8 +10,7 @@ $(document).ready(function () {
         html = `
                                 <li><a href="/Home/Index"><i class="icon fa fa-home"></i>Home</a></li>
                                 <li><a href="/Category/Index"><i class="icon fa fa-heart"></i>Danh mục</a></li>
-                                <li><a href="#"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
-                                <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                                                                <li><a href="/CartIndex"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
 								<li><a href="/Login"><i class="icon fa fa-lock"></i>Login</a></li>
         `;
     } else {

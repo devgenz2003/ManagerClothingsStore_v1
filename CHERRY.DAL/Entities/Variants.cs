@@ -18,6 +18,7 @@ namespace CHERRY.DAL.Entities
         public virtual ICollection<Options>? Options { get; set; } 
         public virtual ICollection<MediaAssets> MediaAssets { get; set; } = null!;
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<DiscountHistory> DiscountHistory { get; set; }
 
     }
 }

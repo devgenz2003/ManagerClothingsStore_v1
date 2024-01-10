@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using AutoMapper.QueryableExtensions;
 using CHERRY.BUS.ViewModels.Options;
-using static System.Net.Mime.MediaTypeNames;
 namespace CHERRY.BUS.Services._2_Implements
 {
     public class VariantsService : IVariantsService

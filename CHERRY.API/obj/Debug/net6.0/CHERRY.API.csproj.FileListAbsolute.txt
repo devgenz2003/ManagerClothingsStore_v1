@@ -1240,3 +1240,11 @@ C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Text.Encoding.CodePages.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\CHERRY_v2023.POL.v1.1\CHERRY.API\bin\Debug\net6.0\Rotativa.dll

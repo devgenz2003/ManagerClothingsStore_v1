@@ -1,0 +1,91 @@
+﻿@model CHERRY.BUS.ViewModels.Review.ReviewVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReviewVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IDUser)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IDUser)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IDVariant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IDVariant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IDOrderVariant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IDOrderVariant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPurchased)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsPurchased)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SizeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SizeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ColorName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ColorName)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

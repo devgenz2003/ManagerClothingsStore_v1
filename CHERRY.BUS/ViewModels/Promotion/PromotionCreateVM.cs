@@ -11,6 +11,7 @@ namespace CHERRY.BUS.ViewModels.Promotion
     public class PromotionCreateVM
     {
         public string CreateBy { get; set; } = null!;
+        public Guid ID { get; set; }
         public string SKU { get; set; } = null!;
         public string Content { get; set; }
         public DateTime StartDate { get; set; }

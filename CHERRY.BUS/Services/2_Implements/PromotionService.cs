@@ -26,7 +26,7 @@ namespace CHERRY.BUS.Services._2_Implements
         {
             var specificPromotion = await _dbContext.Promotion
 
-                  .FirstOrDefaultAsync(p => p.ID == ID && p.IsActive);
+                  .FirstOrDefaultAsync(p => p.ID == ID);
             if (specificPromotion == null)
             {
                 return new List<PromotionVariantsVM>();
@@ -88,6 +88,7 @@ namespace CHERRY.BUS.Services._2_Implements
         }
         public async Task<bool> CreateAsync(PromotionCreateVM request)
         {
+
             foreach (var variantId in request.SelectedVariantIds)
             {
                 var existingPromotionVariant = await _dbContext.PromotionVariant
@@ -132,7 +133,20 @@ namespace CHERRY.BUS.Services._2_Implements
                 foreach (var optionToUpdate in optionsToUpdate)
                 {
                     var discountedPrice = await ApplyPromotionAsync(newPromotion.ID, new List<Guid> { variantId }, optionToUpdate.RetailPrice);
+
+                    var discountHistory = new DiscountHistory
+                    {
+                        CreateBy = request.CreateBy,
+                        Timestamp = DateTime.Now,
+                        IDVariant = variantId,
+                        PreviousDiscountedPrice = optionToUpdate.RetailPrice,
+                        NewDiscountedPrice = optionToUpdate.DiscountedPrice.Value,
+                        Status = 1
+                    };
+
+                    _dbContext.DiscountHistory.Add(discountHistory);
                     optionToUpdate.DiscountedPrice = discountedPrice;
+                    _dbContext.Options.Update(optionToUpdate);
                 }
             }
             await _dbContext.SaveChangesAsync();
@@ -145,6 +159,24 @@ namespace CHERRY.BUS.Services._2_Implements
 
             promotion.IsActive = false;
             _dbContext.Promotion.Update(promotion);
+
+            var promotionVariants = await _dbContext.PromotionVariant
+                .Where(pv => pv.IDPromotion == ID && pv.Status == 1)
+                .ToListAsync();
+
+            foreach (var pv in promotionVariants)
+            {
+                var variantOptions = await _dbContext.Options
+                    .Where(opt => opt.IDVariant == pv.IDVariant)
+                    .ToListAsync();
+
+                foreach (var option in variantOptions)
+                {
+                    option.DiscountedPrice = 0; 
+                    _dbContext.Options.Update(option);
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -182,13 +214,13 @@ namespace CHERRY.BUS.Services._2_Implements
         public async Task<PromotionVM> GetByIDAsync(Guid ID)
         {
             var promotion = await _dbContext.Promotion
-                    .Where(p => p.IsActive && p.Status != 0 && p.ID == ID)
-                    .Include(p => p.PromotionVariants)
-                    .FirstOrDefaultAsync();
+         .Where(p => p.ID == ID)
+         .Include(p => p.PromotionVariants)
+         .FirstOrDefaultAsync();
 
             if (promotion == null)
             {
-                return null; // Hoặc xử lý tùy thuộc vào logic của bạn
+                return null;
             }
 
             var promotionVM = _mapper.Map<PromotionVM>(promotion);
@@ -281,7 +313,6 @@ namespace CHERRY.BUS.Services._2_Implements
                 }
             }
         }
-
         private decimal CalculateDiscountedPrice(decimal originalPrice, Promotion promotion)
         {
             decimal discountAmount = 0;

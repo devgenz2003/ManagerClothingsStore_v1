@@ -1,0 +1,116 @@
+﻿@model IEnumerable<CHERRY.BUS.ViewModels.Review.ReviewVM>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #ddd;
+    }
+
+    .btn-primary.dropdown-toggle {
+        background-color: #6c7ae0;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: white;
+    }
+
+</style>
+<h1>Quản lý feedback người dùng</h1>
+<hr />
+<table id="dataTable" class="table" data-toggle="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                Người dùng
+            </th>
+            <th>
+                Nội dung
+            </th>
+            <th>
+                Số sao
+            </th>
+            <th>
+                Ngày đánh giá
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td style="max-width: 200px;">
+                @item.ID
+            </td>
+            <td>
+                @item.Username
+            </td>
+                <td style="max-width: 150px;">
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                    @item.CreateDate.ToString("dd-MM-yyyy HH:mm")
+            </td>
+                <td style="max-width: 100px;">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="@Url.Action("Details","ManagerReview", new { ID = item.ID })">Chi tiết</a>
+                            <a class="dropdown-item" href="@Url.Action("Delete", new { ID = item.ID })">Xóa</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+}
+    </tbody>
+</table>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "pagingType": "full_numbers",
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true
+        });
+    });
+</script>

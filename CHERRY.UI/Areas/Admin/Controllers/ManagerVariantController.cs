@@ -14,6 +14,7 @@ namespace CHERRY.UI.Areas.Admin.Controllers
     [Area("admin")]
     public class ManagerVariantController : Controller
     {
+        private readonly IReviewRepository _IReviewRepository;
         private readonly IOptionsRepository _IOptionsRepository;
         private readonly IColorsRepository _ColorsRepository;
         private readonly ISizesRepository _SizesRepository;
@@ -26,13 +27,13 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         public ManagerVariantController(IBrandRepository IBrandRepository, IMaterialRepository IMaterialRepository,
             ICategoryRespository ICategoryRespository, IVariantRepository IVariantRepository, HttpClient httpClient,
             IMediaAssetsRepository IMediaAssetsRepository, IOptionsRepository IOptionsRepository, IColorsRepository colorsRepository,
-            ISizesRepository ISizesRepository
+            ISizesRepository ISizesRepository, IReviewRepository IReviewRepository
             )
         {
             _IOptionsRepository = IOptionsRepository;
             _ColorsRepository = colorsRepository;
             _SizesRepository = ISizesRepository;
-
+            _IReviewRepository = IReviewRepository;
             _ICategoryRespository = ICategoryRespository;
             _IMediaAssetsRepository = IMediaAssetsRepository;
             _IVariantRepository = IVariantRepository;
@@ -215,9 +216,11 @@ namespace CHERRY.UI.Areas.Admin.Controllers
         {
             var options = await _IVariantRepository.GetOptionVariantByIDAsync(IDVariant);
             var variant = await _IVariantRepository.GetByIDAsync(IDVariant);
+            var review = await _IReviewRepository.GetByVariant(IDVariant);
             var view = new ModelCompositeShare()
             {
                 VariantsVM = variant,
+                LstReviewVM = review,
                 LstOptionsVM = options
             };
             return View("~/Areas/Admin/Views/ManagerVariant/Details.cshtml", view);

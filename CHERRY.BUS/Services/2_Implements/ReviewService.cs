@@ -167,17 +167,19 @@ namespace CHERRY.BUS.Services._2_Implements
         public async Task<ReviewVM> GetByIDAsync(Guid ID)
         {
             var review = await _dbcontext.Review.FindAsync(ID);
-            var reviewVM = _mapper.Map<ReviewVM>(review);
+
             if (review != null)
             {
+                var reviewVM = _mapper.Map<ReviewVM>(review);
                 var user = await _userManager.FindByIdAsync(review.IDUser.ToString());
                 if (user != null)
                 {
                     reviewVM.Username = user.UserName;
                 }
+                return reviewVM;
             }
-            return reviewVM;
 
+            return null;
         }
         public async Task<List<ReviewVM>> GetByVariant(Guid IDVariant)
         {

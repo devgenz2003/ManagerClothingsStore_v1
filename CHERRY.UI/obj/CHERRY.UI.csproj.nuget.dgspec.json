@@ -121,6 +121,10 @@
               "target": "Package",
               "version": "[4.3.0, )"
             },
+            "Rotativa": {
+              "target": "Package",
+              "version": "[1.7.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -347,10 +351,6 @@
             "CloudinaryDotNet": {
               "target": "Package",
               "version": "[1.23.0, )"
-            },
-            "Hangfire": {
-              "target": "Package",
-              "version": "[1.8.6, )"
             },
             "MailKit": {
               "target": "Package",

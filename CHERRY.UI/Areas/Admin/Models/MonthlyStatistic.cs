@@ -9,6 +9,8 @@
         public int TotalOrder { get; set; }
         public int TotalOrdersnosuccess { get; set; }
         public int TotalOrderssuccess { get; set; }
+        public Dictionary<Guid, int> BestSellingProducts { get; set; }
+
         public MonthlyStatistic()
         {
             
